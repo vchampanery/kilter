@@ -42,7 +42,7 @@ if($_REQUEST){
 <br>
 <a href="http://www.strava.com/oauth/authorize?
 client_id=75321&response_type=code&redirect_uri=
-http://virus-strava.herokuapp.com/strava&approval_prompt=force&scope=activity:read">link text</a>
+http://stravasimba.local:8080/public/strava&approval_prompt=force&scope=activity:read">link text</a>
         </div>
     </body>
 </html>

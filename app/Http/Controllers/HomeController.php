@@ -203,13 +203,17 @@ class HomeController extends Controller
                     max(stravaactivity.average_speed) as max_speed"))
                     ->whereBetween('stravaactivity.start_date_local', [$to, $from])
                     ->groupBy('user_id')->first();
-                    // $longest = stravaactivity::where('use   r_id', $id)->select( DB::raw('max(distance) as maxdist'))->first();
-                    $longest = stravaactivity::where('user_id', $id)->max('distance');
-                    $max_speed = stravaactivity::where('user_id', $id)->max('max_speed');
-                    // dd($longest);
+
+                    $longest = stravaactivity::where('user_id', $id)
+                    ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+                    ->select( DB::raw('max(distance) as maxdist'))->first();
+                    $max_speed = stravaactivity::where('user_id', $id)
+                    ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+                    ->max('max_speed');
+
         $data['total_km'] = isset($userActi['distance'])?$userActi['distance']:0;
         $data['total_avg_speed'] = isset($userActi['average_speed'])?$userActi['average_speed']:0;
-        $data['total_longest_ride'] = $longest;
+        $data['total_longest_ride'] = isset($longest['maxdist'])?$longest['maxdist']:0;// $longest->maxdist;
         $data['max_speed_ride'] = $max_speed;
 
         return view('personal_board')->with('data',$data);

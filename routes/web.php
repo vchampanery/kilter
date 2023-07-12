@@ -42,6 +42,7 @@ Route::get('/board', 'App\Http\Controllers\HomeController@board')->name('home.bo
 Route::get('/goal_board', 'App\Http\Controllers\HomeController@goalboard')->name('home.goal_board');
 Route::any('/addgoal', 'App\Http\Controllers\HomeController@addgoal')->name('home.addgoal');
 Route::get('/fpage', 'App\Http\Controllers\RoleController@fpage')->name('home.fpage');
+Route::get('/roless', 'App\Http\Controllers\RoleController@index')->name('home.index');
 
 // Route::get('/second_page', 'App\Http\Controllers\HomeController@second_page')->name('home.second_page');
 Route::get('/auth_page', 'App\Http\Controllers\StravaController@auth_page')->name('home.auth_page');
@@ -60,7 +61,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Route::get('/home', [HomeController::class, 'index'])->name('home');
   
 Route::group(['middleware' => ['auth']], function() {
-    Route::resource('roles', RoleController::class);
+    // Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
 });
