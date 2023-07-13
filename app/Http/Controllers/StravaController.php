@@ -376,6 +376,7 @@ class StravaController extends Controller
         // dd($data);
         $i=0;
         foreach($data as $kd=>$vd){
+            if(isset($vd->id)){
             ++$i;
             $data = [];
             $user_id = $id?$id:Auth::user()->id; 
@@ -393,6 +394,7 @@ class StravaController extends Controller
                 $data['raw_data'] = json_encode($vd);
                 $data['user_id'] =$user_id; 
                 $sucreate = stravaactivity::insert($data);
+            }
             }
         }
         return $i;
