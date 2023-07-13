@@ -214,7 +214,7 @@ class HomeController extends Controller
         $data['total_km'] = isset($userActi['distance'])?$userActi['distance']:0;
         $data['total_avg_speed'] = isset($userActi['average_speed'])?$userActi['average_speed']:0;
         $data['total_longest_ride'] = isset($longest['maxdist'])?$longest['maxdist']:0;// $longest->maxdist;
-        $data['max_speed_ride'] = $max_speed;
+        $data['max_speed_ride'] = isset($userActi['max_speed'])?$userActi['max_speed']:0;
 
         return view('personal_board')->with('data',$data);
     }
