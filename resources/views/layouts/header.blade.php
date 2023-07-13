@@ -27,7 +27,7 @@
     <li>
         <a href="http://www.strava.com/oauth/authorize?
 client_id=75321&response_type=code&redirect_uri=
-http://https://kilter.fun/strava/getauth?approval_prompt=force&scope=activity:read" class="btn btn-outline-warning">Strava Connect</a>
+https://kilter.fun/strava/getauth?approval_prompt=force&scope=activity:read" class="btn btn-outline-warning">Strava Connect</a>
 <a href="{{route('home.addgoal')}}"   class="btn btn-outline-warning">Add Goal test</a>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

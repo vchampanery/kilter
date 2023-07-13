@@ -42,7 +42,7 @@ if($_REQUEST){
 <br>
 <a href="http://www.strava.com/oauth/authorize?
 client_id=75321&response_type=code&redirect_uri=
-http://https://kilter.fun/strava&approval_prompt=force&scope=activity:read">link text</a>
+https://kilter.fun/strava&approval_prompt=force&scope=activity:read">link text</a>
         </div>
     </body>
 </html>
