@@ -35,7 +35,7 @@
                 <th>max_speed(km/h)</th>
               </thead>
               <tbody>
-                @if($useractivity &&  count($useractivity) > 0)
+                @if(isset($useractivity) && count($useractivity) > 0)
                 @foreach($useractivity as $k=>$v)
                   <tr>
                     <td>{{ date('d-M-Y', strtotime($v->start_date_local))}}</td>
