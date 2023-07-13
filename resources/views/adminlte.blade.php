@@ -332,7 +332,7 @@ http://stravasimba.local:8080/public/strava/getauth&approval_prompt=force&scope=
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2022-2023 <a target="_blank" href="https://www.simbalian.org/">Virus-strava</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2022-2023 <a target="_blank" href="#">Virus-strava 123</a>.</strong> All rights reserved.
   </footer>
 </div>
 <!-- ./wrapper -->
