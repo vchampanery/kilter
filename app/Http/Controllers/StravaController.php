@@ -237,12 +237,12 @@ class StravaController extends Controller
             'athlete'
         );
         
-     dd($data);
+    //  dd($data);
         $id = Auth::user()->id;
         $d= [];
         $d['strava_id'] =$data->id;
         $d['user_id'] =$id;
-        $d['username'] =$data->username;
+        $d['username'] =(isset($data->username) && $data->username)?$data->username:$data->firstname;
         $d['raw_data'] =json_encode($data);
         
         //insert user
