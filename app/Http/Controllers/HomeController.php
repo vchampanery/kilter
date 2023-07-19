@@ -189,6 +189,7 @@ class HomeController extends Controller
           //check activity exists or not 
           $isexisting = stravaactivity::where('user_id', $id)->count();
           if($isexisting == 0){
+            $data['total_rides'] = 0;
             $data['total_km'] = 0;
             $data['total_avg_speed'] = 0;
             $data['total_longest_ride'] = 0;// $longest->maxdist;
