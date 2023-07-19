@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\stravaactivity;
+use App\Models\stravauser;
 use App\Models\stravauserauth;
 use App\Models\User;
 use App\Models\usergoal;
@@ -31,7 +32,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('personal_board');
     }
     public function hometest()
     {
@@ -75,24 +76,69 @@ class HomeController extends Controller
     {
         $id = Auth::user()->id;
         
-        $userActi = stravaactivity::select(
-                DB::raw("stravaactivity.user_id as id,sum(stravaactivity.distance) as distance,avg(stravaactivity.average_speed) as average_speed,
-                        avg(stravaactivity.max_speed) as max_speed,
-                        count(stravaactivity.id) as total_ride"))  
-                        ->groupBy('user_id')->get();
-        $data = [];
-        foreach($userActi as $k=>$v){
-            $tempData = [];
-            $tempData['id'] = $v->id;
-            $tempData['distance'] = $v->distance;
-            $tempData['average_speed'] = $v->average_speed;
-            $tempData['max_speed'] = $v->max_speed;
-            $tempData['total_ride'] = $v->total_ride;
-            $username = User::where('id',$v->id)->first('name');
-            // dd($username);
-            $tempData['name'] = $username['name'];
-            $data[]=$tempData;
-        }
+        $users = User::all();
+        foreach($users as $uk=>$uv){
+           $tempData = [];
+           $tempData['id'] = 0;
+           $tempData['distance'] = 0;
+           $tempData['average_speed'] = 0;
+           $tempData['max_speed'] = 0;
+           $tempData['total_ride'] = 0;
+           // $username = User::where('id',$v->id)->first('name');
+           // dd($username);
+           $tempData['name'] = $uv['name'];
+           
+           $userActi = stravaactivity::select(
+            DB::raw("stravaactivity.user_id as id,
+                    stravaactivity.distance,
+                    stravaactivity.average_speed,
+                    stravaactivity.max_speed"))  
+                    ->where('user_id',$uv['id'])->get();
+            $total_100=0; 
+            $total_50=0; 
+            $total_30=0; 
+            // $total_10=0; 
+           foreach($userActi as $k=>$v){
+                if($v['distance'] > 100000){
+                    $total_100+=1;
+                }elseif($v['distance'] > 50000){
+                    $total_50+=1;
+                }elseif($v['distance'] > 30000){
+                    $total_30+=1;
+                }
+                // elseif($v['distance'] > 10000){
+                //     $total_10+=1;
+                // }     
+            $tempData['distance'] += $v['distance'];
+            $tempData['total_ride'] = $tempData['total_ride'] + 1;
+           }
+        //    $tempData['total_10'] = $total_10;
+           $tempData['total_30'] = $total_30;
+           $tempData['total_50'] = $total_50;
+           $tempData['total_100'] = $total_100;
+           $data[]=$tempData;
+       }
+
+        // $userActi = stravaactivity::select(
+        //         DB::raw("stravaactivity.user_id as id,
+        //                 sum(stravaactivity.distance) as distance,
+        //                 avg(stravaactivity.average_speed) as average_speed,
+        //                 avg(stravaactivity.max_speed) as max_speed,
+        //                 count(stravaactivity.id) as total_ride"))  
+        //                 ->groupBy('user_id')->get();
+        // $data = [];
+        // foreach($userActi as $k=>$v){
+        //     $tempData = [];
+        //     $tempData['id'] = $v->id;
+        //     $tempData['distance'] = $v->distance;
+        //     $tempData['average_speed'] = $v->average_speed;
+        //     $tempData['max_speed'] = $v->max_speed;
+        //     $tempData['total_ride'] = $v->total_ride;
+        //     $username = User::where('id',$v->id)->first('name');
+        //     // dd($username);
+        //     $tempData['name'] = $username['name'];
+        //     $data[]=$tempData;
+        // }
         // dd($data);
         return view('board')->with('useractivity',$data);
     }
@@ -181,6 +227,14 @@ class HomeController extends Controller
     public function personal_board()
     {
         $id = Auth::user()->id;
+        //get strava data
+        $stravaUserData = stravauser::where('user_id',$id)->first();
+        $json = json_decode($stravaUserData->raw_data);
+        
+        Session::put('userName', $json->firstname.''.$json->lastname );
+        Session::put('profile_pic', $json->profile);
+        
+
         // var_dump(Session::has('expiresAt'));exit;
         // if(!Session::has('expiresAt')){
         //     $this->saveSessionData();

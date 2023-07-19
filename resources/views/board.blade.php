@@ -45,20 +45,32 @@
               <thead>
                 <th>Name</th>
                 
-                <th>Total Rides </th>
+                <!-- <th>Total Rides </th>
                 <th>Distance (km)</th>
                 <th>average_speed(km/h)</th>
                 <th>max_speed(km/h)</th>
-                <th>activity</th>
+                <th>activity</th> -->
+                <th>Total Rides </th>
+                <th>100's</th>
+                <th>50's</th>
+                <th>30's</th>
+                <th>Total Kms</th>
               </thead>
               <tbody>
                 @foreach($useractivity as $k=>$v)
                   <tr>
-                    <td>{{$v['name']}}</td>
+                    <!-- <td>{{$v['name']}}</td>
                     <td>{{$v['total_ride']}}</td>
                     <td>{{number_format($v['distance']/1000, 2)}}</td>
                     <td>{{number_format(3.6 *$v['average_speed'], 2)}}</td> 
                     <td>{{number_format(3.6 *$v['max_speed'], 2)}}</td>
+                    <td><a href="{{url('/fetch_data/')}}/{{$v['id']}}/direct" class="btn btn-default"><i class="far fa-pull nav-icon"></i> Pull</a></td> -->
+                    <td>{{$v['name']}}</td>
+                    <td>{{$v['total_ride']}}</td>
+                    <td>{{$v['total_100']}} </td>
+                    <td>{{$v['total_50']}} </td>
+                    <td>{{$v['total_30']}}</td> 
+                    <td>{{number_format($v['distance']/1000, 2)}}</td>
                     <td><a href="{{url('/fetch_data/')}}/{{$v['id']}}/direct" class="btn btn-default"><i class="far fa-pull nav-icon"></i> Pull</a></td>
                   </tr>
                 @endforeach
@@ -74,9 +86,7 @@
     <!-- /.content -->
  
 
-    {{--<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>--}}
- {{--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">--}}
- {{--<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>--}}
+   
     <script type="text/javascript" class="init">
       
  $(document).ready(function() {

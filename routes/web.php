@@ -16,9 +16,8 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'App\Http\Controllers\HomeController@personal_board')->name('home.personal_board');
+
 Route::get('/strava', function () {
     return view('strava');
 });
