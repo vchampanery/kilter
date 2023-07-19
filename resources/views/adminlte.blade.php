@@ -212,7 +212,7 @@ https://kilter.fun/strava/getauth&approval_prompt=force&scope=activity:read" cla
     <a href="index3.html" class="brand-link">
       <img src="{{asset('assets/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Virus-strava</span>
+      <span class="brand-text font-weight-light">Kilter-Fun</span>
     </a>
 
     <!-- Sidebar -->
@@ -332,7 +332,7 @@ https://kilter.fun/strava/getauth&approval_prompt=force&scope=activity:read" cla
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2022-2023 <a target="_blank" href="#">Virus-strava 123</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2022-2023 <a target="_blank" href="#">Kilter-Fun 123</a>.</strong> All rights reserved.
   </footer>
 </div>
 <!-- ./wrapper -->
