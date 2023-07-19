@@ -237,7 +237,7 @@ class StravaController extends Controller
             'athlete'
         );
         
-        // dd($data);
+     dd($data);
         $id = Auth::user()->id;
         $d= [];
         $d['strava_id'] =$data->id;
