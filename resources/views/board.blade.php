@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">all Page</h1>
+            <h1 class="m-0 text-dark">All Member</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -50,11 +50,14 @@
                 <th>average_speed(km/h)</th>
                 <th>max_speed(km/h)</th>
                 <th>activity</th> -->
-                <th>Total Rides </th>
-                <th>100's</th>
-                <th>50's</th>
-                <th>30's</th>
                 <th>Total Kms</th>
+                <th>Longest Rides </th>
+                <th>100 / 50 / 30</th>
+                <th>Total Rides </th>
+                <!-- <th>50's</th>
+                <th>30's</th> -->
+                
+                <th>Action</th>
               </thead>
               <tbody>
                 @foreach($useractivity as $k=>$v)
@@ -66,11 +69,14 @@
                     <td>{{number_format(3.6 *$v['max_speed'], 2)}}</td>
                     <td><a href="{{url('/fetch_data/')}}/{{$v['id']}}/direct" class="btn btn-default"><i class="far fa-pull nav-icon"></i> Pull</a></td> -->
                     <td>{{$v['name']}}</td>
-                    <td>{{$v['total_ride']}}</td>
-                    <td>{{$v['total_100']}} </td>
-                    <td>{{$v['total_50']}} </td>
-                    <td>{{$v['total_30']}}</td> 
                     <td>{{number_format($v['distance']/1000, 2)}}</td>
+                    <td>{{number_format($v['longest']/1000, 2)}}</td>
+                    
+                    <td>{{$v['total_100']}} / {{$v['total_50']}} / {{$v['total_30']}} </td>
+                    <td>{{$v['total_ride']}}</td>
+                    <!-- <td> </td> -->
+                    <!-- <td>{{$v['total_30']}}</td>  -->
+                    
                     <td><a href="{{url('/fetch_data/')}}/{{$v['id']}}/direct" class="btn btn-default"><i class="far fa-pull nav-icon"></i> Pull</a></td>
                   </tr>
                 @endforeach

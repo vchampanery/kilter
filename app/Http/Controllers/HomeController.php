@@ -97,8 +97,10 @@ class HomeController extends Controller
             $total_100=0; 
             $total_50=0; 
             $total_30=0; 
+            $longest=0; 
             // $total_10=0; 
            foreach($userActi as $k=>$v){
+            $longest = $v['distance']>$longest?$v['distance']:$longest;
                 if($v['distance'] > 100000){
                     $total_100+=1;
                 }elseif($v['distance'] > 50000){
@@ -116,6 +118,7 @@ class HomeController extends Controller
            $tempData['total_30'] = $total_30;
            $tempData['total_50'] = $total_50;
            $tempData['total_100'] = $total_100;
+           $tempData['longest'] = $longest;
            $data[]=$tempData;
        }
 
