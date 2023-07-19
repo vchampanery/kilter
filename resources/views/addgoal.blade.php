@@ -50,7 +50,7 @@
               // }
               ?>
            
-              Current Month Goal :<input type="text" name="goal" id="goal" value="{{$goal}}">
+              Current Month Goal :<input type="number" name="goal" id="goal" value="{{$goal}}"> Km Per Month
               <input type="submit" text="submit" value="submit">
             </form>
 

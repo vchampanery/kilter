@@ -70,7 +70,7 @@
               <div class="inner">
                 <h3>{{number_format($data['total_longest_ride']/1000, 2)}}<sup style="font-size: 20px">Kms</sup></h3>
 
-                <p>Longest Side</p>
+                <p>Longest Ride of the Month</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -84,7 +84,7 @@
               <div class="inner">
                 <h3>{{number_format(3.6 *$data['max_speed_ride'], 2)}}<sup style="font-size: 20px">Km/h</sup></h3>
 
-                <p>Maximum - Average speed of ride</p>
+                <p>Fastest - Average speed of ride</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
