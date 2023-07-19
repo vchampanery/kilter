@@ -244,6 +244,13 @@ class HomeController extends Controller
         // }
         //check activity exists or not 
           //check activity exists or not 
+
+          $isexisting = stravauser::where('user_id', $id)->count();
+          if($isexisting ==0){
+            return view('strava_connect');
+          }  
+
+
           $isexisting = stravaactivity::where('user_id', $id)->count();
           if($isexisting == 0){
             $data['total_rides'] = 0;
