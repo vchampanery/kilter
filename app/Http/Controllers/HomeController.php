@@ -189,7 +189,13 @@ class HomeController extends Controller
           //check activity exists or not 
           $isexisting = stravaactivity::where('user_id', $id)->count();
           if($isexisting == 0){
-              return view('strava_connect');
+            $data['total_km'] = 0;
+            $data['total_avg_speed'] = 0;
+            $data['total_longest_ride'] = 0;// $longest->maxdist;
+            $data['max_speed_ride'] = 0;
+    
+            return view('personal_board')->with('data',$data);
+            //   return view('strava_connect');
           }
         $today = Carbon::today();
         $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
