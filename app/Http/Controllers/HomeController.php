@@ -309,11 +309,11 @@ class HomeController extends Controller
         if(!Session::has('expiresAt')){
             $this->saveSessionData();
         }
-        $data['total_rides'] = 
+        $data['total_rides'] = 12;
         $data['total_km'] = 2341;
         $data['total_avg_speed'] = 10;
         $data['total_longest_ride'] = 111;
-        return view('team_board')->with('data',$data);
+            return view('team_board')->with('data',$data);
     }
   
     public function saveSessionData(){
