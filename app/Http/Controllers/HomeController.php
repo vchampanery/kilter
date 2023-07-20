@@ -239,12 +239,7 @@ class HomeController extends Controller
     public function personal_board()
     {
         $id = Auth::user()->id;
-        //get strava data
-        $stravaUserData = stravauser::where('user_id',$id)->first();
-        $json = json_decode($stravaUserData->raw_data);
-        
-        Session::put('userName', $json->firstname.''.$json->lastname );
-        Session::put('profile_pic', $json->profile);
+       
         
 
         // var_dump(Session::has('expiresAt'));exit;
@@ -257,7 +252,13 @@ class HomeController extends Controller
           $isexisting = stravauser::where('user_id', $id)->count();
           if($isexisting ==0){
             return view('strava_connect');
-          }  
+          } 
+         //get strava data
+        $stravaUserData = stravauser::where('user_id',$id)->first();
+        $json = json_decode($stravaUserData->raw_data);
+        
+        Session::put('userName', $json->firstname.''.$json->lastname );
+        Session::put('profile_pic', $json->profile);
 
 
           $isexisting = stravaactivity::where('user_id', $id)->count();
