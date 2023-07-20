@@ -33,6 +33,7 @@
                 <th>distance (km)</th>
                 <th>average_speed(km/h)</th>
                 <th>max_speed(km/h)</th>
+                <th>Strava</th>
               </thead>
               <tbody>
                 @if(isset($useractivity) && count($useractivity) > 0)
@@ -42,6 +43,13 @@
                     <td>{{number_format($v->distance/1000, 2)}}</td>
                     <td>{{number_format(3.6 *$v->average_speed, 2)}}</td> 
                     <td>{{number_format(3.6 *$v->max_speed, 2)}}</td>
+                    <td>
+                      <?php
+                        $json = json_decode($v->raw_data);
+                        $activity = "https://www.strava.com/activities/".$json->id;
+                      ?>
+                      <a target="_blank"  href={{$activity}} >strava</a>
+                    </td>
                   </tr>
                 @endforeach
                 @endif

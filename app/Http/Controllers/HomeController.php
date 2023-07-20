@@ -48,6 +48,7 @@ class HomeController extends Controller
         $id = Auth::user()->id;
         
         $userId = stravaactivity::where('user_id',$id)->get();
+        
         return view('first_page')->with('useractivity',$userId);
     }
     /**
@@ -94,19 +95,25 @@ class HomeController extends Controller
                     stravaactivity.average_speed,
                     stravaactivity.max_speed"))  
                     ->where('user_id',$uv['id'])->get();
+            $total_300=0; 
+            $total_200=0; 
             $total_100=0; 
+            $total_75=0; 
             $total_50=0; 
-            $total_30=0; 
             $longest=0; 
             // $total_10=0; 
            foreach($userActi as $k=>$v){
             $longest = $v['distance']>$longest?$v['distance']:$longest;
-                if($v['distance'] > 100000){
+            if($v['distance'] > 300000){
+                $total_300+=1;
+            }elseif($v['distance'] > 200000){
+                $total_200+=1;
+            }elseif($v['distance'] > 100000){
                     $total_100+=1;
+                }elseif($v['distance'] > 75000){
+                    $total_75+=1;
                 }elseif($v['distance'] > 50000){
                     $total_50+=1;
-                }elseif($v['distance'] > 30000){
-                    $total_30+=1;
                 }
                 // elseif($v['distance'] > 10000){
                 //     $total_10+=1;
@@ -115,9 +122,11 @@ class HomeController extends Controller
             $tempData['total_ride'] = $tempData['total_ride'] + 1;
            }
         //    $tempData['total_10'] = $total_10;
-           $tempData['total_30'] = $total_30;
+           $tempData['total_75'] = $total_75;
            $tempData['total_50'] = $total_50;
            $tempData['total_100'] = $total_100;
+           $tempData['total_200'] = $total_200;
+           $tempData['total_300'] = $total_300;
            $tempData['longest'] = $longest;
            $data[]=$tempData;
        }
