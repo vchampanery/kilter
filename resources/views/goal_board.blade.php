@@ -27,7 +27,7 @@
         <form action="{{ route('home.searchboarddata') }}" method="POST">
     	    @csrf
           <div class="input-group input-daterange">
-            <input type="text" class="form-control" value="2012-04-05" name="dates">
+            <!-- <input type="text" class="form-control" value="2012-04-05" name="dates"> -->
           </div>
           </form>
         </div>
