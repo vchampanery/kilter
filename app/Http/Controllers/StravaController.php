@@ -140,7 +140,8 @@ class StravaController extends Controller
         // dd($expiresAt);
         // test
         $t=time();
-        
+        dump($t);
+        dump($expiresAt);
         if($expiresAt<=$t){
             // echo "expires <br>";
             // echo date('m/d/Y', $expiresAt);
