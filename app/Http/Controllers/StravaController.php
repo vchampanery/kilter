@@ -70,7 +70,9 @@ class StravaController extends Controller
         // $expiresAt = Session::get('expiresAt');
         $api->setAccessToken($accessToken, $refreshToken);
         $result = $api->tokenExchangeRefresh();
-       
+        if(!isset($result->access_token)){
+            dd($result);
+        }
         $accessToken = $result->access_token;
 	    $refreshToken = $result->refresh_token;
         $expiresAt = $result->expires_at;
@@ -91,7 +93,7 @@ class StravaController extends Controller
      * 
      */
     public function getdatabycron(){
-        $userObj = stravauserauth::orderBy('user_id', 'asc')->get(['user_id']);
+        $userObj = stravauserauth::where('user_id','>=' ,106)->orderBy('user_id', 'asc')->get(['user_id']);
         foreach($userObj as $key=>$val){
             dump("started for".$val->user_id.' at '.time());
 
