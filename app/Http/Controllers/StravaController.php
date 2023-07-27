@@ -93,15 +93,15 @@ class StravaController extends Controller
     public function getdatabycron(){
         $userObj = stravauserauth::orderBy('user_id', 'asc')->get(['user_id']);
         foreach($userObj as $key=>$val){
-            dump("started for".$val->id.' at '.time());
+            dump("started for".$val->user_id.' at '.time());
 
             $ugobj = new userfetchlog();
-            $ugobj->user_id = $val->id;
+            $ugobj->user_id = $val->user_id;
             $ugobj->update_date = new DateTime();
             $ugobj->save();
 
             try{
-                $this->fetch_data($val->id,'cron');
+                $this->fetch_data($val->user_id,'cron');
             }catch(Exception $ex){
                 dump( $ex);
             }
