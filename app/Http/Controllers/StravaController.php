@@ -76,7 +76,7 @@ class StravaController extends Controller
             $sua['error']='faild';
             return $sua;    
         }else{
-            // dump($result);
+            dump($result);
         }
         $accessToken = $result->access_token;
 	    $refreshToken = $result->refresh_token;
