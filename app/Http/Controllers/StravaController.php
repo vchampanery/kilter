@@ -91,9 +91,9 @@ class StravaController extends Controller
      * 
      */
     public function getdatabycron(){
-        $userObj = User::get(['id']);
+        $userObj = User::orderBy('id', 'asc')->get(['id']);
         foreach($userObj as $key=>$val){
-            dump($val->id);
+            // dump($val->id);
 
             $ugobj = new userfetchlog();
             $ugobj->user_id = $val->id;
@@ -114,6 +114,9 @@ class StravaController extends Controller
      */
     public function fetch_data($id,$cron=null)
     {
+        try{
+            $this->fetch_data($val->id,'cron');
+        }catch(Exception $ex){
         // dump($id);
         //daily
         $api = new StravaApi(
@@ -136,7 +139,7 @@ class StravaController extends Controller
         // test
         $t=time();
         
-        if($expiresAt<$t){
+        if($expiresAt<=$t){
             // echo "expires <br>";
             // echo date('m/d/Y', $expiresAt);
             // dump($expiresAt);
@@ -181,6 +184,8 @@ class StravaController extends Controller
         }else{
             return redirect()->route('home.board')
         ->with('success','Data pulled successfully');
+        }
+        dump( $ex);
         }
     }
     public function auth_page(){
