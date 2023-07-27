@@ -51,12 +51,13 @@
                 <th>max_speed(km/h)</th>
                 <th>activity</th> -->
                 <th>Total Kms</th>
-                <th>Longest Rides </th>
-                <th>300/ 200 / 100 / 75 / 50 </th>
+                <th>300 </th>
+                <th>200 </th>
+                <th>100</th>
+                <th>75</th>
+                <th>50</th>
                 <th>Total Rides </th>
-                <!-- <th>50's</th>
-                <th>30's</th> -->
-                
+                <th>Longest Rides </th>
                 <th>Action</th>
               </thead>
               <tbody>
@@ -70,9 +71,13 @@
                     <td><a href="{{url('/fetch_data/')}}/{{$v['id']}}/direct" class="btn btn-default"><i class="far fa-pull nav-icon"></i> Pull</a></td> -->
                     <td>{{$v['name']}}</td>
                     <td>{{number_format($v['distance']/1000, 2)}}</td>
-                    <td>{{number_format($v['longest']/1000, 2)}}</td>
-                    <td>{{$v['total_300']}} / {{$v['total_200']}} / {{$v['total_100']}} / {{$v['total_75']}} / {{$v['total_50']}} </td>
+                    <td>{{$v['total_300']}}</td>
+                    <td>{{$v['total_200']}}</td>
+                    <td>{{$v['total_100']}}</td>
+                    <td>{{$v['total_75']}}</td>
+                    <td>{{$v['total_50']}} </td>
                     <td>{{$v['total_ride']}}</td>
+                    <td>{{number_format($v['longest']/1000, 2)}}</td>
                     <!-- <td> </td> -->
                   
                     
