@@ -27,7 +27,8 @@
                 <h3>Strava</h3>
                 <p><a href="http://www.strava.com/oauth/authorize?
 client_id=75321&response_type=code&redirect_uri=
-https://kilter.fun/strava/getauth&approval_prompt=force&scope=activity:read" class="btn btn-outline-warning">Strava Connect</a>
+https://kilter.fun/strava/getauth&approval_prompt=force&scope=read_all&scope=activity:read_all" 
+class="btn btn-outline-warning">Strava Connect</a>
 </p>
               </div>
               <div class="icon">
