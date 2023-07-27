@@ -174,13 +174,22 @@ class StravaController extends Controller
             // echo date('d/m/Y h:i:s', $t);
             // dump($t);
         }
-        dd("test");
         // exit;
         //test
         // $accessToken =  Session::get('accessToken');
         // $refreshToken = Session::get('refreshToken');
         // $expiresAt = Session::get('expiresAt');
-        $api->setAccessToken($accessToken, $refreshToken, $expiresAt);
+        try{
+            $api->setAccessToken($accessToken, $refreshToken, $expiresAt);
+        }catch(Exception $ex){
+            $sua = $this->refreshToken($id);
+            $accessToken = $sua['accessToken'];// Session::get('accessToken');
+            $refreshToken = $sua['refreshToken'];//Session::get('refreshToken');
+            $expiresAt = $sua['expiresAt'];//Session::get('expiresAt');
+            $api->setAccessToken($accessToken, $refreshToken, $expiresAt); 
+        }
+        
+        dd("test");
         //get athleteData
         // $this->getAthleteData($api);
         
