@@ -72,6 +72,8 @@ class StravaController extends Controller
         $result = $api->tokenExchangeRefresh();
         if(!isset($result->access_token)){
             dd($result);
+        }else{
+            dump($result);
         }
         $accessToken = $result->access_token;
 	    $refreshToken = $result->refresh_token;
