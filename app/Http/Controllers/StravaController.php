@@ -174,7 +174,7 @@ class StravaController extends Controller
             // echo date('d/m/Y h:i:s', $t);
             // dump($t);
         }
-
+        dd("test");
         // exit;
         //test
         // $accessToken =  Session::get('accessToken');
@@ -186,7 +186,7 @@ class StravaController extends Controller
         
         //get athleteActivity
         $current = 'today';
-        dd("test");
+        
         $this->getAthleteActivityData($api,$current,$id);
 
 
