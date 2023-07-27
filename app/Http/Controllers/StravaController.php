@@ -98,7 +98,7 @@ class StravaController extends Controller
      * 
      */
     public function getdatabycron(){
-        $userObj = stravauserauth::where('user_id','=' ,123)->orderBy('user_id', 'asc')->get(['user_id']);
+        $userObj = stravauserauth::where('user_id','>' ,122)->orderBy('user_id', 'asc')->get(['user_id']);
         foreach($userObj as $key=>$val){
             dump("started for".$val->user_id.' at '.time());
 
@@ -145,42 +145,46 @@ class StravaController extends Controller
         // dd($expiresAt);
         // test
         $t=time();
-        dump($t);
-        dump($expiresAt);
-        if($expiresAt<=$t){
-            // echo "expires <br>";
-            // echo date('m/d/Y', $expiresAt);
-            // dump($expiresAt);
-            // exit;
-            $id = $id?$id:Auth::user()->id;
+        // dump($t);
+        // dump($expiresAt);
+        // if($expiresAt<=$t){
+        //     // echo "expires <br>";
+        //     // echo date('m/d/Y', $expiresAt);
+        //     // dump($expiresAt);
+        //     // exit;
+        //     $id = $id?$id:Auth::user()->id;
             
 
-            $sua = $this->refreshToken($id);
-            if(isset($sua['error'])){
-                return true;
-            }
-            $accessToken = $sua['accessToken'];// Session::get('accessToken');
-            $refreshToken = $sua['refreshToken'];//Session::get('refreshToken');
-            $expiresAt = $sua['expiresAt'];//Session::get('expiresAt');
+        //     $sua = $this->refreshToken($id);
+        //     if(isset($sua['error'])){
+        //         return true;
+        //     }
+        //     $accessToken = $sua['accessToken'];// Session::get('accessToken');
+        //     $refreshToken = $sua['refreshToken'];//Session::get('refreshToken');
+        //     $expiresAt = $sua['expiresAt'];//Session::get('expiresAt');
             
-            // update stravauserauth
-            // stravauserauth::where('user_id',$id)  // find your user by their email
-              // optional - to ensure only one record is updated.
-            // ->update(['accessToken' => $accessToken,'refreshToken' => $refreshToken,'expiresAt' => $expiresAt]);
+        //     // update stravauserauth
+        //     // stravauserauth::where('user_id',$id)  // find your user by their email
+        //       // optional - to ensure only one record is updated.
+        //     // ->update(['accessToken' => $accessToken,'refreshToken' => $refreshToken,'expiresAt' => $expiresAt]);
 
 
-        } else{
-            // echo "current <br>";
-            // echo date('d/m/Y h:i:s', $t);
-            // dump($t);
-        }
+        // } else{
+        //     // echo "current <br>";
+        //     // echo date('d/m/Y h:i:s', $t);
+        //     // dump($t);
+        // }
         // exit;
         //test
         // $accessToken =  Session::get('accessToken');
         // $refreshToken = Session::get('refreshToken');
         // $expiresAt = Session::get('expiresAt');
         try{
+            $id = $id?$id:Auth::user()->id;
             $sua = $this->refreshToken($id);
+            if(isset($sua['error'])){
+                return true;
+            }
             $accessToken = $sua['accessToken'];// Session::get('accessToken');
             $refreshToken = $sua['refreshToken'];//Session::get('refreshToken');
             $expiresAt = $sua['expiresAt'];//Session::get('expiresAt');
@@ -193,7 +197,7 @@ class StravaController extends Controller
             $api->setAccessToken($accessToken, $refreshToken, $expiresAt); 
         }
         
-        dd("test");
+        // dd("test");
         //get athleteData
         // $this->getAthleteData($api);
         
