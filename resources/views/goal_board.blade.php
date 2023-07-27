@@ -55,7 +55,7 @@
                 @foreach($useractivity as $k=>$v)
                   <tr>
                     <td>{{$v['name']}}</td>
-                    <td>{{(int)$v['goal'] - number_format($v['distance']/1000, 2)}}</td>
+                    <td>{{$v['goal'] - ($v['distance']/1000)}}</td>
                     <td>{{$v['goal']}}</td>
                     <td>{{number_format($v['distance']/1000, 2)}}</td>
                     <td>{{number_format($v['todayData']/1000, 2)}}</td>
