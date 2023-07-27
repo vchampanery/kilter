@@ -98,10 +98,10 @@ class StravaController extends Controller
      * 
      */
     public function getdatabycron(){
-        $userObj = stravauserauth::where('user_id','>' ,131)->orderBy('user_id', 'asc')->get(['user_id']);
-        // $userObj = stravauserauth::orderBy('user_id', 'asc')->get(['user_id']);
+        // $userObj = stravauserauth::where('user_id','>' ,131)->orderBy('user_id', 'asc')->get(['user_id']);
+        $userObj = stravauserauth::orderBy('user_id', 'asc')->get(['user_id']);
         foreach($userObj as $key=>$val){
-            dump("started for".$val->user_id.' at '.time());
+            dump($val->user_id);
             // echo $val->user_id." , ";    
 
             $ugobj = new userfetchlog();
