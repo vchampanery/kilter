@@ -76,7 +76,7 @@ class StravaController extends Controller
             $sua['error']='faild';
             return $sua;    
         }else{
-            dump($result);
+            // dump($result);
         }
         $accessToken = $result->access_token;
 	    $refreshToken = $result->refresh_token;
@@ -98,9 +98,10 @@ class StravaController extends Controller
      * 
      */
     public function getdatabycron(){
-        $userObj = stravauserauth::where('user_id','>' ,122)->orderBy('user_id', 'asc')->get(['user_id']);
+        // $userObj = stravauserauth::where('user_id','>' ,122)->orderBy('user_id', 'asc')->get(['user_id']);
+        $userObj = stravauserauth::orderBy('user_id', 'asc')->get(['user_id']);
         foreach($userObj as $key=>$val){
-            dump("started for".$val->user_id.' at '.time());
+            dump("started for".$val->user_id.' at '.time());    
 
             $ugobj = new userfetchlog();
             $ugobj->user_id = $val->user_id;
@@ -144,7 +145,7 @@ class StravaController extends Controller
         $expiresAt = $sucreate['expiresAt'];//Session::get('expiresAt');
         // dd($expiresAt);
         // test
-        $t=time();
+        // $t=time();
         // dump($t);
         // dump($expiresAt);
         // if($expiresAt<=$t){
