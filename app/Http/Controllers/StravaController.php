@@ -71,9 +71,12 @@ class StravaController extends Controller
         $api->setAccessToken($accessToken, $refreshToken);
         $result = $api->tokenExchangeRefresh();
         if(!isset($result->access_token)){
-            dd($result);
-        }else{
             dump($result);
+            $sua = [];
+            $sua['error']='faild';
+            return $sua;    
+        }else{
+            // dump($result);
         }
         $accessToken = $result->access_token;
 	    $refreshToken = $result->refresh_token;
@@ -142,8 +145,8 @@ class StravaController extends Controller
         // dd($expiresAt);
         // test
         $t=time();
-        dump($t);
-        dump($expiresAt);
+        // dump($t);
+        // dump($expiresAt);
         if($expiresAt<=$t){
             // echo "expires <br>";
             // echo date('m/d/Y', $expiresAt);
@@ -153,7 +156,9 @@ class StravaController extends Controller
             
 
             $sua = $this->refreshToken($id);
-
+            if(isset($sua['error'])){
+                return true;
+            }
             $accessToken = $sua['accessToken'];// Session::get('accessToken');
             $refreshToken = $sua['refreshToken'];//Session::get('refreshToken');
             $expiresAt = $sua['expiresAt'];//Session::get('expiresAt');
