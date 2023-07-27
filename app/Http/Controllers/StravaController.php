@@ -145,8 +145,8 @@ class StravaController extends Controller
         // dd($expiresAt);
         // test
         $t=time();
-        // dump($t);
-        // dump($expiresAt);
+        dump($t);
+        dump($expiresAt);
         if($expiresAt<=$t){
             // echo "expires <br>";
             // echo date('m/d/Y', $expiresAt);
@@ -180,6 +180,10 @@ class StravaController extends Controller
         // $refreshToken = Session::get('refreshToken');
         // $expiresAt = Session::get('expiresAt');
         try{
+            $sua = $this->refreshToken($id);
+            $accessToken = $sua['accessToken'];// Session::get('accessToken');
+            $refreshToken = $sua['refreshToken'];//Session::get('refreshToken');
+            $expiresAt = $sua['expiresAt'];//Session::get('expiresAt');
             $api->setAccessToken($accessToken, $refreshToken, $expiresAt);
         }catch(Exception $ex){
             $sua = $this->refreshToken($id);
