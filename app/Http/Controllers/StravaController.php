@@ -6,6 +6,8 @@ use App\Models\stravaactivity;
 use App\Models\stravauser;
 use App\Models\stravauserauth;
 use App\Models\User;
+use App\Models\userfetchlog;
+use DateTime;
 use Iamstuartwilson\StravaApi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -92,6 +94,12 @@ class StravaController extends Controller
         $userObj = User::get(['id']);
         foreach($userObj as $key=>$val){
             dump($val->id);
+
+            $ugobj = new userfetchlog();
+            $ugobj->user_id = $val->id;
+            $ugobj->update_date = new DateTime();
+            $ugobj->save();
+
             try{
                 $this->fetch_data($val->id,'cron');
             }catch(Exception $ex){
@@ -141,6 +149,13 @@ class StravaController extends Controller
             $accessToken = $sua['accessToken'];// Session::get('accessToken');
             $refreshToken = $sua['refreshToken'];//Session::get('refreshToken');
             $expiresAt = $sua['expiresAt'];//Session::get('expiresAt');
+            
+            // update stravauserauth
+            // stravauserauth::where('user_id',$id)  // find your user by their email
+              // optional - to ensure only one record is updated.
+            // ->update(['accessToken' => $accessToken,'refreshToken' => $refreshToken,'expiresAt' => $expiresAt]);
+
+
         } else{
             // echo "current <br>";
             // echo date('d/m/Y h:i:s', $t);
