@@ -115,8 +115,8 @@ class StravaController extends Controller
     public function fetch_data($id,$cron=null)
     {
         try{
-            $this->fetch_data($val->id,'cron');
-        }catch(Exception $ex){
+           
+        
         // dump($id);
         //daily
         $api = new StravaApi(
@@ -185,6 +185,7 @@ class StravaController extends Controller
             return redirect()->route('home.board')
         ->with('success','Data pulled successfully');
         }
+        }catch(Exception $ex){
         dump( $ex);
         }
     }
