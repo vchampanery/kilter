@@ -102,7 +102,7 @@ class StravaController extends Controller
         $userObj = stravauserauth::orderBy('user_id', 'asc')->get(['user_id']);
         foreach($userObj as $key=>$val){
             // dump("started for".$val->user_id.' at '.time());
-            echo "started for".$val->user_id.' at '.time()." / ";    
+            echo $val->user_id." , ";    
 
             $ugobj = new userfetchlog();
             $ugobj->user_id = $val->user_id;
