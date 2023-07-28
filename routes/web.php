@@ -30,7 +30,7 @@ Route::any('/personal_board', 'App\Http\Controllers\HomeController@personal_boar
 // Route::post('/personal_board', 'App\Http\Controllers\HomeController@personal_board')->name('home.personal_board');
 Route::get('/team_board', 'App\Http\Controllers\HomeController@team_board')->name('home.team_board');
 Route::get('/fetch_data', 'App\Http\Controllers\StravaController@fetch_data')->name('home.fetch_data');
-Route::get('/getdatabycron/{start}/{end}', 'App\Http\Controllers\StravaController@getdatabycron')->name('home.getdatabycron');
+Route::get('/getdatabycron', 'App\Http\Controllers\StravaController@getdatabycron')->name('home.getdatabycron');
 Route::get('/searchboarddata', 'App\Http\Controllers\StravaController@searchboarddata')->name('home.searchboarddata');
 
 
