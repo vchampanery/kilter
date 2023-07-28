@@ -97,13 +97,13 @@ class StravaController extends Controller
     /**
      * 
      */
-    public function getdatabycron(){
+    public function getdatabycron($start,$end){
         // dump($start);
         // dump($end);
         // dd();
-        // $userObj = stravauserauth::whereBetween('user_id',[$start,$end])->orderBy('user_id', 'asc')->get(['user_id']);
+        $userObj = stravauserauth::whereBetween('user_id',[$start,$end])->orderBy('user_id', 'asc')->get(['user_id']);
         // $userObj = stravauserauth::orderBy('user_id', 'asc')->get(['user_id']);
-        $userObj = stravauserauth::orderBy('user_id','>','130')->get(['user_id']);
+        // $userObj = stravauserauth::orderBy('user_id','>','130')->get(['user_id']);
         foreach($userObj as $key=>$val){
             dump($val->user_id);
             // echo $val->user_id." , ";    
