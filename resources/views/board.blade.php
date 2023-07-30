@@ -60,6 +60,7 @@
                 <th>Longest Rides </th>
                 @if(Auth::user()->email == 'vchampanery@gmail.com')
                 <th>email</th>
+                <th>id</th>
                 <th>Action</th>
                 @endif
               </thead>
@@ -85,6 +86,7 @@
                   
                     @if(Auth::user()->email == 'vchampanery@gmail.com')
                     <td>{{$v['email']}}</td>
+                    <td>{{$v['id']}}</td>
                     <td>
                       <a href="{{url('/strava_reset/')}}/{{$v['id']}}" class="btn btn-default">
                         <i class="far fa-pull nav-icon"></i> reset Strava
