@@ -36,7 +36,7 @@
                         <a href="{{url('/team_board')}}" class="nav-link
                              @if(app('request')->route()->uri() == 'team_board') active @endif">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Teams board</p>
+                            <p>S.A.C.C board</p>
                         </a>
                     </li>
                     <li class="nav-item">
