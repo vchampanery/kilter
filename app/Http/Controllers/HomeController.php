@@ -67,7 +67,10 @@ class HomeController extends Controller
         // return view('fpage')->with('useractivity',$userId);
     }
     
+    public function resetpassword(){
 
+        return view('auth/reset_password');
+    }
     /**
      * Show the application dashboard.
      *
@@ -76,11 +79,12 @@ class HomeController extends Controller
     public function board()
     {
         $id = Auth::user()->id;
-        
+        // dd(Auth::user()->email);
         $users = User::all();
         foreach($users as $uk=>$uv){
            $tempData = [];
-           $tempData['id'] = 0;
+           $tempData['id'] = $uv['id']  ;
+           $tempData['email'] = $uv['email'];
            $tempData['distance'] = 0;
            $tempData['average_speed'] = 0;
            $tempData['max_speed'] = 0;
@@ -236,11 +240,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function personal_board()
+    public function personal_board(Request $request)
     {
         $id = Auth::user()->id;
-       
-        
+        $range['current_month'] = "Current Month";
+        $range['today'] = "Today";
+        $range['last_day'] = "Last Day";
+     $request = $request->post();
 
         // var_dump(Session::has('expiresAt'));exit;
         // if(!Session::has('expiresAt')){
@@ -296,6 +302,8 @@ class HomeController extends Controller
         $data['total_avg_speed'] = isset($userActi['average_speed'])?$userActi['average_speed']:0;
         $data['total_longest_ride'] = isset($longest['maxdist'])?$longest['maxdist']:0;// $longest->maxdist;
         $data['max_speed_ride'] = isset($userActi['max_speed'])?$userActi['max_speed']:0;
+        $data['range'] = $range;
+        $data['selectrange'] = 'currrent_month';
 
         return view('personal_board')->with('data',$data);
     }

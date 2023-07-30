@@ -58,7 +58,10 @@
                 <th>50</th>
                 <th>Total Rides </th>
                 <th>Longest Rides </th>
+                @if(Auth::user()->email == 'vchampanery@gmail.com')
+                <th>email</th>
                 <th>Action</th>
+                @endif
               </thead>
               <tbody>
                 @foreach($useractivity as $k=>$v)
@@ -80,8 +83,17 @@
                     <td>{{number_format($v['longest']/1000, 2)}}</td>
                     <!-- <td> </td> -->
                   
-                    
-                    <td><a href="{{url('/fetch_data/')}}/{{$v['id']}}/direct" class="btn btn-default"><i class="far fa-pull nav-icon"></i> Pull</a></td>
+                    @if(Auth::user()->email == 'vchampanery@gmail.com')
+                    <td>{{$v['email']}}</td>
+                    <td>
+                      <a href="{{url('/strava_reset/')}}/{{$v['id']}}" class="btn btn-default">
+                        <i class="far fa-pull nav-icon"></i> reset Strava
+                      </a>
+                      <a href="{{url('/updatedefualtpassword/')}}/{{$v['id']}}" class="btn btn-default">
+                        <i class="far fa-pull nav-icon"></i> reset password
+                      </a>
+                    </td>
+                    @endif
                   </tr>
                 @endforeach
               </tbody>

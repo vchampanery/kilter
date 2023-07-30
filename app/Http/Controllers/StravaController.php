@@ -94,6 +94,22 @@ class StravaController extends Controller
         // dd($result);
         return $sua;
     }
+    public function reset($id){
+        
+        $straveAuthObj =  stravauserauth::where('user_id',$id)->delete();
+        $straveAuthObj =  stravauser::where('user_id',$id)->delete();
+        return redirect()->route('home.board')->with('success','strava reset done');
+    }
+    public function updatedefualtpassword($id){
+        $straveAuthObj =  user::where('email','vchampanery@gmail.com')->first(['password']);
+        $straveAuthObj =  user::where('id',$id)->update(['password'=>$straveAuthObj->password]);
+
+        return redirect()->route('home.board')->with('success','password updated');
+
+        // $straveAuthObj =  stravauserauth::where('user_id',$id)->delete();
+        // $straveAuthObj =  stravauser::where('user_id',$id)->delete();
+
+    }
     /**
      * 
      */

@@ -6,7 +6,16 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
-
+                @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
+                @if ($message = Session::get('error'))
+                    <div class="alert alert-danger">
+                        <p>{{ $message }}</p>
+                    </div>
+                @endif
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -59,6 +68,9 @@
                                 &nbsp;&nbsp;<span> OR </span>&nbsp;&nbsp;
                                 <a class="btn btn-primary" href="{{ route('register') }}">
                                         {{ __('Register') }}
+                                </a>
+                                <a class="btn btn-primary" href="{{ route('customauth.resetpassword') }}">
+                                        Reset
                                 </a>
                             </div>
                         </div>

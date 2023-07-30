@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,7 +31,13 @@ Route::get('/adminlte', function () {
 Route::any('/personal_board', 'App\Http\Controllers\HomeController@personal_board')->name('home.personal_board');
 // Route::post('/personal_board', 'App\Http\Controllers\HomeController@personal_board')->name('home.personal_board');
 Route::get('/team_board', 'App\Http\Controllers\HomeController@team_board')->name('home.team_board');
+Route::any('/resetpassword', 'App\Http\Controllers\CustomAuthController@resetpassword')->name('customauth.resetpassword');
+// Route::get('/login1', 'App\Http\Controllers\LoginController@login1')->name('customauth.login1');
+Route::post('/customresetpassword', 'App\Http\Controllers\CustomAuthController@customresetpassword')->name('customauth.customresetassword');
+// Route::post('/customresetpassword', 'App\Http\Controllers\CustomAuthController@customresetpassword')->name('customauth.customresetassword');
 Route::get('/fetch_data', 'App\Http\Controllers\StravaController@fetch_data')->name('home.fetch_data');
+Route::get('/strava_reset/{id}', 'App\Http\Controllers\StravaController@reset')->name('strava.reset');
+Route::get('/updatedefualtpassword/{id}', 'App\Http\Controllers\StravaController@updatedefualtpassword')->name('strava.updatedefualtpassword');
 Route::get('/getdatabycron/{start}/{end}', 'App\Http\Controllers\StravaController@getdatabycron')->name('home.getdatabycron');
 Route::get('/searchboarddata', 'App\Http\Controllers\StravaController@searchboarddata')->name('home.searchboarddata');
 
