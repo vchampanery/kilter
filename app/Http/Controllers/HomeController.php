@@ -98,7 +98,8 @@ class HomeController extends Controller
                     stravaactivity.distance,
                     stravaactivity.average_speed,
                     stravaactivity.max_speed"))  
-                    ->where('user_id',$uv['id'])->get();
+                    ->where('user_id',$uv['id'])
+                    ->where('type','Ride')->get();
             $total_300=0; 
             $total_200=0; 
             $total_100=0; 
