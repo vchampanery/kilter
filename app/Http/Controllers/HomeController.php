@@ -317,11 +317,56 @@ class HomeController extends Controller
         if(!Session::has('expiresAt')){
             $this->saveSessionData();
         }
-        $data['total_rides'] = 12;
-        $data['total_km'] = 2341;
-        $data['total_avg_speed'] = 10;
-        $data['total_longest_ride'] = 111;
-            return view('team_board')->with('data',$data);
+        $data['total_rides'] = 0;
+        $data['total_km'] =0;
+        $data['avg_km_covered'] = 0;
+        $data['highest_score'] = 0;
+        $data['today_highest'] = 0;
+        $data['longest_ride'] = 0;
+        $data['fastest_ride'] = 0;
+        $data['highest_scorer_name'] = '';
+        $data['today_highester_name'] = '';
+        //total rides
+        $today = Carbon::today();
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
+        $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
+        $data['total_rides'] = stravaactivity::whereBetween('start_date_local', [$to, $from])->where('type','Ride')->count();
+        //total km
+        $data['total_km'] = stravaactivity::select( DB::raw("sum(stravaactivity.distance) as distance"))->whereBetween('start_date_local', [$to, $from])->where('type','Ride')->first(['distance']);
+        $data['total_km']=$data['total_km']->distance;
+        $total = User::count();
+        $data['avg_km_covered'] = (int)$data['total_km']/(int)$total; 
+        //highest_score
+        $maxRide = stravaactivity::select( DB::raw("sum(stravaactivity.distance) as distance,user_id"))->whereBetween('start_date_local', [$to, $from])->where('type','Ride')->groupBy('user_id')->orderBy('distance','desc')->first();
+        $userObj = User::where('id',$maxRide->user_id)->first(['name']);
+        $data['highest_score'] =$maxRide->distance;
+        $data['highest_scorer_name'] = $userObj['name']; 
+        //today_highest
+        $toToday = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfDay());
+        $fromToday = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfDay());
+        $maxRide = stravaactivity::select('user_id','distance')->whereBetween('start_date_local', [$toToday, $fromToday])->where('type','Ride')->orderBy('distance','desc')->first();
+        if($maxRide){
+            $userObj = User::where('id',$maxRide->user_id)->first(['name']);
+            $data['today_highest'] =$maxRide->distance;
+            $data['today_highester_name'] = $userObj['name']; 
+        }
+        //longest_ride
+        $longest_ride = stravaactivity::select('user_id','distance')->whereBetween('start_date_local', [$to, $from])->where('type','Ride')->orderBy('distance','desc')->first();
+        if($longest_ride){
+            $userObj = User::where('id',$longest_ride->user_id)->first(['name']);
+            $data['longest_ride'] =$longest_ride->distance;
+            $data['longest_rider_name'] = $userObj['name']; 
+        }
+        //fastest_ride
+        $longest_ride = stravaactivity::select('user_id','average_speed')->whereBetween('start_date_local', [$to, $from])->where('type','Ride')->orderBy('distance','desc')->first();
+        if($longest_ride){
+            $userObj = User::where('id',$longest_ride->user_id)->first(['name']);
+            $data['fastest_ride'] =$longest_ride->average_speed;
+            $data['fastest_rider_name'] = $userObj['name']; 
+        }
+        return view('team_board')->with('data',$data);
+
+
     }
   
     public function saveSessionData(){
