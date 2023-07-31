@@ -40,7 +40,8 @@
       <div class="container-fluid">
         <div class="row">
         <div class="col-lg-4 col-sm-12">
-          
+         
+
             <form action="{{ route('home.addstravaactivity') }}" method="POST">
             @csrf
               <?php 
@@ -50,19 +51,20 @@
               // }
               ?>
               <div class="row">
-                <div class="col-lg-4 col-sm-4"> 
-                      Total kilometer :
+                <div class="col-lg-4 col-sm-4 p-10"> 
+                      Total kilometer : 
                 </div>
                 <div class="col-lg-8 col-sm-8">
                       <input type="number" step="0.01" name="distance" id="distance" value="">
                 </div>
               </div>
+              <Br>
               <div class="row">
                 <div class="col-lg-4 col-sm-4">
-                      Today activity :
+                      Today activity link :
                 </div>
                   <div class="col-lg-8 col-sm-8">
-                      <input type="url" name="url" id="url" value="">
+                      <input type="url" name="link" id="link" value="">
                 </div>
               </div>
               <br>
@@ -71,8 +73,18 @@
                   <input type="submit" text="submit" value="submit">
                 </div>
               </div>
+              <div class="row">
+                <div class="col-lg-12 col-sm-12">
+                  <br><br>
+                <p><b>Note:</b></p>
+              <ol>
+                <li>Your activity will be accounted in End of event.</li>
+                <li>your can submit Single Event on the day </li>
+              </ol>
+                </div>
+              </div>
             </form>
-
+            
         </div>
         </div>
         <!-- /.row -->

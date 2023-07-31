@@ -49,7 +49,7 @@ Route::get('/first_page', 'App\Http\Controllers\HomeController@first_page')->nam
 Route::get('/board', 'App\Http\Controllers\HomeController@board')->name('home.board');
 Route::get('/goal_board', 'App\Http\Controllers\HomeController@goalboard')->name('home.goal_board');
 Route::any('/addgoal', 'App\Http\Controllers\HomeController@addgoal')->name('home.addgoal');
-Route::any('/addstravaactivity', 'App\Http\Controllers\HomeController@addstravaactivity')->name('home.addstravaactivity');
+Route::any('/add_activity_manual', 'App\Http\Controllers\HomeController@addstravaactivity')->name('home.addstravaactivity');
 Route::get('/fpage', 'App\Http\Controllers\RoleController@fpage')->name('home.fpage');
 Route::get('/roless', 'App\Http\Controllers\RoleController@index')->name('home.index');
 Route::get('/register', 'App\Http\Controllers\RegisterController@index')->name('register.index');

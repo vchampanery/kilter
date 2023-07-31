@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\manualactivity;
 use App\Models\Product;
 use App\Models\stravaactivity;
 use App\Models\stravauser;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use DateTime;
 class HomeController extends Controller
 {
     /**
@@ -81,6 +83,8 @@ class HomeController extends Controller
         $id = Auth::user()->id;
         // dd(Auth::user()->email);
         $users = User::all();
+        $dateS = Carbon::now()->startOfMonth();
+        $dateE = Carbon::now()->endOfMonth();
         foreach($users as $uk=>$uv){
            $tempData = [];
            $tempData['id'] = $uv['id']  ;
@@ -99,6 +103,7 @@ class HomeController extends Controller
                     stravaactivity.average_speed,
                     stravaactivity.max_speed"))  
                     ->where('user_id',$uv['id'])
+                    ->whereBetween('start_date_local',[$dateS,$dateE]) 
                     ->where('type','Ride')->get();
             $total_300=0; 
             $total_200=0; 
@@ -245,24 +250,27 @@ class HomeController extends Controller
         $allParm = $request->all();
         
         if($allParm){
-            dd($allParm);
-            $userGoal = usergoal::where('user_id',$id)->where('month',$month)->where('year',$year)->first();
-            if($userGoal){
-                usergoal::where('user_id',$id)->where('month',$month)->where('year',$year)->update(['goal'=>$allParm['goal']]   );
+            $datetimeTest = new DateTime();
+            $curdate= $datetimeTest->format('Y-m-d');
+            $manualactivity = manualactivity::where('user_id',$id)
+            ->where('update_date',$curdate)->first();
+            if($manualactivity){
+                manualactivity::where('user_id',$id)
+                    ->where('update_date',$curdate)
+                    ->update(['distance'=>$allParm['distance'],'link'=>$allParm['link']]);
             }else{
-            $ugobj = new usergoal();
-            $ugobj->goal = $allParm['goal'];
-            $ugobj->month = $month;
-            $ugobj->year = $year;
-            $ugobj->user_id = $id;
-            $ugobj->save();
+
+                $ugobj = new manualactivity();
+                $ugobj->user_id = $id;
+                $ugobj->distance = $allParm['distance'];
+                $ugobj->link = $allParm['link'];
+                $ugobj->update_date = new DateTime();
+                $ugobj->save();
             }
-            return redirect()->route('home.goal_board')
-            ->with('success','Goal updated successfully');;
+            return redirect()->route('home.personal_board')
+            ->with('success','Your activity updated successfully');;
         }else{
-            $userGoal = usergoal::where('user_id',$id)->where('month',$month)->where('year',$year)->first('goal');
-            $tw = isset($userGoal['goal'])?$userGoal['goal']:0;
-            return view('addstravaactivity')->with('goal',$tw);
+           return view('addstravaactivity');
         }
     }
 
