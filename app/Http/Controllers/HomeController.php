@@ -47,7 +47,7 @@ class HomeController extends Controller
     {
         $id = Auth::user()->id;
         
-        $userId = stravaactivity::where('user_id',$id)->get();
+        $userId = stravaactivity::where('user_id',$id)->where('type','Ride')->get();
         
         return view('first_page')->with('useractivity',$userId);
     }
@@ -176,7 +176,8 @@ class HomeController extends Controller
                     avg(stravaactivity.average_speed) as average_speed,
                         avg(stravaactivity.max_speed) as max_speed,
                         count(stravaactivity.id) as total_ride"))
-                        ->whereBetween('start_date_local',[$dateS,$dateE])  
+                        ->whereBetween('start_date_local',[$dateS,$dateE]) 
+                        ->where('type','Ride') 
                         ->groupBy('user_id')->get();
         $data = [];
         foreach($userActi as $k=>$v){
@@ -188,7 +189,8 @@ class HomeController extends Controller
             $tempData['total_ride'] = $v->total_ride;
             $username = User::where('id',$v->id)->first('name');
             $goal = usergoal::where('user_id',$v->id)->where('month',date('m'))->where('year',date('Y'))->first('goal');
-            $todayData = stravaactivity::where('user_id',$v->id)->whereDate('start_date_local', '=', date('Y-m-d'))->first('distance');
+            $todayData = stravaactivity::where('user_id',$v->id)
+            ->whereDate('start_date_local', '=', date('Y-m-d'))->where('type','Ride')->first('distance');
             
             $tempData['id'] = $v->id;
             $tempData['name'] = $username['name'];
@@ -233,8 +235,37 @@ class HomeController extends Controller
             $tw = isset($userGoal['goal'])?$userGoal['goal']:0;
             return view('addgoal')->with('goal',$tw);
         }
-        
     }
+
+    public function addstravaactivity(Request $request)
+    {
+        $id = Auth::user()->id;
+        $month = date('m');
+        $year = date('Y');
+        $allParm = $request->all();
+        
+        if($allParm){
+            dd($allParm);
+            $userGoal = usergoal::where('user_id',$id)->where('month',$month)->where('year',$year)->first();
+            if($userGoal){
+                usergoal::where('user_id',$id)->where('month',$month)->where('year',$year)->update(['goal'=>$allParm['goal']]   );
+            }else{
+            $ugobj = new usergoal();
+            $ugobj->goal = $allParm['goal'];
+            $ugobj->month = $month;
+            $ugobj->year = $year;
+            $ugobj->user_id = $id;
+            $ugobj->save();
+            }
+            return redirect()->route('home.goal_board')
+            ->with('success','Goal updated successfully');;
+        }else{
+            $userGoal = usergoal::where('user_id',$id)->where('month',$month)->where('year',$year)->first('goal');
+            $tw = isset($userGoal['goal'])?$userGoal['goal']:0;
+            return view('addstravaactivity')->with('goal',$tw);
+        }
+    }
+
     
     /**
      * Show the application dashboard.
@@ -268,7 +299,7 @@ class HomeController extends Controller
         Session::put('profile_pic', $json->profile);
 
 
-          $isexisting = stravaactivity::where('user_id', $id)->count();
+          $isexisting = stravaactivity::where('user_id', $id)->where('type','Ride')->count();
           if($isexisting == 0){
             $data['total_rides'] = 0;
             $data['total_km'] = 0;
@@ -283,21 +314,21 @@ class HomeController extends Controller
         $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
         $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
         $data['total_rides'] = stravaactivity::where('user_id', $id)
-        ->whereBetween('start_date_local', [$to, $from])->count();
+        ->whereBetween('start_date_local', [$to, $from])->where('type','Ride')->count();
          
         $userActi = stravaactivity::where('user_id', $id)->select(
             DB::raw("stravaactivity.user_id as id,sum(stravaactivity.distance) as distance,
                     avg(stravaactivity.average_speed) as average_speed,
                     max(stravaactivity.average_speed) as max_speed"))
                     ->whereBetween('stravaactivity.start_date_local', [$to, $from])
-                    ->groupBy('user_id')->first();
+                    ->where('type','Ride')->groupBy('user_id')->first();
 
                     $longest = stravaactivity::where('user_id', $id)
                     ->whereBetween('stravaactivity.start_date_local', [$to, $from])
                     ->select( DB::raw('max(distance) as maxdist'))->first();
                     $max_speed = stravaactivity::where('user_id', $id)
                     ->whereBetween('stravaactivity.start_date_local', [$to, $from])
-                    ->max('max_speed');
+                    ->where('type','Ride')->max('max_speed');
 
         $data['total_km'] = isset($userActi['distance'])?$userActi['distance']:0;
         $data['total_avg_speed'] = isset($userActi['average_speed'])?$userActi['average_speed']:0;
