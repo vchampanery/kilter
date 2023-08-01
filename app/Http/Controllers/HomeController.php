@@ -361,11 +361,13 @@ class HomeController extends Controller
         $data['total_km'] =0;
         $data['avg_km_covered'] = 0;
         $data['highest_score'] = 0;
-        $data['today_highest'] = 0;
-        $data['longest_ride'] = 0;
-        $data['fastest_ride'] = 0;
         $data['highest_scorer_name'] = '';
+        $data['today_highest'] = 0;
         $data['today_highester_name'] = '';
+        $data['longest_ride'] = 0;
+        $data['longest_rider_name'] = '';
+        $data['fastest_ride'] = 0;
+        $data['fastest_rider_name']= '';
         //total rides
         $today = Carbon::today();
         $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
