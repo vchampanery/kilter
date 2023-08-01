@@ -128,9 +128,9 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>{{number_format($data['total_50_ride']/1000, 2)}}<sup style="font-size: 20px">Kms</sup></h3>
+                <h3>{{number_format($data['total_100_ride']/1000, 2)}}</h3>
 
-                <p>Fastest ride - {{$data['fastest_rider_name']}}  </p>
+                <p>Total 100's</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -142,9 +142,9 @@
             <!-- small box -->
             <div class="small-box bg-primary">
               <div class="inner">
-                <h3>{{number_format($data['total_50_ride']/1000, 2)}}<sup style="font-size: 20px">Kms</sup></h3>
+                <h3>{{number_format($data['total_50_ride']/1000, 2)}}</h3>
 
-                <p>Fastest ride - {{$data['fastest_rider_name']}}  </p>
+                <p>Total 50's </p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -154,10 +154,11 @@
           </div>
           <!-- ./col -->
         </div>
-        <br>tostart : {{$data['tostart']}}
-        <br>toend : {{$data['toend']}}
-        <br>toTodat : {{$data['toToday']}}
-        <br>fromToday: {{$data['fromToday']}}
+        <br>to start : {{$data['tostart']}}
+        <br>to end : {{$data['toend']}}
+        
+        <br>from Today: {{$data['fromToday']}}
+        <br>to Today : {{$data['toToday']}}
         <!-- /.row -->
         <!-- Main row -->
         <div class="row">
