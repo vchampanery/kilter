@@ -419,7 +419,7 @@ class HomeController extends Controller
             $data['longest_rider_name'] = $userObj['name']; 
         }
         //fastest_ride
-        $longest_ride = stravaactivity::select('user_id','average_speed')->whereBetween('start_date_local', [$to, $from])->where('type','Ride')->orderBy('distance','desc')->first();
+        $longest_ride = stravaactivity::select('user_id','average_speed')->whereBetween('start_date_local', [$to, $from])->where('type','Ride')->orderBy('average_speed','desc')->first();
         if($longest_ride){
             $userObj = User::where('id',$longest_ride->user_id)->first(['name']);
             $data['fastest_ride'] =$longest_ride->average_speed;
