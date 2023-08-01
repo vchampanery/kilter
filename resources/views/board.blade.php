@@ -94,6 +94,7 @@
                       <a href="{{url('/updatedefualtpassword/')}}/{{$v['id']}}" class="btn btn-default">
                         <i class="far fa-pull nav-icon"></i> reset password
                       </a>
+                      <a href="{{url('/fetch_data/')}}/{{$v['id']}}/direct" class="btn btn-default"><i class="far fa-pull nav-icon"></i> Pull</a>
                     </td>
                     @endif
                   </tr>
