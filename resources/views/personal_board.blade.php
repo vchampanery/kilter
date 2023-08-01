@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Current Month Board</h1>
+            <h1 class="m-0 text-dark">Current Month Board</h1> 
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -16,7 +16,9 @@
       </div><!-- /.container-fluid -->
     </div>
      <!-- Main content -->
-     <a href="{{url('/fetch_data/')}}/{{$data['id']}}/direct" class="btn btn-default"><i class="far fa-pull nav-icon"></i> Pull Your activity</a>
+     <a href="{{url('/fetch_data/')}}/{{$data['id']}}/direct" class="btn btn-warning" style="    display: flex;
+    justify-content: center;"><i class="far fa-pull nav-icon"></i> Pull Your activity</a>
+      <br>
       <div class="container-fluid">
       @if ($message = Session::get('success'))
                         <div class="alert alert-success">
