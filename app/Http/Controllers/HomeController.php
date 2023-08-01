@@ -378,9 +378,12 @@ class HomeController extends Controller
         $data['avg_km_covered'] = (int)$data['total_km']/(int)$total; 
         //highest_score
         $maxRide = stravaactivity::select( DB::raw("sum(stravaactivity.distance) as distance,user_id"))->whereBetween('start_date_local', [$to, $from])->where('type','Ride')->groupBy('user_id')->orderBy('distance','desc')->first();
-        $userObj = User::where('id',$maxRide->user_id)->first(['name']);
-        $data['highest_score'] =$maxRide->distance;
-        $data['highest_scorer_name'] = $userObj['name']; 
+        if($maxRide){
+            $userObj = User::where('id',$maxRide->user_id)->first(['name']);
+            $data['highest_score'] =$maxRide->distance;
+            $data['highest_scorer_name'] = $userObj['name'];
+        }
+         
         //today_highest
         $toToday = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfDay());
         $fromToday = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfDay());
