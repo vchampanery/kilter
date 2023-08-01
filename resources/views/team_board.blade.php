@@ -161,7 +161,8 @@
         
         <br>new to strat: {{$data['new_to_start']}}
         <br>new to end : {{$data['new_to_end']}}
-        <br>DateTime : {{$data['curDate']}}
+        <br>curStart : {{$data['curStart']}}
+        <br>curend : {{$data['curend']}}
         <!-- /.row -->
         <!-- Main row -->
         <div class="row">

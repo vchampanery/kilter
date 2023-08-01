@@ -407,7 +407,8 @@ class HomeController extends Controller
         $data['new_to_end'] =$date;
         
         $date1 = new DateTime("now", new DateTimeZone('Asia/Kolkata'));
-        $data['curDate'] = $date1->format('Y-m-d H:i:s');
+        $data['curstart'] = $date1->format('Y-m-d 00:00:00');
+        $data['curend'] = $date1->format('Y-m-d 23:59:59');
 
         $maxRide = stravaactivity::select('user_id','distance')->whereBetween('start_date_local', [$toToday, $fromToday])->where('type','Ride')->orderBy('distance','desc')->first();
         if($maxRide){
