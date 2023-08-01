@@ -154,6 +154,10 @@
           </div>
           <!-- ./col -->
         </div>
+        <br>tostart : {{$data['tostart']}}
+        <br>toend : {{$data['toend']}}
+        <br>toTodat : {{$data['toToday']}}
+        <br>fromToday: {{$data['fromToday']}}
         <!-- /.row -->
         <!-- Main row -->
         <div class="row">

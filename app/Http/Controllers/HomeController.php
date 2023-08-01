@@ -370,10 +370,14 @@ class HomeController extends Controller
         $data['fastest_rider_name']= '';
         $data['total_50_ride'] = 0;
         $data['total_100_ride']= 0;
+        
         //total rides
         $today = Carbon::today();
         $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
         $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
+        
+        $data['tostart'] = $to;
+        $data['toend']= $from;
         $data['total_rides'] = stravaactivity::whereBetween('start_date_local', [$to, $from])->where('type','Ride')->count();
         //total km
         $data['total_km'] = stravaactivity::select( DB::raw("sum(stravaactivity.distance) as distance"))->whereBetween('start_date_local', [$to, $from])->where('type','Ride')->first(['distance']);
@@ -391,6 +395,9 @@ class HomeController extends Controller
         //today_highest
         $toToday = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfDay());
         $fromToday = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfDay());
+        $data['toToday'] = $toToday;
+        $data['fromToday']= $fromToday;
+
         $maxRide = stravaactivity::select('user_id','distance')->whereBetween('start_date_local', [$toToday, $fromToday])->where('type','Ride')->orderBy('distance','desc')->first();
         if($maxRide){
             $userObj = User::where('id',$maxRide->user_id)->first(['name']);
@@ -411,13 +418,13 @@ class HomeController extends Controller
             $data['fastest_ride'] =$longest_ride->average_speed;
             $data['fastest_rider_name'] = $userObj['name']; 
         }
-        $maxRide = stravaactivity::select('user_id','distance')->whereBetween('start_date_local', [$toToday, $fromToday])->where('type','Ride')->orderBy('distance','desc')->get();
+        $maxRide = stravaactivity::select('user_id','distance')->whereBetween('start_date_local', [$to, $from])->where('type','Ride')->orderBy('distance','desc')->get();
         
         foreach($maxRide as $ride){
             if($ride->distance >=100000){
-                $data['total_100_ride'] +=$ride->distance;
+                $data['total_100_ride'] =$data['total_100_ride']+$ride->distance;
             }elseif($ride->distance >=50000){
-                $data['total_50_ride'] +=$ride->distance;
+                $data['total_50_ride'] =$data['total_50_ride']+$ride->distance;
             }
         }
         return view('team_board')->with('data',$data);
