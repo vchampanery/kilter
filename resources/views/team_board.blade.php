@@ -160,8 +160,8 @@
         <br>from Today: {{$data['fromToday']}}
         <br>to Today : {{$data['toToday']}}
         
-        <br>new to strat: {{$data['new to strat']}}
-        <br>new to end : {{$data['new to end']}}
+        <br>new to strat: {{$data['new_to_start']}}
+        <br>new to end : {{$data['new_to_end']}}
         <!-- /.row -->
         <!-- Main row -->
         <div class="row">

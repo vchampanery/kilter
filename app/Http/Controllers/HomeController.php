@@ -398,12 +398,12 @@ class HomeController extends Controller
         $date = Carbon::now();
         $date->addDays(1);
         $date->format("Y-m-d 00:00:00");
-        $data['new to start'] =$date;
+        $data['new_to_start'] =$date;
         $data['toToday'] = $fromToday;
         $data['fromToday']= $toToday;
 
         $date->format("Y-m-d 23:59:59");
-        $data['new to end'] =$date;
+        $data['new_to_end'] =$date;
 
         $maxRide = stravaactivity::select('user_id','distance')->whereBetween('start_date_local', [$toToday, $fromToday])->where('type','Ride')->orderBy('distance','desc')->first();
         if($maxRide){
