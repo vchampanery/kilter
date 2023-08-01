@@ -161,7 +161,7 @@
         
         <br>new to strat: {{$data['new_to_start']}}
         <br>new to end : {{$data['new_to_end']}}
-        <br>curStart : {{$data['curStart']}}
+        <br>curStart : {{$data['curstart']}}
         <br>curend : {{$data['curend']}}
         <!-- /.row -->
         <!-- Main row -->
