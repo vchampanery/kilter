@@ -124,6 +124,34 @@
               <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
             </div>
           </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{number_format($data['total_50_ride']/1000, 2)}}<sup style="font-size: 20px">Km/h</sup></h3>
+
+                <p>Fastest ride - {{$data['fastest_rider_name']}}  </p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+              <div class="inner">
+                <h3>{{number_format($data['total_50_ride']/1000, 2)}}<sup style="font-size: 20px">Km/h</sup></h3>
+
+                <p>Fastest ride - {{$data['fastest_rider_name']}}  </p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+            </div>
+          </div>
           <!-- ./col -->
         </div>
         <!-- /.row -->

@@ -368,6 +368,8 @@ class HomeController extends Controller
         $data['longest_rider_name'] = '';
         $data['fastest_ride'] = 0;
         $data['fastest_rider_name']= '';
+        $data['total_50_ride'] = 0;
+        $data['total_100_ride']= 0;
         //total rides
         $today = Carbon::today();
         $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
@@ -408,6 +410,15 @@ class HomeController extends Controller
             $userObj = User::where('id',$longest_ride->user_id)->first(['name']);
             $data['fastest_ride'] =$longest_ride->average_speed;
             $data['fastest_rider_name'] = $userObj['name']; 
+        }
+        $maxRide = stravaactivity::select('user_id','distance')->whereBetween('start_date_local', [$toToday, $fromToday])->where('type','Ride')->orderBy('distance','desc')->get();
+        
+        foreach($maxRide as $ride){
+            if($ride->distance >=100000){
+                $data['total_100_ride'] +=$ride->distance;
+            }elseif($ride->distance >=50000){
+                $data['total_50_ride'] +=$ride->distance;
+            }
         }
         return view('team_board')->with('data',$data);
 
