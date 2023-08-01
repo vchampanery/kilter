@@ -128,7 +128,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>{{number_format($data['total_100_ride']/1000, 2)}}</h3>
+                <h3>$data['total_100_ride']}}</h3>
 
                 <p>Total 100's</p>
               </div>
@@ -142,7 +142,7 @@
             <!-- small box -->
             <div class="small-box bg-primary">
               <div class="inner">
-                <h3>{{number_format($data['total_50_ride']/1000, 2)}}</h3>
+                <h3>{{$data['total_50_ride']}}</h3>
 
                 <p>Total 50's </p>
               </div>
