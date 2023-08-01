@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use DateTime;
+use DateTimeZone;
+
 class HomeController extends Controller
 {
     /**
@@ -401,10 +403,11 @@ class HomeController extends Controller
         $data['new_to_start'] =$date;
         $data['toToday'] = $fromToday;
         $data['fromToday']= $toToday;
-        $re = new DateTime();
-        $data['DateTime'] = $re->format('Y-m-d H:s:i');
         $date->format("Y-m-d 23:59:59");
         $data['new_to_end'] =$date;
+        
+        $date1 = new DateTime("now", new DateTimeZone('Asia/Kolkata'));
+        $data['curDate'] = $date1->format('Y-m-d H:i:s');
 
         $maxRide = stravaactivity::select('user_id','distance')->whereBetween('start_date_local', [$toToday, $fromToday])->where('type','Ride')->orderBy('distance','desc')->first();
         if($maxRide){
