@@ -351,6 +351,7 @@ class HomeController extends Controller
         $data['max_speed_ride'] = isset($userActi['max_speed'])?$userActi['max_speed']:0;
         $data['range'] = $range;
         $data['selectrange'] = 'currrent_month';
+        $data['id'] = $id;
 
         return view('personal_board')->with('data',$data);
     }

@@ -109,7 +109,7 @@
         
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
-     
+      {{$data['id']}}
     <!-- <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> -->
     <!-- Summernote -->
