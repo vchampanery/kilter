@@ -321,8 +321,13 @@ class HomeController extends Controller
             //   return view('strava_connect');
           }
         $today = Carbon::today();
-        $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
-        $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
+        // $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
+        // $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
+        $date1 = new DateTime("now", new DateTimeZone('Asia/Kolkata'));
+        $to = $date1->format('Y-m-1 00:00:00');
+        $from = $date1->format('Y-m-31 23:59:59');
+
+
         $data['total_rides'] = stravaactivity::where('user_id', $id)
         ->whereBetween('start_date_local', [$to, $from])->where('type','Ride')->count();
          
@@ -375,9 +380,12 @@ class HomeController extends Controller
         
         //total rides
         $today = Carbon::today();
-        $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
-        $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
-        
+        // $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
+        // $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
+        $date1 = new DateTime("now", new DateTimeZone('Asia/Kolkata'));
+        $to = $date1->format('Y-m-1 00:00:00');
+        $from = $date1->format('Y-m-31 23:59:59');
+
         $data['tostart'] =$from;
         $data['toend']=  $to;
         $data['total_rides'] = stravaactivity::whereBetween('start_date_local', [$to, $from])->where('type','Ride')->count();
@@ -395,8 +403,13 @@ class HomeController extends Controller
         }
          
         //today_highest
-        $toToday = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfDay());
-        $fromToday = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfDay());
+        // $toToday = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfDay());
+        // $fromToday = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfDay());
+        $date1 = new DateTime("now", new DateTimeZone('Asia/Kolkata'));
+        $toToday = $date1->format('Y-m-d 00:00:00');
+        $fromToday = $date1->format('Y-m-d 23:59:59');
+
+
         $date = Carbon::now();
         $date->addDays(1);
         $date->format("Y-m-d 00:00:00");
