@@ -8,6 +8,7 @@ use App\Models\stravauserauth;
 use App\Models\User;
 use App\Models\userfetchlog;
 use DateTime;
+use DateTimeZone;
 use Iamstuartwilson\StravaApi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -476,8 +477,15 @@ class StravaController extends Controller
         if($today){
             $page = 1;
             
-            $before   = strtotime("-1 day 00:00:00");
-            $after   = strtotime("today 23:59:59");
+            // $before   = strtotime("-1 day 00:00:00");
+            // $after   = strtotime("today 23:59:59");
+
+            $date1 = new DateTime("now", new DateTimeZone('Asia/Kolkata'));
+            $before = $date1->format('Y-m-d 00:00:00');
+            $after = $date1->format('Y-m-d 23:59:59');
+            dump($before);
+            dump($after);
+            dd();
             $data = $this->getActivitAth($api,$page,10,$before,$after);
             
             $return  = $this->getsavedata($data,$id);
