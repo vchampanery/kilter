@@ -233,7 +233,7 @@ class StravaController extends Controller
         if($cron=="cron"){
             return true;
         }else{
-            return redirect()->route('home.board')
+            return redirect()->route('home.personal_board')
         ->with('success','Data pulled successfully');
         }
         }catch(Exception $ex){
