@@ -402,7 +402,7 @@ class HomeController extends Controller
         $data['toToday'] = $fromToday;
         $data['fromToday']= $toToday;
         $re = new DateTime();
-        $data['DateTime'] = $re->format('yy-mm-dd');
+        $data['DateTime'] = $re->format('Y-m-d');
         $date->format("Y-m-d 23:59:59");
         $data['new_to_end'] =$date;
 
