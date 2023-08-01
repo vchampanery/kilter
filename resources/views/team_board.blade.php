@@ -153,7 +153,7 @@
           </div>
           <!-- ./col -->
         </div>
-        <br>to start : {{$data['tostart']}}
+        <!-- <br>to start : {{$data['tostart']}}
         <br>to end : {{$data['toend']}}
         
         <br>from Today: {{$data['fromToday']}}
@@ -162,7 +162,7 @@
         <br>new to strat: {{$data['new_to_start']}}
         <br>new to end : {{$data['new_to_end']}}
         <br>curStart : {{$data['curstart']}}
-        <br>curend : {{$data['curend']}}
+        <br>curend : {{$data['curend']}} -->
         <!-- /.row -->
         <!-- Main row -->
         <div class="row">
