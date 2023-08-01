@@ -128,7 +128,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>{{number_format($data['total_50_ride']/1000, 2)}}<sup style="font-size: 20px">Km/h</sup></h3>
+                <h3>{{number_format($data['total_50_ride']/1000, 2)}}<sup style="font-size: 20px">Kms</sup></h3>
 
                 <p>Fastest ride - {{$data['fastest_rider_name']}}  </p>
               </div>
@@ -142,7 +142,7 @@
             <!-- small box -->
             <div class="small-box bg-primary">
               <div class="inner">
-                <h3>{{number_format($data['total_50_ride']/1000, 2)}}<sup style="font-size: 20px">Km/h</sup></h3>
+                <h3>{{number_format($data['total_50_ride']/1000, 2)}}<sup style="font-size: 20px">Kms</sup></h3>
 
                 <p>Fastest ride - {{$data['fastest_rider_name']}}  </p>
               </div>
