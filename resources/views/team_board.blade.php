@@ -128,7 +128,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>$data['total_100_ride']}}</h3>
+                <h3>{{$data['total_100_ride']}}</h3>
 
                 <p>Total 100's</p>
               </div>
