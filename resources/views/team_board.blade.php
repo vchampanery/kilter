@@ -154,14 +154,14 @@
           </div>
           <!-- ./col -->
         </div>
-        <br>to start : {{$data['tostart']}}
+        <!-- <br>to start : {{$data['tostart']}}
         <br>to end : {{$data['toend']}}
         
         <br>from Today: {{$data['fromToday']}}
         <br>to Today : {{$data['toToday']}}
         
         <br>new to strat: {{$data['new_to_start']}}
-        <br>new to end : {{$data['new_to_end']}}
+        <br>new to end : {{$data['new_to_end']}} -->
         <!-- /.row -->
         <!-- Main row -->
         <div class="row">
