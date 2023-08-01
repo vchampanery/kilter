@@ -63,8 +63,7 @@
               <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
             </div>
           </div>
-        </div>
-        <div class="row">
+        
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
