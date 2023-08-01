@@ -16,7 +16,7 @@
       </div><!-- /.container-fluid -->
     </div>
      <!-- Main content -->
-    
+     <a href="{{url('/fetch_data/')}}/{{$data['id']}}/direct" class="btn btn-default"><i class="far fa-pull nav-icon"></i> Pull Your activity</a>
       <div class="container-fluid">
       @if ($message = Session::get('success'))
                         <div class="alert alert-success">
@@ -110,7 +110,7 @@
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
       
-      <a href="{{url('/fetch_data/')}}/{{$data['id']}}/direct" class="btn btn-default"><i class="far fa-pull nav-icon"></i> Pull Your activity</a>
+      
     <!-- <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> -->
     <!-- Summernote -->
