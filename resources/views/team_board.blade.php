@@ -95,7 +95,7 @@
             <!-- </div>
           </div> -->
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-2 col-6">
             <!-- small box -->
             <div class="small-box bg-primary">
               <div class="inner">
@@ -109,21 +109,21 @@
               <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
             </div>
           </div>
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-secondary">
-              <div class="inner">
-                <h3>{{number_format(3.6 *$data['fastest_ride'], 2)}}<sup style="font-size: 20px">Km/h</sup></h3>
+            <!-- <div class="col-lg-2 col-6">
 
-                <p>Fastest ride - {{$data['fastest_rider_name']}}  </p>
+              <div class="small-box bg-secondary">
+                <div class="inner">
+                  <h3>{{number_format(3.6 *$data['fastest_ride'], 2)}}<sup style="font-size: 20px">Km/h</sup></h3>
+
+                  <p>Fastest ride - {{$data['fastest_rider_name']}}  </p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
-            </div>
-          </div>
-          <div class="col-lg-3 col-6">
+            </div> -->
+          <div class="col-lg-2 col-6">
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
@@ -137,7 +137,7 @@
               <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
             </div>
           </div>
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-2 col-6">
             <!-- small box -->
             <div class="small-box bg-primary">
               <div class="inner">
@@ -151,7 +151,7 @@
               <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
             </div>
           </div>
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-2 col-6">
             <!-- small box -->
             <div class="small-box bg-secondary">
               <div class="inner">
@@ -165,7 +165,7 @@
               <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
             </div>
           </div>
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-2 col-6">
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
@@ -179,7 +179,7 @@
               <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
             </div>
           </div>
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-2 col-6">
             <!-- small box -->
             <div class="small-box bg-primary">
               <div class="inner">
@@ -568,7 +568,7 @@
           </section>
           <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-5 connectedSortable">
+          <section class="col-lg-12 connectedSortable">
 
             <!-- Map card -->
             <!-- <div class="card bg-gradient-primary">
@@ -709,7 +709,20 @@
               </div>
 
             </div> -->
-
+          <div class="row">
+            <div class="col-lg-12 col-12" style="display:flex;justify-content:center;">
+              <h4>Our sponsers</h4>
+            </div>
+            <div class="col-lg-4 col-12">
+            <img  width="100%" height="100%" src="{{asset('assets/sponser/ihj.png')}}">
+            </div>
+            <div class="col-lg-4 col-6">
+            <img  width="100%" height="100%" src="{{asset('assets/sponser/rjdp.png')}}">
+            </div>
+            <div class="col-lg-4 col-6">
+            <img  width="100%" height="100%" src="{{asset('assets/sponser/laa.png')}}">
+            </div>
+          </div>
           </section>
 
         </div>
