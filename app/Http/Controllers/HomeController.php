@@ -284,7 +284,9 @@ class HomeController extends Controller
      */
     public function personal_board(Request $request)
     {
+        
         $id = Auth::user()->id;
+
         $range['current_month'] = "Current Month";
         $range['today'] = "Today";
         $range['last_day'] = "Last Day";
@@ -351,7 +353,12 @@ class HomeController extends Controller
         $data['max_speed_ride'] = isset($userActi['max_speed'])?$userActi['max_speed']:0;
         $data['range'] = $range;
         $data['selectrange'] = 'currrent_month';
-        $data['id'] = $id;
+        if($id){
+            $data['myid'] = $id;    
+        }else{
+            return redirect()->route('login');
+        }
+        
 
         return view('personal_board')->with('data',$data);
     }

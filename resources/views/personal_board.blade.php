@@ -16,8 +16,10 @@
       </div><!-- /.container-fluid -->
     </div>
      <!-- Main content -->
-     <a href="{{url('/fetch_data/')}}/{{$data['id']}}/direct" class="btn btn-warning" style="    display: flex;
+     <?php if(isset($data['myid'])){ ?>
+     <a href="{{url('/fetch_data/')}}/{{$data['myid']}}/direct" class="btn btn-warning" style="    display: flex;
     justify-content: center;"><i class="far fa-pull nav-icon"></i> Pull Your Activity</a>
+    <?php } ?>
       <br>
       <div class="container-fluid">
       @if ($message = Session::get('success'))
