@@ -233,6 +233,11 @@ class StravaController extends Controller
         if($cron=="cron"){
             return true;
         }else{
+            $id = Auth::user()->id;
+            if($id == 7){
+                return redirect()->route('home.board')
+                ->with('success','Data pulled successfully');    
+            }
             return redirect()->route('home.personal_board')
         ->with('success','Data pulled successfully');
         }
