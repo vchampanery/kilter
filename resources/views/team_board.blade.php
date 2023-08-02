@@ -139,7 +139,7 @@
           </div>
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger">
+            <div class="small-box bg-primary">
               <div class="inner">
                 <h3>{{$data['total_200_ride']}}</h3>
 
@@ -153,7 +153,7 @@
           </div>
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger">
+            <div class="small-box bg-secondary">
               <div class="inner">
                 <h3>{{$data['total_100_ride']}}</h3>
 
@@ -167,7 +167,7 @@
           </div>
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger">
+            <div class="small-box bg-warning">
               <div class="inner">
                 <h3>{{$data['total_75_ride']}}</h3>
 
