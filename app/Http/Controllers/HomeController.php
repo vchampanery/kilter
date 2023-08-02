@@ -385,6 +385,9 @@ class HomeController extends Controller
         $data['fastest_rider_name']= '';
         $data['total_50_ride'] = 0;
         $data['total_100_ride']= 0;
+        $data['total_75_ride'] = 0;
+        $data['total_200_ride'] = 0;
+        $data['total_300_ride']= 0;
         
         //total rides
         $today = Carbon::today();
@@ -454,8 +457,16 @@ class HomeController extends Controller
         $maxRide = stravaactivity::select('user_id','distance')->whereBetween('start_date_local', [$to, $from])->where('type','Ride')->orderBy('distance','desc')->get();
         
         foreach($maxRide as $ride){
-            if($ride->distance >=100000){
+
+
+            if($ride->distance >=300000){
+                $data['total_300_ride'] =$data['total_300_ride']+1;
+            }elseif($ride->distance >=200000){
+                $data['total_200_ride'] =$data['total_200_ride']+1;
+            }elseif($ride->distance >=100000){
                 $data['total_100_ride'] =$data['total_100_ride']+1;
+            }elseif($ride->distance >=75000){
+                $data['total_75_ride'] =$data['total_75_ride']+1;
             }elseif($ride->distance >=50000){
                 $data['total_50_ride'] =$data['total_50_ride']+1;
             }
