@@ -7,7 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Models\Visitor;
+use App\Models\visitor;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
