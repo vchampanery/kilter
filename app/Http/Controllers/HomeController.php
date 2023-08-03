@@ -342,7 +342,7 @@ class HomeController extends Controller
 
                     $longest = stravaactivity::where('user_id', $id)
                     ->whereBetween('stravaactivity.start_date_local', [$to, $from])
-                    ->select( DB::raw('max(distance) as maxdist'))->first();
+                    ->select( DB::raw('max(distance) as maxdist'))->where('type','Ride')->first();
                     $max_speed = stravaactivity::where('user_id', $id)
                     ->whereBetween('stravaactivity.start_date_local', [$to, $from])
                     ->where('type','Ride')->max('max_speed');
