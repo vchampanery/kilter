@@ -1,6 +1,10 @@
 <ul class="navbar-nav">
     <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+        
+    </li>
+    <li>
+    <!-- <h4>Total visitor : {{App\Models\Visitor::getCount()}}</h4> -->
     </li>
     <!-- <li class="nav-item d-none d-sm-inline-block">
         <a href="index3.html" class="nav-link">Home</a>
@@ -8,6 +12,7 @@
     <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
     </li> -->
+    
 </ul>
 
 <!-- SEARCH FORM -->
@@ -28,7 +33,10 @@
         <!-- <a href="http://www.strava.com/oauth/authorize?
 client_id=75321&response_type=code&redirect_uri=
 https://kilter.fun/strava/getauth?approval_prompt=force&scope=activity:read" class="btn btn-outline-warning">Strava Connect</a> -->
+
+
 <a href="{{route('home.addgoal')}}"   class="btn btn-outline-warning">Add Goal</a>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Models\Visitor;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +18,20 @@ use App\Http\Controllers\Auth\LoginController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+$unique_ip = true;
+$visitors = Visitor::all();
+foreach($visitors as $visitor){
+    if(($visitor->ip_address == $_SERVER['REMOTE_ADDR']) && ($visitor->visitor_date == date('Y-m-d H:00:00'))) {
+        $unique_ip = false;
+    }
+}
+
+if($unique_ip == true){
+    $visitor = Visitor::create([
+        'ip_address' => $_SERVER['REMOTE_ADDR'],
+        'visitor_date' => date('Y-m-d H:00:00'),
+    ]);
+}
 
 Route::get('/', 'App\Http\Controllers\HomeController@personal_board')->name('home.personal_board');
 
