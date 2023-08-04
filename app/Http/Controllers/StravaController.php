@@ -482,11 +482,11 @@ class StravaController extends Controller
         if($today){
             $page = 1;
             
-            $before   = strtotime("-7 day 00:00:00");
+            $before  = strtotime("-7 day 00:00:00");
             $after   = strtotime("today 23:59:59");
             dump($before);
             dump($after);
-            
+            dd();
 
             // $date1 = new DateTime("now", new DateTimeZone('Asia/Kolkata'));
             // $before = $date1->format('Y-m-d 00:00:00');
