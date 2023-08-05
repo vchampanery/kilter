@@ -73,7 +73,13 @@
                     <td>{{number_format(3.6 *$v['average_speed'], 2)}}</td> 
                     <td>{{number_format(3.6 *$v['max_speed'], 2)}}</td>
                     <td><a href="{{url('/fetch_data/')}}/{{$v['id']}}/direct" class="btn btn-default"><i class="far fa-pull nav-icon"></i> Pull</a></td> -->
-                    <td>{{$v['name']}}</td>
+                    <?php if($v['strava_profile_link']){ ?>
+                      <td><a href="{{$v['strava_profile_link']}}" target='_blank' title="Strava link" >{{$v['name']}}</a></td>
+                    <?php } else {?>
+                      <td>{{$v['name']}}</td>
+                    <?php } ?>
+
+                    
                     <td>{{number_format($v['distance']/1000, 2)}}</td>
                     <td>{{$v['total_300']}}</td>
                     <td>{{$v['total_200']}}</td>

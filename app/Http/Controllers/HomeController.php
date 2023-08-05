@@ -98,7 +98,13 @@ class HomeController extends Controller
            // $username = User::where('id',$v->id)->first('name');
            // dd($username);
            $tempData['name'] = $uv['name'];
-           
+           //fetch your
+           $userAct = stravauser::select('raw_data')->where('user_id',$uv['id'])->first();
+           if($userAct){
+            $json = json_decode($userAct->raw_data);
+            $tempData['strava_profile_link']='https://www.strava.com/athletes/'+$json['id'];
+           }
+           //fetch your
            $userActi = stravaactivity::select(
             DB::raw("stravaactivity.user_id as id,
                     stravaactivity.distance,
