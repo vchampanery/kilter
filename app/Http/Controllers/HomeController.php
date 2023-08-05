@@ -103,8 +103,10 @@ class HomeController extends Controller
            if($userAct){
             $json = json_decode($userAct->raw_data);
             $tempData['strava_profile_link']="https://www.strava.com/athletes/$json->id";
+            $tempData['strava_profile_pic']=$json->profile_medium;
            }else{
             $tempData['strava_profile_link']='';
+            $tempData['strava_profile_pic']='';
            }
            //fetch your
            $userActi = stravaactivity::select(

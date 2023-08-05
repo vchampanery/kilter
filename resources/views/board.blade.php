@@ -40,7 +40,7 @@
       <div class="container-fluid">
         <div class="row">
         <div class="col-lg-12">
-          
+          <div class="table-responsive">
             <table id="activityTable">
               <thead>
                 <th>Name</th>
@@ -74,7 +74,14 @@
                     <td>{{number_format(3.6 *$v['max_speed'], 2)}}</td>
                     <td><a href="{{url('/fetch_data/')}}/{{$v['id']}}/direct" class="btn btn-default"><i class="far fa-pull nav-icon"></i> Pull</a></td> -->
                     <?php if($v['strava_profile_link']){ ?>
-                      <td><a href="{{$v['strava_profile_link']}}" target='_blank' title="Strava link" >{{$v['name']}}</a></td>
+                      <td>
+                      <div class="image" style="">
+                      <?php if($v['strava_profile_pic']){ ?>
+                          <img width='30px' height="30px"  src="{{$v['strava_profile_pic']}}" class="" alt="User Image">
+                      <?php }?>
+                      <a href="{{$v['strava_profile_link']}}" target='_blank' title="Strava link" >{{$v['name']}}</a></td>  
+                      </div>
+                        
                     <?php } else {?>
                       <td>{{$v['name']}}</td>
                     <?php } ?>
@@ -107,7 +114,7 @@
                 @endforeach
               </tbody>
             </table>
-
+          </div>
 
         </div>
         </div>
