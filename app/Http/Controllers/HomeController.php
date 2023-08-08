@@ -210,7 +210,7 @@ class HomeController extends Controller
             ->whereDate('start_date_local', '=', date('Y-m-d'))->where('type','Ride')->first('distance');
             
             $tempData['id'] = $v->id;
-            $tempData['name'] = $username['name'];
+            $tempData['name'] = isset($username['name'])?$username['name']:"";
             $tempData['goal'] = isset($goal['goal'])?$goal['goal']:0;
             $tempData['todayData'] = isset($todayData['distance'])?$todayData['distance']:0;
             $tempData['distance'] = $v->distance;
