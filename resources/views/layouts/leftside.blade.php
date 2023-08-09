@@ -40,7 +40,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('/first_page')}}" class="nav-link @if(app('request')->route()->uri() == 'first_page') active @endif">
+                        <a href="{{url('/activity')}}" class="nav-link @if(app('request')->route()->uri() == 'activity/{id?}') active @endif">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Activity</p>
                         </a>

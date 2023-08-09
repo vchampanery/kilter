@@ -47,13 +47,27 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function first_page()
+    public function first_page($id=null)
     {
-        $id = Auth::user()->id;
+        if(!$id){
+            $id = Auth::user()->id;
+        }
+        
         
         $userId = stravaactivity::where('user_id',$id)->where('type','Ride')->get();
         
         return view('first_page')->with('useractivity',$userId);
+    }
+    public function activity($id=null)
+    {
+        if(!$id){
+            $id = Auth::user()->id;
+        }
+        
+        
+        $userId = stravaactivity::where('user_id',$id)->where('type','Ride')->get();
+        
+        return view('activity')->with('useractivity',$userId);
     }
     /**
      * Show the application dashboard.

@@ -60,7 +60,8 @@ Route::get('/searchboarddata', 'App\Http\Controllers\StravaController@searchboar
 Route::get('/fetch_data/{id}/{cron}', 'App\Http\Controllers\StravaController@fetch_data')->name('home.fetch_data');
 
 
-Route::get('/first_page', 'App\Http\Controllers\HomeController@first_page')->name('home.first_page');
+// Route::get('/first_page/{id?}', 'App\Http\Controllers\HomeController@first_page')->name('home.first_page');
+Route::get('/activity/{id?}', 'App\Http\Controllers\HomeController@activity')->name('home.activity');
 Route::get('/board', 'App\Http\Controllers\HomeController@board')->name('home.board');
 Route::get('/goal_board', 'App\Http\Controllers\HomeController@goalboard')->name('home.goal_board');
 Route::any('/addgoal', 'App\Http\Controllers\HomeController@addgoal')->name('home.addgoal');
