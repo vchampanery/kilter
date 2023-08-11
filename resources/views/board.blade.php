@@ -44,6 +44,7 @@
             <table id="activityTable">
               <thead>
                 <th>Name</th>
+                <th>Rank#</th>
                 
                 <!-- <th>Total Rides </th>
                 <th>Distance (km)</th>
@@ -65,6 +66,7 @@
                 @endif
               </thead>
               <tbody>
+                @php $i=0; @endphp
                 @foreach($useractivity as $k=>$v)
                   <tr>
                     <!-- <td>{{$v['name']}}</td>
@@ -86,7 +88,7 @@
                       <td>{{$v['name']}}</td>
                     <?php } ?>
 
-                    
+                    <td>{{++$i}}</td>
                     <td>{{number_format($v['distance']/1000, 2)}}</td>
                     <td>{{$v['total_300']}}</td>
                     <td>{{$v['total_200']}}</td>
@@ -128,7 +130,9 @@
     <script type="text/javascript" class="init">
       
  $(document).ready(function() {
-    $('#activityTable').DataTable();
+    $('#activityTable').DataTable('#activityTable',{
+      order: [3, 'desc']
+    });
    
     $('input[name="dates"]').daterangepicker();
 } );
