@@ -131,7 +131,7 @@
       
  $(document).ready(function() {
     $('#activityTable').DataTable('#activityTable',{
-      order: [3, 'desc']
+      order: [2, 'desc']
     });
    
     $('input[name="dates"]').daterangepicker();
