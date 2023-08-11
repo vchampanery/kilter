@@ -44,7 +44,7 @@
             <table id="activityTable">
               <thead>
                 <th>Name</th>
-                <th>Rank#</th>
+                <!-- <th>Rank#</th> -->
                 
                 <!-- <th>Total Rides </th>
                 <th>Distance (km)</th>
@@ -88,7 +88,7 @@
                       <td>{{$v['name']}}</td>
                     <?php } ?>
 
-                    <td>{{++$i}}</td>
+                    <!-- <td>{{++$i}}</td> -->
                     <td>{{number_format($v['distance']/1000, 2)}}</td>
                     <td>{{$v['total_300']}}</td>
                     <td>{{$v['total_200']}}</td>
@@ -131,7 +131,7 @@
       
  $(document).ready(function() {
     $('#activityTable').DataTable('#activityTable',{
-      order: [2, 'desc']
+      order: [1, 'desc']
     });
    
     $('input[name="dates"]').daterangepicker();
