@@ -131,7 +131,11 @@
       
  $(document).ready(function() {
     $('#activityTable').DataTable('#activityTable',{
-      order: [1, 'desc']
+      order: [2, 'desc'],
+      // drawCallback: function () {
+      // api = this.api();
+      // var arr = api.columns(2).data()[0];  //get array of column 3 (extn)
+      // console.log(arr);}
     });
    
     $('input[name="dates"]').daterangepicker();
