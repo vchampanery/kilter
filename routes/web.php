@@ -21,16 +21,16 @@ use App\Models\visitor;
 $unique_ip = true;
 $visitors = Visitor::all();
 foreach($visitors as $visitor){
-    if(($visitor->ip_address == $_SERVER['REMOTE_ADDR']) && ($visitor->visitor_date == date('Y-m-d H:00:00'))) {
-        $unique_ip = false;
-    }
+    // if(($visitor->ip_address == $_SERVER['REMOTE_ADDR']) && ($visitor->visitor_date == date('Y-m-d H:00:00'))) {
+    //     $unique_ip = false;
+    // }
 }
 
 if($unique_ip == true){
-    $visitor = Visitor::create([
-        'ip_address' => $_SERVER['REMOTE_ADDR'],
-        'visitor_date' => date('Y-m-d H:00:00'),
-    ]);
+    // $visitor = Visitor::create([
+    //     'ip_address' => $_SERVER['REMOTE_ADDR'],
+    //     'visitor_date' => date('Y-m-d H:00:00'),
+    // ]);
 }
 
 Route::get('/', 'App\Http\Controllers\HomeController@personal_board')->name('home.personal_board');
@@ -56,6 +56,8 @@ Route::get('/updatedefualtpassword/{id}', 'App\Http\Controllers\StravaController
 Route::get('/getdatabycron/{start}/{end}', 'App\Http\Controllers\StravaController@getdatabycron')->name('home.getdatabycron');
 Route::get('/searchboarddata', 'App\Http\Controllers\StravaController@searchboarddata')->name('home.searchboarddata');
 
+Route::get('/profile', 'App\Http\Controllers\UserController@profile')->name('user.profile');
+
 
 Route::get('/fetch_data/{id}/{cron}', 'App\Http\Controllers\StravaController@fetch_data')->name('home.fetch_data');
 
@@ -78,6 +80,9 @@ Route::get('/testjson', 'App\Http\Controllers\HomeController@testjson')->name('h
 
 
 Route::get('/strava/getauth', 'App\Http\Controllers\StravaController@getAuth')->name('strava.getAuth');
+Route::get('/file-import', 'App\Http\Controllers\UserController@importView')->name('import-view');
+Route::post('/import', 'App\Http\Controllers\UserController@import')->name('import');
+Route::get('/export-users', 'App\Http\Controllers\UserController@exportUsers')->name('export-users');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -93,3 +98,11 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 Route::get('/hometest', 'App\Http\Controllers\HomeController@hometest')->name('home.hometest');
+
+
+// Route::get('',[UserController::class,
+// 'importView'])->name('import-view');
+// Route::post('/import',[UserController::class,
+// 'import'])->name('import');
+// Route::get('/export-users',[UserController::class,
+// 'exportUsers'])->name('export-users');

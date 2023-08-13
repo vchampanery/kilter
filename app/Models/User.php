@@ -22,6 +22,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'chapter',
+        'strava_link',
+        'mobile',
+        'state',
+        'city',
+        'facebook',
+        'instagram',
+        'gender',
     ];
 
     /**

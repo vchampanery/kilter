@@ -1,15 +1,19 @@
 <?php
     
 namespace App\Http\Controllers;
-    
+
+use App\Exports\ExportUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Imports\ImportUser;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Hash;
 use Illuminate\Support\Arr;
-    
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+
 class UserController extends Controller
 {
     /**
@@ -24,6 +28,7 @@ class UserController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
     
+
     /**
      * Show the form for creating a new resource.
      *
@@ -131,5 +136,28 @@ class UserController extends Controller
         User::find($id)->delete();
         return redirect()->route('users.index')
                         ->with('success','User deleted successfully');
+    }
+
+    public function profile(Request $request){
+        $user = Auth::user();
+       
+       
+        $data['page']='profile';
+        $data['user']=$user;
+        return view('users.profile',compact('data'));
+    }
+
+    public function importView(Request $request){
+        return view('importFile');
+    }
+ 
+    public function import(Request $request){
+        Excel::import(new ImportUser,
+                      $request->file('file')->store('files'));
+        return redirect()->back();
+    }
+ 
+    public function exportUsers(Request $request){
+        return Excel::download(new ExportUser, 'users.xlsx');
     }
 }
