@@ -140,6 +140,7 @@ class UserController extends Controller
     }
 
     public function profile($id=null){
+        
         if(!$id){
             $user = Auth::user();
         }else{
