@@ -2,10 +2,12 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
+            <a href="{{url('/profile')}}">
             <img src="{{ Session::has('profile_pic')?Session::get('profile_pic'):asset('assets/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+            </a>
         </div>
         <div class="info">
-            <a href="#" class="d-block">
+            <a href="{{url('/profile')}}" class="d-block">
             {{ Session::get('userName')}}
             </a>
         </div>

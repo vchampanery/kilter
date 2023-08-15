@@ -6,6 +6,7 @@ use App\Exports\ExportUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Imports\ImportUser;
+use App\Models\stravauser;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
@@ -138,10 +139,28 @@ class UserController extends Controller
                         ->with('success','User deleted successfully');
     }
 
-    public function profile(Request $request){
-        $user = Auth::user();
-       
-       
+    public function profile($id=null){
+        if(!$id){
+            $user = Auth::user();
+        }else{
+            $user = User::where('id',$id)->first();
+        }
+        //  get profile pic
+        $stravaUser = stravauser::where('user_id',$user->id)->first();
+        $json = json_decode($stravaUser->raw_data);
+
+        // $data['strava_profile_link']=null;
+        // $data['profile_pic']=null;
+        // if($json){
+        //     $data['strava_profile_link']=isset($json->id)?"https://www.strava.com/athletes/$json->id":null;
+        //     $data['profile_pic']=
+        // }
+        
+        
+        //  activitys 
+        //  achievements
+        $data =[];
+        $data['profile_pic']=isset($json->profile)?$json->profile:null;;
         $data['page']='profile';
         $data['user']=$user;
         return view('users.profile',compact('data'));
