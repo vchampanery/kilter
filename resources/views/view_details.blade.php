@@ -41,13 +41,7 @@
                       <div class="image" style="">
                       <?php if($v['strava_profile_pic']){ 
                         
-                        try{
-                          $img = 'myproject.dev/image.jpg';
-                          $test_img = file_get_contents($v['strava_profile_pic']);
-                          echo "<img src='{$img}'>";
-                      }catch(Exception $e){
-                          echo "<img src='img/no-img.jpg'>";
-                      }
+                        
                         
                         ?>
                           <img width='30px' height="30px"  src="{{$v['strava_profile_pic']}}" class="" alt="User Image">
