@@ -69,6 +69,142 @@ class HomeController extends Controller
         
         return view('activity')->with('useractivity',$userId);
     }
+    public function viewdetail($listdata)
+    {
+        //start and end of the month
+        $today = Carbon::today();
+        // $to = \Carbon\Carbon::createFromFormat('d', $today);
+        
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
+        $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
+        if($listdata=='totalride'){
+            $totalList = stravaactivity::select( DB::raw('COUNT(*) as total'),'user_id')
+            ->where('type','Ride')
+            ->groupBy('user_id')
+            ->orderBy('total','desc')
+            ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+            ->get()->toArray();
+        }
+        if($listdata=='totalkms'){
+            $totalList = stravaactivity::select( DB::raw(' round(sum(distance/1000),2) as total'),'user_id')
+            ->where('type','Ride')
+            ->groupBy('user_id')
+            ->orderBy('total','desc')
+            ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+            ->get()->toArray();
+        }
+        if($listdata=='totalkmsavg'){
+            $numberOfdays= $today->format('d');
+            $totalList = stravaactivity::select( DB::raw(" round(sum(distance/1000)/$numberOfdays,2) as total"),'user_id')
+            ->where('type','Ride')
+            ->groupBy('user_id')
+            ->orderBy('total','desc')
+            ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+            ->get()->toArray();
+        }
+        if($listdata=='highestkms'){
+            $numberOfdays= $today->format('d');
+            $totalList = stravaactivity::select( DB::raw(" round(max(distance/1000),2) as total"),'user_id')
+            ->where('type','Ride')
+            ->groupBy('user_id')
+            ->orderBy('total','desc')
+            ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+            ->get()->toArray();
+        }
+        if($listdata=='300kms'){
+            $numberOfdays= $today->format('d');
+            $totalList = stravaactivity::select( DB::raw(" round(distance/1000,2) as total"),'user_id')
+            ->where('type','Ride')
+            ->where('distance','>','300000')
+            // ->groupBy('user_id')
+            ->orderBy('total','desc')
+            ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+            ->get()->toArray();
+        }
+        if($listdata=='200kms'){
+            $numberOfdays= $today->format('d');
+            $totalList = stravaactivity::select( DB::raw(" round(distance/1000,2) as total"),'user_id')
+            ->where('type','Ride')
+            ->where('distance','<','300000')
+            ->where('distance','>=','200000')
+            // ->groupBy('user_id')
+            ->orderBy('total','desc')
+            ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+            ->get()->toArray();
+        }
+        if($listdata=='200kms'){
+            $numberOfdays= $today->format('d');
+            $totalList = stravaactivity::select( DB::raw(" round(distance/1000,2) as total"),'user_id')
+            ->where('type','Ride')
+            ->where('distance','<','300000')
+            ->where('distance','>=','200000')
+            // ->groupBy('user_id')
+            ->orderBy('total','desc')
+            ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+            ->get()->toArray();
+        }
+        if($listdata=='100kms'){
+            $numberOfdays= $today->format('d');
+            $totalList = stravaactivity::select( DB::raw(" round(distance/1000,2) as total"),'user_id')
+            ->where('type','Ride')
+            ->where('distance','<','200000')
+            ->where('distance','>=','100000')
+            // ->groupBy('user_id')
+            ->orderBy('total','desc')
+            ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+            ->get()->toArray();
+        }
+        if($listdata=='75kms'){
+            $numberOfdays= $today->format('d');
+            $totalList = stravaactivity::select( DB::raw(" round(distance/1000,2) as total"),'user_id')
+            ->where('type','Ride')
+            ->where('distance','<','100000')
+            ->where('distance','>=','75000')
+            // ->groupBy('user_id')
+            ->orderBy('total','desc')
+            ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+            ->get()->toArray();
+        }
+        if($listdata=='50kms'){
+            $numberOfdays= $today->format('d');
+            $totalList = stravaactivity::select( DB::raw(" round(distance/1000,2) as total"),'user_id')
+            ->where('type','Ride')
+            ->where('distance','<','75000')
+            ->where('distance','>=','50000')
+            // ->groupBy('user_id')
+            ->orderBy('total','desc')
+            ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+            ->get()->toArray();
+        }
+
+        $data =[];
+        foreach($totalList as $tlkey => $tlvalue){
+            $temp = [];
+            $temp['user_id']=$tlvalue['user_id'];
+            //user detail
+            $userAct = stravauser::select('raw_data')->where('user_id',$tlvalue['user_id'])->first();
+            $temp1 = User::select('name')->where('id',$tlvalue['user_id'])->first(['name']);
+            $temp['name']= isset($temp1->name)?$temp1->name:'';
+
+           if($userAct){
+            $json = json_decode($userAct->raw_data);
+
+            $temp['strava_profile_link']="https://www.strava.com/athletes/$json->id";
+            $temp['strava_profile_pic']=isset($json->profile_medium)?$json->profile_medium:'';
+            // $temp['name']=isset($json->firstname)?$json->firstname:''.''. isset($json->lastname)?$json->lastname:'' ;
+           }else{
+            $temp['strava_profile_link']='';
+            $temp['strava_profile_pic']='';
+           }
+            $temp['total']=$tlvalue['total'];
+            $data[]=$temp;
+        }
+        
+        
+        
+        
+        return view('view_details')->with('useractivity',$data)->with('type',$listdata);
+    }
     /**
      * Show the application dashboard.
      *
@@ -413,6 +549,7 @@ class HomeController extends Controller
         $data['total_200_ride'] = 0;
         $data['total_300_ride']= 0;
         
+        
         //total rides
         $today = Carbon::today();
         $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
@@ -495,6 +632,7 @@ class HomeController extends Controller
                 $data['total_50_ride'] =$data['total_50_ride']+1;
             }
         }
+
         return view('team_board')->with('data',$data);
 
 

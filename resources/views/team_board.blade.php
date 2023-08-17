@@ -31,7 +31,7 @@
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+              <a href="{{url('/viewdetail/totalride')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -46,7 +46,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+              <a href="{{url('/viewdetail/totalkms')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-3 col-6">
@@ -60,7 +60,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+              <a href="{{url('/viewdetail/totalkmsavg')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
         
@@ -77,7 +77,7 @@
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+              <a href="{{url('/viewdetail/totalkms')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- <div class="col-lg-3 col-6"> -->
@@ -106,7 +106,7 @@
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+              <a href="{{url('/viewdetail/highestkms')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
             <!-- <div class="col-lg-2 col-6">
@@ -134,7 +134,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+              <a href="{{url('/viewdetail/300kms')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-3 col-6">
@@ -148,7 +148,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+              <a href="{{url('/viewdetail/200kms')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-3 col-6">
@@ -162,7 +162,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+              <a href="{{url('/viewdetail/100kms')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-3 col-6">
@@ -176,7 +176,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+              <a href="{{url('/viewdetail/75kms')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-3 col-6">
@@ -190,7 +190,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+              <a href="{{url('/viewdetail/50kms')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
