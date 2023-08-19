@@ -6,6 +6,7 @@ use App\Exports\ExportUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Imports\ImportUser;
+use App\Models\stravaactivity;
 use App\Models\stravauser;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
@@ -140,7 +141,10 @@ class UserController extends Controller
     }
 
     public function profile($id=null){
-        
+        $today = \Carbon\Carbon::today();
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
+        $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
+
         if(!$id){
             $user = Auth::user();
         }else{
@@ -157,10 +161,44 @@ class UserController extends Controller
         //     $data['profile_pic']=
         // }
         
-        
-        //  activitys 
-        //  achievements
+        //activities start
         $data =[];
+        $data['30']=0;
+        $data['50']=0;
+        $data['100']=0;
+        $data['highest']=0;
+        $data['total']=0;
+        $data['lastActivity']=0;
+
+        $sActivity = stravaactivity::where('user_id',$user->id)
+        ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+        ->get();
+        $data['lastActivity']=stravaactivity::where('user_id',$user->id)
+        ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+        ->orderBy('stravaactivity.start_date_local', 'desc')
+        ->limit(5)
+        ->get(); 
+        // dd($data['lastActivity']);
+
+
+
+
+        foreach($sActivity as $keyActy=>$vluActy){
+            // dd($vluActy['distance']);
+            if($vluActy['distance']>100000){
+                $data['100']+=1;
+            }elseif($vluActy['distance']>50000){
+                $data['50']+=1;
+            }elseif($vluActy['distance']>30000){
+                $data['30']+=1;
+            }
+            //highest
+            if($vluActy['distance']>$data['highest']){
+                $data['highest'] = $vluActy['distance'];
+            }
+            $data['total'] += $vluActy['distance'];
+        }
+        
         $data['profile_pic']=isset($json->profile)?$json->profile:null;;
         $data['page']='profile';
         $data['user']=$user;

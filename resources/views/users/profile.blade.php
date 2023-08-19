@@ -61,7 +61,7 @@
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <!-- <i class="fas fa-globe fa-lg text-warning"></i> -->
                 <i class="fab fa-strava fa-lg " style="color: #fc5200;"></i>
-                <p class="mb-0"><a target="_blank" href="{{isset($data['user']->strava_link)?$data['user']->strava_link:'#'}}">{{isset($data['user']->strava_link)?$data['user']->strava_link:'-'}}</a></p>
+                <p class="mb-0"><a target="_blank" href="{{isset($data['user']->strava_link)?$data['user']->strava_link:'#'}}">{{isset($data['user']->strava_link)?'strava':'-'}}</a></p>
               </li>
               <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <i class="fab fa-github fa-lg" style="color: #333333;"></i>
@@ -129,28 +129,27 @@
               <div class="card-body">
                 <p class="mb-4"><span class="text-primary font-italic me-1">Achivements</span>
                 </p>
-                <p class="mb-1" style="font-size: .77rem;">30's</p>
-                
+                <p class="mb-1" style="font-size: .77rem;">30's <span style="float: right;">{{$data['30']}}</span></p>
                 <div class="progress rounded" style="height: 5px;">
                   <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
                     aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <p class="mt-4 mb-1" style="font-size: .77rem;">50's</p>
+                <p class="mt-4 mb-1" style="font-size: .77rem;">50's <span style="float: right;">{{$data['50']}}</span></p>
                 <div class="progress rounded" style="height: 5px;">
                   <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
                     aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <p class="mt-4 mb-1" style="font-size: .77rem;">100's</p>
+                <p class="mt-4 mb-1" style="font-size: .77rem;">100's <span style="float: right;">{{$data['100']}}</span></p>
                 <div class="progress rounded" style="height: 5px;">
                   <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
                     aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <p class="mt-4 mb-1" style="font-size: .77rem;">Highest</p>
+                <p class="mt-4 mb-1" style="font-size: .77rem;">Highest <span style="float: right;"> {{number_format($data['highest']/1000, 2)}} Kms</span></p>
                 <div class="progress rounded" style="height: 5px;">
                   <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
                     aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <p class="mt-4 mb-1" style="font-size: .77rem;">Total</p>
+                <p class="mt-4 mb-1" style="font-size: .77rem;">Total <span style="float: right;">{{number_format($data['total']/1000, 2)}} Kms</span></p>
                 <div class="progress rounded mb-2" style="height: 5px;">
                   <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
                     aria-valuemin="0" aria-valuemax="100"></div>
@@ -163,12 +162,18 @@
               <div class="card-body">
                 <p class="mb-4"><span class="text-primary font-italic me-1">Recent</span>Activities
                 </p>
-                <p class="mb-1" style="font-size: .77rem;">Web Design</p>
+                @foreach($data['lastActivity'] as $k=>$v)
+                
+                <p class="mt-4 mb-1" style="font-size: .77rem;">{{date('d-M-y', strtotime($v['start_date_local']))}} 
+                <span style="float: right;">{{number_format($v['distance']/1000, 2)}} Kms</span></p>
                 <div class="progress rounded" style="height: 5px;">
                   <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
                     aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
+                @endforeach
+                @php $url = "/activity/".$data['user']->id; @endphp
+                <a href="{{url($url)}}" target="_blank">more....</a>
+                <!-- <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
                 <div class="progress rounded" style="height: 5px;">
                   <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
                     aria-valuemin="0" aria-valuemax="100"></div>
@@ -187,7 +192,7 @@
                 <div class="progress rounded mb-2" style="height: 5px;">
                   <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
                     aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
