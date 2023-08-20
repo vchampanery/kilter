@@ -50,7 +50,7 @@ class StravaController extends Controller
         //1. fetch personal data
             $this->pullUserData($request);
         //2. fetch activity data
-            $this->pullActivityData(null,$request);
+            $this->pullActivityData(null,null,$request);
         //
         return redirect()->route('home.personal_board')
         ->with('success','Data pulled successfully');
@@ -230,7 +230,7 @@ class StravaController extends Controller
         if($cron == 'admin'){
             $current = 'admin';
         }
-        $this->getAthleteActivityData($api,$current,$id);
+        $this->getAthleteActivityData($api,$current,$id,null);
 
 
         if($cron=="cron"){
@@ -353,7 +353,7 @@ class StravaController extends Controller
         // return redirect()->route('home.first_page'); 
         
     }
-    public function pullActivityData($id=null,Request $request){
+    public function pullActivityData($id=null,$year=null,Request $request){
 
         if(!$id){
             $id = Auth::user()->id;
@@ -399,7 +399,7 @@ class StravaController extends Controller
         // $this->getAthleteData($api);
         
         //get athleteActivity
-        $this->getAthleteActivityData($api,null,$id);
+        $this->getAthleteActivityData($api,null,$id,$year);
         return true;
         // return redirect()->route('home.first_page'); 
         // return "pullActivityData";
@@ -484,7 +484,7 @@ class StravaController extends Controller
         return $i;
     }
 
-    public function getAthleteActivityData($api,$today=null,$id=null){
+    public function getAthleteActivityData($api,$today=null,$id=null,$year=null){
 
         if($today){
                 if($today=='admin'){
@@ -522,6 +522,14 @@ class StravaController extends Controller
             // dd($return);
         }else{
             $page = 1;
+            // start and end
+            if(!$year){
+                $year ='Y';
+            }
+            $before = strtotime(date("$year-m-01 00:00:00")); // == 1338534000
+            $after = strtotime(date("$year-m-31 23:59:59")); // == 1338534000
+            dump("start : ".date("$year-m-01 00:00:00"));
+            dump("end : ".date("$year-m-31 23:59:59"));
             $data = $this->getActivitAth($api,$page,10);
 
             $return  = $this->getsavedata($data,$id);
