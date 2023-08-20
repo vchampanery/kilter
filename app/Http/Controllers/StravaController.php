@@ -50,7 +50,7 @@ class StravaController extends Controller
         //1. fetch personal data
             $this->pullUserData($request);
         //2. fetch activity data
-            $this->pullActivityData($request);
+            $this->pullActivityData(null,$request);
         //
         return redirect()->route('home.personal_board')
         ->with('success','Data pulled successfully');
@@ -353,8 +353,12 @@ class StravaController extends Controller
         // return redirect()->route('home.first_page'); 
         
     }
-    public function pullActivityData(Request $request){
+    public function pullActivityData($id=null,Request $request){
 
+        if(!$id){
+            $id = Auth::user()->id;
+        }        
+        
         $api = new StravaApi(
             75321,
             'c3449a4896e4de279405aa2e86c4e5040fed5a75'
@@ -372,7 +376,7 @@ class StravaController extends Controller
             echo date('m/d/Y', $expiresAt);
             // dump($expiresAt);
             // exit;
-            $id = Auth::user()->id;
+            
             $sua= $this->refreshToken($id);
             $accessToken = $sua['accessToken'];// Session::get('accessToken');
             $refreshToken = $sua['refreshToken'];//Session::get('refreshToken');
@@ -523,6 +527,7 @@ class StravaController extends Controller
             $return  = $this->getsavedata($data,$id);
             
             while($return == 10){
+                dump("return : ".$return);
                 ++$page;
                 $data = $this->getActivitAth($api,$page,10);
                 $return  = $this->getsavedata($data,$id);
