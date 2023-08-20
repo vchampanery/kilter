@@ -433,9 +433,9 @@ class StravaController extends Controller
         if(!$after){
             $after = strtotime(date('Y-m-31 00:00:00')); // == 1338534000
         }
-        // dump($before);
-        // dump($after);
-        // dd();
+        dump($before);
+        dump($after);
+        dd();
         try{
 
         
