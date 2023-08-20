@@ -154,12 +154,12 @@ class UserController extends Controller
         $stravaUser = stravauser::where('user_id',$user->id)->first();
         $json = json_decode($stravaUser->raw_data);
 
-        // $data['strava_profile_link']=null;
-        // $data['profile_pic']=null;
-        // if($json){
-        //     $data['strava_profile_link']=isset($json->id)?"https://www.strava.com/athletes/$json->id":null;
-        //     $data['profile_pic']=
-        // }
+        $data['strava_profile_link']=null;
+        
+        if($json){
+            $data['strava_profile_link']=isset($json->id)?"https://www.strava.com/athletes/$json->id":null;
+            
+        }
         
         //activities start
         $data =[];

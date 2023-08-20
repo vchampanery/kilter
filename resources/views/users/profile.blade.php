@@ -61,7 +61,7 @@
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <!-- <i class="fas fa-globe fa-lg text-warning"></i> -->
                 <i class="fab fa-strava fa-lg " style="color: #fc5200;"></i>
-                <p class="mb-0"><a target="_blank" href="{{isset($data['user']->strava_link)?$data['user']->strava_link:'#'}}">{{isset($data['user']->strava_link)?'strava':'-'}}</a></p>
+                <p class="mb-0"><a target="_blank" href="{{isset($data['strava_profile_link'])?$data['strava_profile_link']:'#'}}">{{isset($data['strava_profile_link'])?'strava':'-'}}</a></p>
               </li>
               <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <i class="fab fa-github fa-lg" style="color: #333333;"></i>
