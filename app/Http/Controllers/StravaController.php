@@ -526,10 +526,10 @@ class StravaController extends Controller
             if(!$year){
                 $year ='Y';
             }
-            $before = strtotime(date("$year-m-01 00:00:00")); // == 1338534000
-            $after = strtotime(date("$year-m-31 23:59:59")); // == 1338534000
-            dump("start : ".date("$year-m-01 00:00:00"));
-            dump("end : ".date("$year-m-31 23:59:59"));
+            $before = strtotime(date("$year-1-01 00:00:00")); // == 1338534000
+            $after = strtotime(date("$year-12-31 23:59:59")); // == 1338534000
+            dump("start : ".date("$year-1-01 00:00:00"));
+            dump("end : ".date("$year-12-31 23:59:59"));
             $data = $this->getActivitAth($api,$page,10);
 
             $return  = $this->getsavedata($data,$id);
