@@ -227,6 +227,9 @@ class StravaController extends Controller
         //get athleteActivity
         $current = 'today';
         
+        if($cron == 'admin'){
+            $current = 'admin';
+        }
         $this->getAthleteActivityData($api,$current,$id);
 
 
@@ -480,20 +483,38 @@ class StravaController extends Controller
     public function getAthleteActivityData($api,$today=null,$id=null){
 
         if($today){
-            $page = 1;
-            
-            $before  = strtotime("-10 day 00:00:00");
-            $after   = strtotime("today 23:59:59");
-            dump($before);
-            dump($after);
-            // dd();
+                if($today=='admin'){
+                    $before  = strtotime("-31 day 00:00:00");
+                    $after   = strtotime("today 23:59:59");
+                    $page = 1; 
+                    $data = $this->getActivitAth($api,$page,10,$before,$after);
+                    $return  = $this->getsavedata($data,$id);
+                    
+                    while($return == 10){
+                        ++$page;
+                        dump("return:".$return);
+                        $data = $this->getActivitAth($api,$page,10,$before,$after);
+                        $return  = $this->getsavedata($data,$id);
+                    }
 
-            // $date1 = new DateTime("now", new DateTimeZone('Asia/Kolkata'));
-            // $before = $date1->format('Y-m-d 00:00:00');
-            // $after = $date1->format('Y-m-d 23:59:59');
-            $data = $this->getActivitAth($api,$page,10,$before,$after);
+                } else {
+                    $page = 1;
+                
+                    $before  = strtotime("-10 day 00:00:00");
+                    $after   = strtotime("today 23:59:59");
+                    dump($before);
+                    dump($after);    
+                    $data = $this->getActivitAth($api,$page,10,$before,$after);
+                    $return  = $this->getsavedata($data,$id);
+                }
+                // dd();
+
+                // $date1 = new DateTime("now", new DateTimeZone('Asia/Kolkata'));
+                // $before = $date1->format('Y-m-d 00:00:00');
+                // $after = $date1->format('Y-m-d 23:59:59');
+                
             
-            $return  = $this->getsavedata($data,$id);
+
             // dd($return);
         }else{
             $page = 1;
