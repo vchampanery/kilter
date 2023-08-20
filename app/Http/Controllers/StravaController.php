@@ -483,7 +483,7 @@ class StravaController extends Controller
             $page = 1;
             
             $before  = strtotime("-21 day 00:00:00");
-            $after   = strtotime("-15 day 23:59:59");
+            $after   = strtotime("-12 day 23:59:59");
             dump($before);
             dump($after);
             // dd();
