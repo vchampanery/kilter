@@ -399,7 +399,7 @@ class StravaController extends Controller
         // $this->getAthleteData($api);
         
         //get athleteActivity
-        $this->getAthleteActivityData($api);
+        $this->getAthleteActivityData($api,null,$id);
         return true;
         // return redirect()->route('home.first_page'); 
         // return "pullActivityData";

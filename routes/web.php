@@ -76,7 +76,7 @@ Route::get('/register', 'App\Http\Controllers\RegisterController@index')->name('
 // Route::get('/second_page', 'App\Http\Controllers\HomeController@second_page')->name('home.second_page');
 Route::get('/auth_page', 'App\Http\Controllers\StravaController@auth_page')->name('home.auth_page');
 Route::get('/pulluserdata', 'App\Http\Controllers\StravaController@pullUserData')->name('home.pulluserdata');
-Route::get('/pullactivitydata', 'App\Http\Controllers\StravaController@pullActivityData')->name('home.pullActivityData');
+Route::get('/pullactivitydata/{id?}', 'App\Http\Controllers\StravaController@pullActivityData')->name('home.pullActivityData');
 Route::get('/testjson', 'App\Http\Controllers\HomeController@testjson')->name('home.testjson');
 
 
