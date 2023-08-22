@@ -225,6 +225,125 @@ class HomeController extends Controller
 
         return view('auth/reset_password');
     }
+    public function sacc2023(){
+        $data['name']='viral';
+        $data['total']='230000';
+        $data['300']='2';
+        $data['200']='1';
+        $data['100']='4';
+        $data['total100']='1';
+        $data['75']='5';
+        $data['total75']='2';
+        $data['50']='21';
+        $data['total50']='12';
+        $temps[]=$data;
+        $temps[]=$data;
+        $dateS = Carbon::now()->startOfMonth();
+        $dateE = Carbon::now()->endOfMonth();
+        $users = User::all();
+        $temps = [];
+        $total=[];
+        $total['3000']=0;
+        $total['900']=0;
+        $total['600']=0;
+        $total['300']=0;
+        
+        foreach($users as $uk=>$uv){
+            $data['name']=$uv['name'];
+            $data['id']=$uv['id'];
+            $data['total']=0;
+            $data['total_ride']=0;
+            $data['300']=0;
+            $data['total300']=0;
+            $data['200']=0;
+            $data['total200']=0;
+            $data['100']=0;
+            $data['total100']=0;
+            $data['75']=0;
+            $data['total75']=0;
+            $data['50']=0;
+            $data['total50']=0;
+            $userActi = stravaactivity::select(
+                DB::raw("stravaactivity.user_id as id,
+                        stravaactivity.distance,
+                        stravaactivity.average_speed,
+                        stravaactivity.max_speed,
+                        stravaactivity.start_date_local"))  
+                        ->where('user_id',$uv['id'])
+                        ->whereBetween('start_date_local',[$dateS,$dateE]) 
+                        ->where('type','Ride')->get();
+            $date300='';
+            $date200='';
+            $date100='';
+            $date75='';
+            $date50='';
+            foreach($userActi as $k=>$v){
+                // $longest = $v['distance']>$longest?$v['distance']:$longest;
+                if($v['distance'] > 300000){
+                    $data['total300']+=1;
+                    $time = strtotime($v['start_date_local']);
+                    $newformat = date('Y-m-d',$time);
+                    if($newformat != $date300 ){
+                        $data['300']+=1;
+                        $date300 = $newformat; 
+                    }
+                }elseif($v['distance'] > 200000){
+                    $data['total200']+=1;
+                    $time = strtotime($v['start_date_local']);
+                    $newformat = date('Y-m-d',$time);
+                    if($newformat != $date200 ){
+                        $data['200']+=1;
+                        $date200 = $newformat; 
+                    }
+                }elseif($v['distance'] > 100000){
+                    $data['total100']+=1;
+                    $time = strtotime($v['start_date_local']);
+                    $newformat = date('Y-m-d',$time);
+                    if($newformat != $date100 ){
+                        $data['100']+=1;
+                        $date100 = $newformat; 
+                    }
+                }elseif($v['distance'] > 75000){
+                    $data['total75']+=1;
+                    $time = strtotime($v['start_date_local']);
+                    $newformat = date('Y-m-d',$time);
+                    if($newformat != $date75 ){
+                        $data['75']+=1;
+                        $date75 = $newformat; 
+                    }
+                    
+                }elseif($v['distance'] > 50000){
+                    $data['total50']+=1;
+                    $time = strtotime($v['start_date_local']);
+                    $newformat = date('Y-m-d',$time);
+                    if($newformat != $date50 ){
+                        $data['50']+=1;
+                        $date50 = $newformat; 
+                    }
+                }
+                        
+                $data['total'] += $v['distance'];
+                $data['total_ride'] += 1;
+            }
+            //count total
+            if($data['total'] >= 3000000){
+                $total['3000']+=1;
+            }elseif($data['total'] >= 2500000){
+                $total['900']+=1;
+            }elseif($data['total'] >= 600000){
+                $total['900']+=1;
+            }elseif($data['total'] >= 300000){
+                $total['300']+=1;
+            }
+                // dd($data);
+            $temps[]=$data;
+        }
+           
+
+        return view('sacc2023')
+        ->with('data',$temps)
+        ->with('total1',$total);
+    }
     /**
      * Show the application dashboard.
      *
