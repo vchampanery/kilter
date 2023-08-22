@@ -59,8 +59,16 @@
                 @if(isset($data) && count($data) > 0)
                 @foreach($data as $k=>$v)
                   <tr>
-                    <td>{{$v['name']}}</td>
-                    <td>{{$v['id']}}</td>
+                    <td>
+                    <a href="{{url('/profile/')}}/{{$v['id']}}" target="_blank">
+                      {{$v['name']}}
+                      </a>  
+                    
+                    </td>
+                    <td><a href="{{url('/activity/')}}/{{$v['id']}}" target="_blank"  >
+                        activity
+                      </a></td>
+                    
                     <td>{{number_format($v['total']/1000,2)}}</td>
                     <td>{{$v['total_ride']}}</td>
                     <td>{{$v['300']}}</td>

@@ -64,8 +64,15 @@ class HomeController extends Controller
             $id = Auth::user()->id;
         }
         
+        $today = Carbon::today();
+        // $to = \Carbon\Carbon::createFromFormat('d', $today);
         
-        $userId = stravaactivity::where('user_id',$id)->where('type','Ride')->get();
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
+        $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
+
+        $userId = stravaactivity::where('user_id',$id)
+        ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+        ->where('type','Ride')->get();
         
         return view('activity')->with('useractivity',$userId);
     }
