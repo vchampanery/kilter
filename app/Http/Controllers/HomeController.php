@@ -328,7 +328,7 @@ class HomeController extends Controller
             //count total
             if($data['total'] >= 3000000){
                 $total['3000']+=1;
-            }elseif($data['total'] >= 2500000){
+            }elseif($data['total'] >= 900000){
                 $total['900']+=1;
             }elseif($data['total'] >= 600000){
                 $total['900']+=1;
