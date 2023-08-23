@@ -260,7 +260,7 @@ class UserController extends Controller
         // dd($param);
         if(isset($param['id'])){
             User::where('id',$param['id'])->update($param);
-            return redirect()->route('user.profile');
+            return redirect()->route('user.profile')->with('success','Profile updated Successfully');;
         }
     }
 
