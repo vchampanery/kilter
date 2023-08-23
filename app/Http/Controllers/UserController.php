@@ -172,7 +172,7 @@ class UserController extends Controller
         $city['RAJKOT']='RAJKOT';
         $city['VADODARA']='VADODARA';
         $city['VALLABHVIDHYA NAGAR']='VALLABHVIDHYA NAGAR';
-        $city['VAPI']='VAPI';
+        $city['VAPI']='VAPI';   
 
         $state['BIHAR']='BIHAR';
         $state['GUJARAT']='GUJARAT';
@@ -181,6 +181,14 @@ class UserController extends Controller
         $state['RAJASTHAN']='RAJASTHAN';
         $state['TELANGANA']='TELANGANA';
         $state['UTTAR PRADESH']='UTTAR PRADESH';
+
+        $chapter['OTHER']='OTHER';
+        $chapter['SCC CENTRAL']='SCC CENTRAL';
+        $chapter['SCC DHRANGADHRA']='SCC DHRANGADHRA';
+        $chapter['SCC EAST']='SCC EAST';
+        $chapter['SCC NORTH']='SCC NORTH';
+        $chapter['SCC PALANPUR']='SCC PALANPUR';
+        $chapter['SCC SBR']='SCC SBR';
 
         $gender['MALE'] = "MALE";
         $gender['FEMALE'] = "FEMALE";
@@ -245,7 +253,7 @@ class UserController extends Controller
         $data['profile_pic']=isset($json->profile)?$json->profile:null;;
         $data['page']='profile';
         $data['user']=$user;
-        return view('users.profile',compact('data','city','state','gender'));
+        return view('users.profile',compact('data','city','state','gender','chapter'));
     }
     public function saveProfile(Request $request){
         $param = $request->all();

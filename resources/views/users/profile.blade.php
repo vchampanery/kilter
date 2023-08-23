@@ -59,9 +59,10 @@
             <p class="text-muted mb-4">
               
                 @php
-                 $cityselect = isset($data['user']->city)?$data['user']->city:'-';
+                $cityselect = isset($data['user']->city)?$data['user']->city:'-';
                 $stateselect = isset($data['user']->state)?$data['user']->state:'-';
                 $genderselect = isset($data['user']->gender)?$data['user']->gender:'-';
+                $chapterselect = isset($data['user']->chapter)?$data['user']->chapter:'-';
                 @endphp
               <select name="city">
                 @foreach($city as $k=>$v)
@@ -165,6 +166,21 @@
                 </p>
               </div>
             </div>
+            <hr>  
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Chapter</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">
+                  <select name="chapter">
+                    @foreach($chapter as $k=>$v)
+                    <option value="{{$k}}" {{($k==$chapterselect)?'selected=selected':''}}">{{$v}}</option>
+                    @endforeach
+                  </select>  
+                </p>
+              </div>
+            </div>
             <!-- <hr> -->
             <!-- <div class="row">
               <div class="col-sm-3">
@@ -202,6 +218,14 @@
               </div>
               <div class="col-sm-9">
                 <p class="text-muted mb-0">{{isset($data['user']->mobile)?$data['user']->mobile:'-' }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Chapter</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{isset($data['user']->chapter)?$data['user']->chapter:'-' }}</p>
               </div>
             </div>
             <!-- <hr> -->
