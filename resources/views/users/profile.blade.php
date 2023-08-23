@@ -36,23 +36,70 @@
       
         <!-- /.row -->
         <!-- Main row -->
-        <div class="row">
+        <form action="{{route('user.saveProfile')}}">
+        @if((auth::user()->id==$data['user']->id) || (auth::user()->id==7) || (auth::user()->id==11))
+        <input type="submit" value="Save" class="btn btn-primary">
+        @endif
+    <div class="row">
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
               
           <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" -->
-          <img src="{{$data['profile_pic']}}" alt="avatar"
-            
-            
-              class="rounded-circle img-fluid" style="width: 150px;">
-            <h5 class="my-3"> {{isset($data['user']->name)?$data['user']->name:'-' }}</h5>
+          
+          @if((auth::user()->id==$data['user']->id) || (auth::user()->id==7) || (auth::user()->id==11))
+          <!-- <form action="{{route('user.saveProfile')}}"> -->
+            <img src="{{$data['profile_pic']}}" alt="avatar"
+            class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3"> 
+            <input type="hidden" name="id" value="{{$data['user']->id}}" > 
+            <input type="text" name="name" value="{{isset($data['user']->name)?$data['user']->name:'-' }}" > 
+            </h5>
             <!-- <p class="text-muted mb-1">Full Stack Developer</p> -->
-            <p class="text-muted mb-4">{{isset($data['user']->city)?$data['user']->city:'-' }},{{isset($data['user']->state)?$data['user']->state:'-' }}</p>
+            <p class="text-muted mb-4">
+              
+                @php
+                 $cityselect = isset($data['user']->city)?$data['user']->city:'-';
+                $stateselect = isset($data['user']->state)?$data['user']->state:'-';
+                $genderselect = isset($data['user']->gender)?$data['user']->gender:'-';
+                @endphp
+              <select name="city">
+                @foreach($city as $k=>$v)
+                <option value="{{$k}}" {{($k==$cityselect)?'selected=selected':''}}">{{$v}}</option>
+                @endforeach
+              </select>,
+              <select name="state">
+                @foreach($state as $k=>$v)
+                <option value="{{$k}}" {{($k==$stateselect)?'selected=selected':''}}">{{$v}}</option>
+                @endforeach
+              </select>,
+              
+              </p>
+              <h5 class="my-3"> 
+              <select name="gender">
+                @foreach($gender as $k=>$v)
+                <option value="{{$k}}" {{($k==$genderselect)?'selected=selected':''}}">{{$v}}</option>
+                @endforeach
+              </select> 
+            </h5>
             <div class="d-flex justify-content-center mb-2">
               <!-- <button type="button" class="btn btn-primary">Follow</button>
               <button type="button" class="btn btn-outline-primary ms-1">Message</button> -->
             </div>
+            
+          <!-- </form> -->
+          @else
+          <img src="{{$data['profile_pic']}}" alt="avatar"
+            class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3"> {{isset($data['user']->name)?$data['user']->name:'-' }}</h5>
+            <!-- <p class="text-muted mb-1">Full Stack Developer</p> -->
+            <p class="text-muted mb-4">
+              {{isset($data['user']->city)?$data['user']->city:'-' }},{{isset($data['user']->state)?$data['user']->state:'-' }}</p>
+            <div class="d-flex justify-content-center mb-2">
+              <!-- <button type="button" class="btn btn-primary">Follow</button>
+              <button type="button" class="btn btn-outline-primary ms-1">Message</button> -->
+            </div>
+          @endif
           </div>
         </div>
         <div class="card mb-4 mb-lg-0">
@@ -85,7 +132,52 @@
       </div>
       <div class="col-lg-8">
         <div class="card mb-4">
+        @if((auth::user()->id==$data['user']->id) || (auth::user()->id==7) || (auth::user()->id==11))
+        <!-- <form action="{{route('user.saveProfile')}}"> -->
           <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Full Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">
+                {{isset($data['user']->name)?$data['user']->name:'-' }}
+                </p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{isset($data['user']->email)?$data['user']->email:'-' }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Mobile</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">
+                <input type="text" name="mobile" value="{{isset($data['user']->mobile)?$data['user']->mobile:'-' }}" >  
+                </p>
+              </div>
+            </div>
+            <!-- <hr> -->
+            <!-- <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Address</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+              </div>
+            </div> -->
+          </div>
+        <!-- </form> -->
+        @else
+        <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
                 <p class="mb-0">Full Name</p>
@@ -122,6 +214,7 @@
               </div>
             </div> -->
           </div>
+          @endif
         </div>
         <div class="row">
           <div class="col-md-6">
@@ -199,6 +292,7 @@
         </div>
       </div>
     </div>
+        </form>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
       

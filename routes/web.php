@@ -49,6 +49,8 @@ Route::get('/team_board', 'App\Http\Controllers\HomeController@team_board')->nam
 Route::any('/resetpassword', 'App\Http\Controllers\CustomAuthController@resetpassword')->name('customauth.resetpassword');
 // Route::get('/login1', 'App\Http\Controllers\LoginController@login1')->name('customauth.login1');
 Route::post('/customresetpassword', 'App\Http\Controllers\CustomAuthController@customresetpassword')->name('customauth.customresetassword');
+
+Route::any('/saveProfile', 'App\Http\Controllers\UserController@saveProfile')->name('user.saveProfile');
 // Route::post('/customresetpassword', 'App\Http\Controllers\CustomAuthController@customresetpassword')->name('customauth.customresetassword');
 Route::get('/fetch_data', 'App\Http\Controllers\StravaController@fetch_data')->name('home.fetch_data');
 Route::get('/strava_reset/{id}', 'App\Http\Controllers\StravaController@reset')->name('strava.reset');

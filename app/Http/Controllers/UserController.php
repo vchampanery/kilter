@@ -141,6 +141,49 @@ class UserController extends Controller
     }
 
     public function profile($id=null){
+        $city['ABOHAR']='ABOHAR';
+        $city['AHMEDABAD']='AHMEDABAD';
+        $city['AMRAVATI']='AMRAVATI';
+        $city['ANAND']='ANAND';
+        $city['AURANGABAD']='AURANGABAD';
+        $city['BHARUCH']='BHARUCH';
+        $city['BHAVNAGAR']='BHAVNAGAR';
+        $city['BORSAD']='BORSAD';
+        $city['DAHOD']='DAHOD';
+        $city['DANGAR KHERA']='DANGAR KHERA';
+        $city['DHANGADHARA']='DHANGADHARA';
+        $city['GANDHINAGAR']='GANDHINAGAR';
+        $city['HIMMATNAGAR']='HIMMATNAGAR';
+        $city['HYDERABAD']='HYDERABAD';
+        $city['JAIPUR']='JAIPUR';
+        $city['JAMNAGAR']='JAMNAGAR';
+        $city['KALOL']='KALOL';
+        $city['KANPUR NAGAR']='KANPUR NAGAR';
+        $city['KARAMSAD']='KARAMSAD';
+        $city['LUDHIANA']='LUDHIANA';
+        $city['MANDVI']='MANDVI';
+        $city['MEHSANA']='MEHSANA';
+        $city['MUNDRA']='MUNDRA';
+        $city['NADIAD']='NADIAD';
+        $city['NADIAD']='NALASOPARA';
+        $city['NAVI MUMBAI']='NAVI MUMBAI';
+        $city['PALANPUR']='PALANPUR';
+        $city['PATAN']='PATAN';
+        $city['RAJKOT']='RAJKOT';
+        $city['VADODARA']='VADODARA';
+        $city['VALLABHVIDHYA NAGAR']='VALLABHVIDHYA NAGAR';
+        $city['VAPI']='VAPI';
+
+        $state['BIHAR']='BIHAR';
+        $state['GUJARAT']='GUJARAT';
+        $state['MAHARASTRA']='MAHARASTRA';
+        $state['PUNJAB']='PUNJAB';
+        $state['RAJASTHAN']='RAJASTHAN';
+        $state['TELANGANA']='TELANGANA';
+        $state['UTTAR PRADESH']='UTTAR PRADESH';
+
+        $gender['MALE'] = "MALE";
+        $gender['FEMALE'] = "FEMALE";
         $today = \Carbon\Carbon::today();
         $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
         $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
@@ -202,7 +245,15 @@ class UserController extends Controller
         $data['profile_pic']=isset($json->profile)?$json->profile:null;;
         $data['page']='profile';
         $data['user']=$user;
-        return view('users.profile',compact('data'));
+        return view('users.profile',compact('data','city','state','gender'));
+    }
+    public function saveProfile(Request $request){
+        $param = $request->all();
+        // dd($param);
+        if(isset($param['id'])){
+            User::where('id',$param['id'])->update($param);
+            return redirect()->route('user.profile');
+        }
     }
 
     public function importView(Request $request){
