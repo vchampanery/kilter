@@ -105,7 +105,40 @@
         </div>
         <div class="card mb-4 mb-lg-0">
           <div class="card-body p-0">
-            <ul class="list-group list-group-flush rounded-3">
+          @if((auth::user()->id==$data['user']->id) || (auth::user()->id==7) || (auth::user()->id==11))
+          <ul class="list-group list-group-flush rounded-3">
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <!-- <i class="fas fa-globe fa-lg text-warning"></i> -->
+                
+                <i class="fab fa-strava fa-lg" style="color: #fc5200;"></i>
+                <p class="mb-0">
+                    <input type="text" name="strava_link" value="{{isset($data['user']->strava_link)?$data['user']->strava_link:'-'}}">
+                </p>
+              </li>
+              <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                <p class="mb-0">mdbootstrap</p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+                <p class="mb-0">@mdbootstrap</p>
+              </li> -->
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                
+                <p class="mb-0">
+                <input type="text" name="instagram" value="{{isset($data['user']->instagram)?$data['user']->instagram:'-'}}">
+                </p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                <p class="mb-0">
+                    <input type="text" name="facebook" value="{{isset($data['user']->facebook)?$data['user']->facebook:'-'}}">
+                </p>
+              </li>
+            </ul>
+          @else
+          <ul class="list-group list-group-flush rounded-3">
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <!-- <i class="fas fa-globe fa-lg text-warning"></i> -->
                 <i class="fab fa-strava fa-lg " style="color: #fc5200;"></i>
@@ -128,6 +161,8 @@
                 <p class="mb-0">{{isset($data['user']->facebook)?$data['user']->facebook:'-'}}</p>
               </li>
             </ul>
+          @endif
+            
           </div>
         </div>
       </div>
