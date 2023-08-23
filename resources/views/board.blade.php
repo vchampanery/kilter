@@ -130,13 +130,10 @@
     <script type="text/javascript" class="init">
       
  $(document).ready(function() {
-    $('#activityTable').DataTable('#activityTable',{
-      order: [2, 'desc'],
-      // drawCallback: function () {
-      // api = this.api();
-      // var arr = api.columns(2).data()[0];  //get array of column 3 (extn)
-      // console.log(arr);}
-    });
+  $('#activityTable').DataTable({
+      order: [[1, 'desc']]
+  });
+   
    
     $('input[name="dates"]').daterangepicker();
 } );
