@@ -37,7 +37,7 @@
         <!-- /.row -->
         <!-- Main row -->
         <form action="{{route('user.saveProfile')}}">
-        @if((auth::user()->id==$data['user']->id) || (auth::user()->id==7) || (auth::user()->id==11))
+        @if((auth::user()->id==$data['user']->id) || (auth::user()->id==7) || (auth::user()->id==11) || (auth::user()->id==288) )
         <input type="submit" value="Save" class="btn btn-primary">
         @endif
     <div class="row">
@@ -47,7 +47,7 @@
               
           <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" -->
           
-          @if((auth::user()->id==$data['user']->id) || (auth::user()->id==7) || (auth::user()->id==11))
+          @if((auth::user()->id==$data['user']->id) || (auth::user()->id==7) || (auth::user()->id==11) || (auth::user()->id==288))
           <!-- <form action="{{route('user.saveProfile')}}"> -->
             <img src="{{$data['profile_pic']}}" alt="avatar"
             class="rounded-circle img-fluid" style="width: 150px;">
@@ -105,7 +105,7 @@
         </div>
         <div class="card mb-4 mb-lg-0">
           <div class="card-body p-0">
-          @if((auth::user()->id==$data['user']->id) || (auth::user()->id==7) || (auth::user()->id==11))
+          @if((auth::user()->id==$data['user']->id) || (auth::user()->id==7) || (auth::user()->id==11) || (auth::user()->id==288) )
           <ul class="list-group list-group-flush rounded-3">
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <!-- <i class="fas fa-globe fa-lg text-warning"></i> -->
@@ -168,7 +168,7 @@
       </div>
       <div class="col-lg-8">
         <div class="card mb-4">
-        @if((auth::user()->id==$data['user']->id) || (auth::user()->id==7) || (auth::user()->id==11))
+        @if((auth::user()->id==$data['user']->id) || (auth::user()->id==7) || (auth::user()->id==11)  || (auth::user()->id==288)   )
         <!-- <form action="{{route('user.saveProfile')}}"> -->
           <div class="card-body">
             <div class="row">
