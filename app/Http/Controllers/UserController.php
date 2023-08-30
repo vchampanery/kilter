@@ -203,7 +203,20 @@ class UserController extends Controller
         }
         //  get profile pic
         $stravaUser = stravauser::where('user_id',$user->id)->first();
-        $json = json_decode($stravaUser->raw_data);
+        $data =[];
+        $data['strava_profile_link']=null;
+        $data['30']=0;
+        $data['50']=0;
+        $data['100']=0;
+        $data['highest']=0;
+        $data['total']=0;
+        $data['lastActivity']=0;
+        $data['page']='profile';
+        $data['user']=$user;
+        $data['profile_pic']='';
+
+        if($stravaUser){
+            $json = json_decode($stravaUser->raw_data);
 
         $data =[];
         $data['strava_profile_link']=null;
@@ -253,6 +266,9 @@ class UserController extends Controller
         $data['profile_pic']=isset($json->profile)?$json->profile:null;;
         $data['page']='profile';
         $data['user']=$user;
+
+        }
+        
         return view('users.profile',compact('data','city','state','gender','chapter'));
     }
     public function saveProfile(Request $request){
@@ -271,6 +287,7 @@ class UserController extends Controller
     public function import(Request $request){
         Excel::import(new ImportUser,
                       $request->file('file')->store('files'));
+    dd("test");
         return redirect()->back();
     }
  

@@ -314,15 +314,17 @@
               <div class="card-body">
                 <p class="mb-4"><span class="text-primary font-italic me-1">Recent</span>Activities
                 </p>
-                @foreach($data['lastActivity'] as $k=>$v)
-                
-                <p class="mt-4 mb-1" style="font-size: .77rem;">{{date('d-M-y', strtotime($v['start_date_local']))}} 
-                <span style="float: right;">{{number_format($v['distance']/1000, 2)}} Kms</span></p>
-                <div class="progress rounded" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                    aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                @endforeach
+                @if($data['lastActivity'])
+                  @foreach($data['lastActivity'] as $k=>$v)
+                  
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">{{date('d-M-y', strtotime($v['start_date_local']))}} 
+                  <span style="float: right;">{{number_format($v['distance']/1000, 2)}} Kms</span></p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  @endforeach
+                @endif
                 @php $url = "/activity/".$data['user']->id; @endphp
                 <a href="{{url($url)}}" target="_blank">more....</a>
                 <!-- <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
