@@ -287,7 +287,7 @@ class UserController extends Controller
             $user = User::where('id',$id)->first();
         }
         }else{
-            return redirect()->route('login');
+            return redirect()->route('login'); 
         }
         //  get profile pic
         $stravaUser = stravauser::where('user_id',$user->id)->first();
