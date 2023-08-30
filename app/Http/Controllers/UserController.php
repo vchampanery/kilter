@@ -278,11 +278,16 @@ class UserController extends Controller
         $today = \Carbon\Carbon::today();
         $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
         $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
+        if(Auth::user()){
 
+        
         if(!$id){
             $user = Auth::user();
         }else{
             $user = User::where('id',$id)->first();
+        }
+        }else{
+            return redirect()->route('login');
         }
         //  get profile pic
         $stravaUser = stravauser::where('user_id',$user->id)->first();
