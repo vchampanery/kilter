@@ -59,6 +59,12 @@
                             <p>Goal Board</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{url('/review')}}" class="nav-link @if(app('request')->route()->uri() == 'review') active @endif">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Review</p>
+                        </a>
+                    </li>
                   
                     
                     <!-- <li class="nav-item">
