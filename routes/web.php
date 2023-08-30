@@ -51,6 +51,7 @@ Route::any('/resetpassword', 'App\Http\Controllers\CustomAuthController@resetpas
 Route::post('/customresetpassword', 'App\Http\Controllers\CustomAuthController@customresetpassword')->name('customauth.customresetassword');
 
 Route::any('/saveProfile', 'App\Http\Controllers\UserController@saveProfile')->name('user.saveProfile');
+Route::any('/saveReview', 'App\Http\Controllers\UserController@saveReview')->name('user.saveReview');
 // Route::post('/customresetpassword', 'App\Http\Controllers\CustomAuthController@customresetpassword')->name('customauth.customresetassword');
 Route::get('/fetch_data', 'App\Http\Controllers\StravaController@fetch_data')->name('home.fetch_data');
 Route::get('/strava_reset/{id}', 'App\Http\Controllers\StravaController@reset')->name('strava.reset');
@@ -59,6 +60,7 @@ Route::get('/getdatabycron/{start}/{end}', 'App\Http\Controllers\StravaControlle
 Route::get('/searchboarddata', 'App\Http\Controllers\StravaController@searchboarddata')->name('home.searchboarddata');
 
 Route::get('/profile/{id?}', 'App\Http\Controllers\UserController@profile')->name('user.profile');
+Route::get('/review/{id?}', 'App\Http\Controllers\UserController@review')->name('user.review');
 
 
 Route::get('/fetch_data/{id}/{cron}', 'App\Http\Controllers\StravaController@fetch_data')->name('home.fetch_data');
@@ -86,6 +88,8 @@ Route::get('/testjson', 'App\Http\Controllers\HomeController@testjson')->name('h
 Route::get('/strava/getauth', 'App\Http\Controllers\StravaController@getAuth')->name('strava.getAuth');
 Route::get('/file-import', 'App\Http\Controllers\UserController@importView')->name('import-view');
 Route::post('/import', 'App\Http\Controllers\UserController@import')->name('import');
+Route::get('/review', 'App\Http\Controllers\UserController@review')->name('review');
+Route::post('/submit-review', 'App\Http\Controllers\UserController@submitreview')->name('submitreview');
 Route::get('/export-users', 'App\Http\Controllers\UserController@exportUsers')->name('export-users');
 Auth::routes();
 

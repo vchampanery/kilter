@@ -6,6 +6,7 @@ use App\Exports\ExportUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Imports\ImportUser;
+use App\Models\review;
 use App\Models\stravaactivity;
 use App\Models\stravauser;
 use App\Models\User;
@@ -15,6 +16,7 @@ use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use DateTime;
 
 class UserController extends Controller
 {
@@ -271,12 +273,75 @@ class UserController extends Controller
         
         return view('users.profile',compact('data','city','state','gender','chapter'));
     }
+    public function review($id=null){
+       
+        $today = \Carbon\Carbon::today();
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
+        $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
+
+        if(!$id){
+            $user = Auth::user();
+        }else{
+            $user = User::where('id',$id)->first();
+        }
+        //  get profile pic
+        $stravaUser = stravauser::where('user_id',$user->id)->first();
+        $data =[];
+        $data['strava_profile_link']=null;
+        $data['30']=0;
+        $data['50']=0;
+        $data['100']=0;
+        $data['highest']=0;
+        $data['total']=0;
+        $data['lastActivity']=0;
+        $data['page']='profile';
+        $data['user']=$user;
+        $data['profile_pic']='';
+
+        if($stravaUser){
+            $json = json_decode($stravaUser->raw_data);
+            $data['profile_pic']=isset($json->profile)?$json->profile:null;;
+        }
+        
+        $data['page']='review';
+        $data['user']=$user;
+        $review = review::all();
+        $rdata=[];
+            foreach($review as $rkey=>$rvlu){
+                $rdatatemp=[];
+                
+                $rdatatemp1 = User::where('id',$rvlu->user_id)->first(['name']);
+                
+                $rdatatemp['name'] = $rdatatemp1->name;
+                $rdatatemp['review'] = $rvlu->review;
+                $rdatatemp['date'] = $rvlu->review_date;
+                $rdata[]=$rdatatemp;
+            }
+        $data['review'] = $rdata;
+        
+        
+        return view('users.review',compact('data'));
+    }
     public function saveProfile(Request $request){
         $param = $request->all();
         // dd($param);
         if(isset($param['id'])){
             User::where('id',$param['id'])->update($param);
             return redirect()->route('user.profile')->with('success','Profile updated Successfully');;
+        }
+    }
+    public function saveReview(Request $request){
+        $param = $request->all();
+        
+        if(isset($param['id'])){
+            review::create([
+                'user_id'=>$param['id'],
+                'review'=>$param['review'],
+                'review_date'=>new DateTime()
+            ]);
+            
+            // User::where('id',$param['id'])->update($param);
+            return redirect()->route('user.review')->with('success','Review posted Successfully');;
         }
     }
 
