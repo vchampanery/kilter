@@ -504,6 +504,7 @@ class StravaController extends Controller
         }
         return $i;
     }
+    
 
     public function getAthleteActivityData($api,$today=null,$id=null,$year=null){
 

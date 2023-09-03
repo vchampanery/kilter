@@ -228,6 +228,34 @@ class HomeController extends Controller
         // return view('fpage')->with('useractivity',$userId);
     }
     
+    public function certificate(){
+        // dd("ad");
+        $us = Auth::user();
+        
+        $user['name']=$us->name;
+        $dateS = 1690848000;
+        $dateE = 1693439999;
+        // $dateS  = strtotime("-33 day 00:00:00");
+        // $dateE   = strtotime("-4 day 23:59:59");
+
+        $dateS = date("Y-m-d H:i:s",$dateS);
+        $dateE = date("Y-m-d H:i:s",$dateE);
+        // dd();
+        // $userActi = stravaactivity::select("stravaactivity.distance")  
+        //             ->where('user_id',$us->id)
+        //             ->whereBetween('start_date_local',[$dateS,$dateE]) 
+        //             ->where('type','Ride')->get();
+        $userActi = stravaactivity::select(
+            DB::raw("
+                    sum(stravaactivity.distance) as total"))  
+                    ->where('user_id',$us->id)
+                    ->whereBetween('start_date_local',[$dateS,$dateE]) 
+                    ->where('type','Ride')
+                    ->groupBy('user_id')->first();
+        
+        $user['total']=$userActi->total;
+        return view('auth/cre') ->with('data',$user);
+    }
     public function resetpassword(){
 
         return view('auth/reset_password');
@@ -249,8 +277,15 @@ class HomeController extends Controller
 
         // dd(Carbon::now()->subMonth()->startOfMonth());
         // $dateE = Carbon::now()->endOfMonth();
-        $dateS  = strtotime("-34 day 00:00:00");
-        $dateE   = strtotime("-3 day 23:59:59");
+        // $dateS  = strtotime("-33 day 00:00:00");
+        // $dateE   = strtotime("-4 day 23:59:59");
+        $dateS = 1690848000;
+        $dateE = 1693439999;
+        // dump($dateS);
+        // dump($dateE);
+        // dump(date("m/d/Y H:i:s",$dateS));
+        // dump(date("m/d/Y H:i:s",$dateE));
+        // dd();   
         $users = User::all();
         $temps = [];
         $total=[];
