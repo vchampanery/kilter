@@ -471,7 +471,7 @@ class StravaController extends Controller
         }catch(Exception $ex){
             dd($ex);
         }
-        // dump($data);
+        dump($data);
         return $data;
     }
     public function getsavedata($data,$id=null){
