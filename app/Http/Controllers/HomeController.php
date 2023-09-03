@@ -245,8 +245,12 @@ class HomeController extends Controller
         $data['total50']='12';
         $temps[]=$data;
         $temps[]=$data;
-        $dateS = Carbon::now()->startOfMonth();
-        $dateE = Carbon::now()->endOfMonth();
+        // $dateS = Carbon::now()->startOfMonth();
+
+        // dd(Carbon::now()->subMonth()->startOfMonth());
+        // $dateE = Carbon::now()->endOfMonth();
+        $dateS  = strtotime("-34 day 00:00:00");
+        $dateE   = strtotime("-3 day 23:59:59");
         $users = User::all();
         $temps = [];
         $total=[];
