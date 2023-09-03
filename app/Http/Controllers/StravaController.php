@@ -499,6 +499,9 @@ class StravaController extends Controller
             }
             }
         }
+        if($i==0){
+            dump($data);
+        }
         return $i;
     }
 
