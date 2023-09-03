@@ -253,7 +253,7 @@ class HomeController extends Controller
                     ->where('type','Ride')
                     ->groupBy('user_id')->first();
         
-        $user['total']=$userActi->total;
+        $user['total']=isset($userActi->total)?$userActi->total:0;
         return view('auth/cre') ->with('data',$user);
     }
     public function resetpassword(){
