@@ -444,7 +444,7 @@ class StravaController extends Controller
         return "get rate";
     }
 
-    public function getActivitAth($api,$pagenumber,$numberofrecord = 10,$before = null,$after = null){
+    public function getActivitAth($api,$pagenumber,$numberofrecord = 30,$before = null,$after = null){
         if(!$before){
             $before = strtotime(date('Y-m-01 00:00:00')); // == 1338534000
         }
@@ -511,13 +511,13 @@ class StravaController extends Controller
                     $before  = strtotime("-35 day 00:00:00");
                     $after   = strtotime("today 23:59:59");
                     $page = 1; 
-                    $data = $this->getActivitAth($api,$page,10,$before,$after);
+                    $data = $this->getActivitAth($api,$page,30,$before,$after);
                     $return  = $this->getsavedata($data,$id);
                     
-                    while($return == 10){
+                    while($return == 30){
                         ++$page;
                         dump("return:".$return);
-                        $data = $this->getActivitAth($api,$page,10,$before,$after);
+                        $data = $this->getActivitAth($api,$page,30,$before,$after);
                         $return  = $this->getsavedata($data,$id);
                     }
 
@@ -528,7 +528,7 @@ class StravaController extends Controller
                     $after   = strtotime("today 23:59:59");
                     dump($before);
                     dump($after);    
-                    $data = $this->getActivitAth($api,$page,10,$before,$after);
+                    $data = $this->getActivitAth($api,$page,30,$before,$after);
                     $return  = $this->getsavedata($data,$id);
                 }
                 // dd();
@@ -550,14 +550,14 @@ class StravaController extends Controller
             $after = strtotime(date("$year-12-31 23:59:59")); // == 1338534000
             dump("start : ".date("$year-1-01 00:00:00"));
             dump("end : ".date("$year-12-31 23:59:59"));
-            $data = $this->getActivitAth($api,$page,10,$before,$after);
+            $data = $this->getActivitAth($api,$page,30,$before,$after);
 
             $return  = $this->getsavedata($data,$id);
             
-            while($return == 10){
+            while($return == 30){
                 dump("return : ".$return);
                 ++$page;
-                $data = $this->getActivitAth($api,$page,10,$before,$after);
+                $data = $this->getActivitAth($api,$page,30,$before,$after);
                 $return  = $this->getsavedata($data,$id);
             }
         }
