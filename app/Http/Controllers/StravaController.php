@@ -12,6 +12,7 @@ use DateTimeZone;
 use Iamstuartwilson\StravaApi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Mockery\Expectation;
 use PHPUnit\Framework\Exception;
@@ -137,6 +138,23 @@ class StravaController extends Controller
             }
         }
     }
+    public function fetch_data1($cnt,$cron=null){
+
+        $ru = ($cnt-1)*20;
+        $userObj = user::skip($ru)->take(20)->get();
+        foreach($userObj as $ke=>$v){
+           dump($v->id); 
+           $this->fetch_data($v->id,'admin');
+         //    return Redirect::to("/fetch_data/$v-id/admin");
+        }
+    }
+    public function fetch_data2($id,$cron=null)
+    {
+        dump($id);
+        dump($cron);
+        return true;
+    }
+
       /**
      * Show the application dashboard.
      *
