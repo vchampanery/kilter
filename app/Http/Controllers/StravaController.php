@@ -140,8 +140,8 @@ class StravaController extends Controller
     }
     public function fetch_data1($cnt,$cron=null){
 
-        $ru = ($cnt-1)*20;
-        $userObj = user::skip($ru)->take(20)->get();
+        $ru = ($cnt-1)*10;
+        $userObj = user::skip($ru)->take(10)->get();
         foreach($userObj as $ke=>$v){
            dump($v->id); 
            $this->fetch_data($v->id,'admin');
