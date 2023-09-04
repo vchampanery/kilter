@@ -16,6 +16,12 @@
       </div><!-- /.container-fluid -->
     </div>
      <!-- Main content -->
+     <form action="{{ route('home.searchboarddata') }}" method="POST">
+      @csrf
+      <div class="input-group input-daterange">
+        {{-- <input type="text" class="form-control" value="2012-04-05" name="dates">  --}}
+      </div>
+      </form>
      <?php if(isset($data['myid'])){ ?>
      <a href="{{url('/fetch_data/')}}/{{$data['myid']}}/direct" class="btn btn-warning" style="    display: flex;
     justify-content: center;"><i class="far fa-pull nav-icon"></i> Pull Your Activity</a>
@@ -124,4 +130,13 @@
 <!-- <script src="{{asset('assets/plugins/daterangepicker/daterangepicker.js')}}"></script> -->
 <!-- jQuery Knob Chart -->
 <!-- <script src="{{asset('assets/plugins/jquery-knob/jquery.knob.min.js')}}"></script> -->
+
+
+<script type="text/javascript" class="init">
+      
+  $(document).ready(function() {   
+     $('input[name="dates"]').daterangepicker();
+  } );
+ </script>
+
  @endsection

@@ -28,6 +28,7 @@
           
             <table id="activityTable">
               <thead>
+                <th>Id</th>
                 <th>Ride Date</th>
                 
                 <th>distance (km)</th>
@@ -39,7 +40,8 @@
                 @if(isset($useractivity) && count($useractivity) > 0)
                 @foreach($useractivity as $k=>$v)
                   <tr>
-                    <td>{{ date('d-M-Y', strtotime($v->start_date_local))}}</td>
+                    <td>{{ $v->id*24*365 }}</td>
+                    <td>{{ date('d-m-Y', strtotime($v->start_date_local))}}</td>
                     <td>{{number_format($v->distance/1000, 2)}}</td>
                     <td>{{number_format(3.6 *$v->average_speed, 2)}}</td> 
                     <td>{{number_format(3.6 *$v->max_speed, 2)}}</td>
@@ -70,7 +72,10 @@
     <script type="text/javascript" class="init">
       
  $(document).ready(function() {
-    $('#activityTable').DataTable();
+    // $('#activityTable').DataTable();
+    $('#activityTable').DataTable({
+      order: [[0, 'desc']]
+  });
 } );
 </script>
 @endsection

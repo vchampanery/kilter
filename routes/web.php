@@ -46,6 +46,7 @@ Route::get('/adminlte', function () {
 Route::any('/personal_board', 'App\Http\Controllers\HomeController@personal_board')->name('home.personal_board');
 // Route::post('/personal_board', 'App\Http\Controllers\HomeController@personal_board')->name('home.personal_board');
 Route::get('/team_board', 'App\Http\Controllers\HomeController@team_board')->name('home.team_board');
+Route::get('/team_life_board', 'App\Http\Controllers\HomeController@team_life_board')->name('home.team_life_board');
 Route::any('/resetpassword', 'App\Http\Controllers\CustomAuthController@resetpassword')->name('customauth.resetpassword');
 // Route::get('/login1', 'App\Http\Controllers\LoginController@login1')->name('customauth.login1');
 Route::post('/customresetpassword', 'App\Http\Controllers\CustomAuthController@customresetpassword')->name('customauth.customresetassword');

@@ -67,12 +67,13 @@ class HomeController extends Controller
         $today = Carbon::today();
         // $to = \Carbon\Carbon::createFromFormat('d', $today);
         
-        $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
-        $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
+        // $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
+        // $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
 
         $userId = stravaactivity::where('user_id',$id)
-        ->whereBetween('stravaactivity.start_date_local', [$to, $from])
-        ->where('type','Ride')->get();
+        // ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+        ->where('type','Ride')
+        ->orderBy('stravaactivity.id','DESC')->get();
         
         return view('activity')->with('useractivity',$userId);
     }
@@ -804,7 +805,133 @@ class HomeController extends Controller
 
 
     }
+    
+    public function team_life_board()
+    {
+        if(!Session::has('expiresAt')){
+            $this->saveSessionData();
+        }
+        $data['total_rides'] = 0;
+        $data['total_km'] =0;
+        $data['avg_km_covered'] = 0;
+        $data['highest_score'] = 0;
+        $data['highest_scorer_name'] = '';
+        $data['today_highest'] = 0;
+        $data['today_highester_name'] = '';
+        $data['longest_ride'] = 0;
+        $data['longest_rider_name'] = '';
+        $data['fastest_ride'] = 0;
+        $data['fastest_rider_name']= '';
+        $data['total_50_ride'] = 0;
+        $data['total_100_ride']= 0;
+        $data['total_75_ride'] = 0;
+        $data['total_200_ride'] = 0;
+        $data['total_300_ride']= 0;
+        
+        
+        //total rides
+        $today = Carbon::today();
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
+        $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
+        // $date1 = new DateTime("now", new DateTimeZone('Asia/Kolkata'));
+        // $to = $date1->format('Y-m-1 00:00:00');
+        // $from = $date1->format('Y-m-31 23:59:59');
+
+        $data['tostart'] =$from;
+        $data['toend']=  $to;
+        $data['total_rides'] = stravaactivity::
+        // whereBetween('start_date_local', [$to, $from])->
+        where('type','Ride')->count();
+        //total km
+        $data['total_km'] = stravaactivity::select( DB::raw("sum(stravaactivity.distance) as distance"))
+        // ->whereBetween('start_date_local', [$to, $from])
+        ->where('type','Ride')->first(['distance']);
+        $data['total_km']=$data['total_km']->distance;
+        $total = User::count();
+        $data['avg_km_covered'] = (int)$data['total_km']/(int)$total; 
+        //highest_score
+        $maxRide = stravaactivity::select( DB::raw("sum(stravaactivity.distance) as distance,user_id"))
+        // ->whereBetween('start_date_local', [$to, $from])
+        ->where('type','Ride')->groupBy('user_id')->orderBy('distance','desc')->first();
+        if($maxRide){
+            $userObj = User::where('id',$maxRide->user_id)->first(['name']);
+            $data['highest_score'] =$maxRide->distance;
+            $data['highest_scorer_name'] = $userObj['name'];
+        }
+         
+        //today_highest
+        $toToday = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfDay());
+        $fromToday = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfDay());
+        // $date1 = new DateTime("now", new DateTimeZone('Asia/Kolkata'));
+        // $toToday = $date1->format('Y-m-d 00:00:00');
+        // $fromToday = $date1->format('Y-m-d 23:59:59');
+
+
+        $date = Carbon::now();
+        $date->addDays(1);
+        $date->format("Y-m-d 00:00:00");
+        $data['new_to_start'] =$date;
+        $data['toToday'] = $fromToday;
+        $data['fromToday']= $toToday;
+        $date->format("Y-m-d 23:59:59");
+        $data['new_to_end'] =$date;
+        
+        $date1 = new DateTime("now", new DateTimeZone('Asia/Kolkata'));
+        $data['curstart'] = $date1->format('Y-m-d 00:00:00');
+        $data['curend'] = $date1->format('Y-m-d 23:59:59');
+
+        $maxRide = stravaactivity::select('user_id','distance')
+        // ->whereBetween('start_date_local', [$toToday, $fromToday])
+        ->where('type','Ride')->orderBy('distance','desc')->first();
+        if($maxRide){
+            $userObj = User::where('id',$maxRide->user_id)->first(['name']);
+            $data['today_highest'] =$maxRide->distance;
+            $data['today_highester_name'] = $userObj['name']; 
+        }
+        //longest_ride
+        $longest_ride = stravaactivity::select('user_id','distance')
+        // ->whereBetween('start_date_local', [$to, $from])
+        ->where('type','Ride')->orderBy('distance','desc')->first();
+        if($longest_ride){
+            $userObj = User::where('id',$longest_ride->user_id)->first(['name']);
+            $data['longest_ride'] =$longest_ride->distance;
+            $data['longest_rider_name'] = $userObj['name']; 
+        }
+        //fastest_ride
+        $longest_ride = stravaactivity::select('user_id','average_speed')
+        // ->whereBetween('start_date_local', [$to, $from])
+        ->where('type','Ride')->orderBy('average_speed','desc')->first();
+        if($longest_ride){
+            $userObj = User::where('id',$longest_ride->user_id)->first(['name']);
+            $data['fastest_ride'] =$longest_ride->average_speed;
+            $data['fastest_rider_name'] = $userObj['name']; 
+        }
+        $maxRide = stravaactivity::select('user_id','distance')
+        // ->whereBetween('start_date_local', [$to, $from])
+        ->where('type','Ride')->orderBy('distance','desc')->get();
+        
+        foreach($maxRide as $ride){
+
+
+            if($ride->distance >=300000){
+                $data['total_300_ride'] =$data['total_300_ride']+1;
+            }elseif($ride->distance >=200000){
+                $data['total_200_ride'] =$data['total_200_ride']+1;
+            }elseif($ride->distance >=100000){
+                $data['total_100_ride'] =$data['total_100_ride']+1;
+            }elseif($ride->distance >=75000){
+                $data['total_75_ride'] =$data['total_75_ride']+1;
+            }elseif($ride->distance >=50000){
+                $data['total_50_ride'] =$data['total_50_ride']+1;
+            }
+        }
+
+        return view('team_life_board')->with('data',$data);
+
+
+    }
   
+
     public function saveSessionData(){
         $userObj = Auth::user();
         
