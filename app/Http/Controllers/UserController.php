@@ -195,8 +195,8 @@ class UserController extends Controller
         $gender['MALE'] = "MALE";
         $gender['FEMALE'] = "FEMALE";
         $today = \Carbon\Carbon::today();
-        $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
-        $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
+        // $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
+        // $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
 
         if(!$id){
             $user = Auth::user();
@@ -237,10 +237,10 @@ class UserController extends Controller
         $data['lastActivity']=0;
 
         $sActivity = stravaactivity::where('user_id',$user->id)
-        ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+        // ->whereBetween('stravaactivity.start_date_local', [$to, $from])
         ->get();
         $data['lastActivity']=stravaactivity::where('user_id',$user->id)
-        ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+        // ->whereBetween('stravaactivity.start_date_local', [$to, $from])
         ->orderBy('stravaactivity.start_date_local', 'desc')
         ->limit(5)
         ->get(); 
