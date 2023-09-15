@@ -21,8 +21,8 @@
         <div id="html-content-holder" style="background: url({{asset('assets/certi/certy.png')}}) no-repeat #fff; background-size:contain; width: 600px; height: 900px; margin:20px; padding:25px; position: relative;">
         {{-- <input type="text" value="" placeholder="Enter Your Name" class="youName"  >
         <div class="km"><input type="text" value="" placeholder="00" class="youPos"  > KM</div> --}}
-        <span class="youName">{{ucfirst(isset($data['name'])?$data['name']:'')}} </span>          
-        <div class="km"><span class="youPos"> ({{number_format($data['total']/1000,2)}} Kms)</span></div>  
+        <span class="youName">{{ucfirst(isset($data['name'])?$data['name']:'')}} <br> <span class="youFont">({{number_format($data['total']/1000,2)}} Kms) </span></span>          
+          
         <div class="printcls" >
                 
                 <div class="avatar-wrapper">                    

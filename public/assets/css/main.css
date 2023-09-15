@@ -26,7 +26,7 @@ text-decoration: none;
     
 }
 .km { position: absolute;
-  top: 406px;
+  top: 440px;
   left: 320px; font-family: 'Roboto', sans-serif;
   font-size:20px;  font-weight: 900;}
 .youPos { 
@@ -34,6 +34,20 @@ text-decoration: none;
   border: none;
   font-size: 18px;
   width: 170px;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  z-index: 9999;  
+  font-size:20px;  
+
+  font-weight: 900;
+  margin-top: 3px;
+  display: inline-block;
+  vertical-align: top;  
+}
+.youFont { 
+  background: transparent;
+  border: none;
+  font-size: 14px !important;
   text-align: center;
   font-family: 'Roboto', sans-serif;
   z-index: 9999;  
