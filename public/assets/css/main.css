@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@500;700;900&display=swap');
+
+@charset "UTF-8";
+
+    #btn_convert {
+    background: #f43c08;
+    padding: 10px 30px;
+    border-radius: 30px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+}
+#btn-Convert-Html2Image 
+{
+    background: #217178;
+    padding: 10px 30px;
+    border-radius: 30px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+font-family: Arial, Helvetica, sans-serif;
+text-decoration: none;
+    
+}
+.km { position: absolute;
+  top: 406px;
+  left: 320px; font-family: 'Roboto', sans-serif;
+  font-size:20px;  font-weight: 900;}
+.youPos { 
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  width: 170px;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  z-index: 9999;  
+  font-size:20px;  
+
+  font-weight: 900;
+  margin-top: 3px;
+  display: inline-block;
+  vertical-align: top;  
+}
+.youName { 
+  font-family: 'Roboto', sans-serif;
+    position: absolute;
+    top: 358px;
+    left: 300px;
+    background: transparent;
+    border: none;
+    font-size:20px;
+    width: 220px;
+    text-align: center;
+    font-weight: 900;
+    padding: 10px 0px;
+    z-index: 99999;         
+    transform: scale(1.8);
+}
+.avatar-wrapper {
+  position: relative;
+  height: 147px;
+  width: 144px;
+  margin: 0px auto;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border-radius: 25px;
+}
+.avatar-wrapper:hover {
+  transform: scale(1);
+  cursor: pointer;
+}
+.avatar-wrapper:hover .profile-pic {
+  opacity: 0.5;
+}
+.avatar-wrapper .profile-pic {
+  height: 100%;
+  width: 100%;
+  transition: all 0.3s ease;  
+}
+.avatar-wrapper .profile-pic:after {
+  font-family:Arial, Helvetica, sans-serif ;
+  content:"Upload Photo";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  font-size: 20px;
+  background: #ecf0f1;
+  color: #34495e;
+  text-align: center;
+  line-height: 250px;
+}
+.avatar-wrapper .upload-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.avatar-wrapper .upload-button .fa-arrow-circle-up {
+  position: absolute;
+  font-size: 234px;
+  top: -17px;
+  left: 0;
+  text-align: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+  color: #34495e;
+}
+.avatar-wrapper .upload-button:hover .fa-arrow-circle-up {
+  opacity: 0.9;
+}
+
+.printcls{
+  position: absolute;left: 59px;top: 315px;
+}

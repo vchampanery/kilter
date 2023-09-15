@@ -255,7 +255,7 @@ class HomeController extends Controller
                     ->groupBy('user_id')->first();
         
         $user['total']=isset($userActi->total)?$userActi->total:0;
-        return view('auth/cre') ->with('data',$user);
+        return view('auth/cre1') ->with('data',$user);
     }
     public function resetpassword(){
 
