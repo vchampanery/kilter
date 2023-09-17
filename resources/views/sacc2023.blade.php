@@ -88,6 +88,52 @@
               </tbody>
             </table>
 
+
+            <table class="inputs">
+              <tbody><tr>
+                  <td>Minimum age:</td>
+                  <td><input type="text" id="min" name="min"></td>
+              </tr>
+              <tr>
+                  <td>Maximum age:</td>
+                  <td><input type="text" id="max" name="max"></td>
+              </tr>
+          </tbody></table>
+
+            <table id="activityTable1">
+              <thead>
+                <th>name</th>
+                <th>id</th>
+                <th>total kilometer</th>
+                <th>total Ride</th>
+                <th>city</th>
+                <th>mobile</th>
+                <th>email</th>
+              </thead>
+              <tbody>
+                @if(isset($data1) && count($data1) > 0)
+                @foreach($data1 as $k=>$v)
+                  <tr>
+                    <td>
+                    <a href="{{url('/profile/')}}/{{$v['id']}}" target="_blank">
+                      {{$v['name']}}
+                      </a>  
+                    
+                    </td>
+                    <td><a href="{{url('/activity/')}}/{{$v['id']}}" target="_blank"  >
+                        activity
+                      </a></td>
+                    
+                    <td>{{number_format($v['total']/1000,2)}}</td>
+                    <td>{{$v['total_ride']}}</td>
+                    <td>{{$v['city']}}</td>
+                    <td>{{$v['mobile']}}</td>
+                    <td>{{$v['email']}}</td>
+                  </tr>
+                @endforeach
+                @endif
+              </tbody>
+            </table>
             <table>
               <thead>
                 <th>Kilometer</th>
@@ -119,7 +165,7 @@
   <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
  
      <script type="text/javascript" class="init">
-      
+      var table = null;
  $(document).ready(function() {
     $('#activityTable').DataTable( {
         dom: 'Bfrtip',
@@ -130,6 +176,50 @@
             'pdfHtml5'
         ]
     } );
+    table = $('#activityTable1').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ]
+    } );
+
+    DataTable.ext.search.push(function (settings, data, dataIndex) {
+    let min = parseInt(minEl.value, 10);
+    let max = parseInt(maxEl.value, 10);
+    let age = parseFloat(data[2]) || 0; // use data for the age column
+ 
+    if (
+        (isNaN(min) && isNaN(max)) ||
+        (isNaN(min) && age <= max) ||
+        (min <= age && isNaN(max)) ||
+        (min <= age && age <= max)
+    ) {
+        return true;
+    }
+ 
+    return false;
+});
+ 
+const minEl = document.querySelector('#min');
+const maxEl = document.querySelector('#max');
+
+minEl.addEventListener('input', function () {
+    table.draw();
+});
+maxEl.addEventListener('input', function () {
+    table.draw();
+});
+
+
 } );
+
+// const table = new DataTable('#activityTable1');
+
+
+
+
 </script>
 @endsection

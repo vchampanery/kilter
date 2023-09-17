@@ -261,7 +261,7 @@ class HomeController extends Controller
 
         return view('auth/reset_password');
     }
-    public function sacc2023(){
+    public function sacc2023($start=null,$stop=null){
         $data['name']='viral';
         $data['total']='230000';
         $data['300']='2';
@@ -291,6 +291,7 @@ class HomeController extends Controller
         // dd();   
         $users = User::all();
         $temps = [];
+        $temps1 = [];
         $total=[];
         $total['3000']=0;
         $total['900']=0;
@@ -300,6 +301,9 @@ class HomeController extends Controller
         foreach($users as $uk=>$uv){
             $data['name']=$uv['name'];
             $data['id']=$uv['id'];
+            $data['city']=$uv['city'];
+            $data['mobile']=$uv['mobile'];
+            $data['email']=$uv['email'];
             $data['total']=0;
             $data['total_ride']=0;
             $data['300']=0;
@@ -386,11 +390,18 @@ class HomeController extends Controller
             }
                 // dd($data);
             $temps[]=$data;
+            $data1['name']= $data['name'];
+            $data1['id']= $data['id'];
+            $data1['total']= $data['total'];
+            $data1['total_ride']= $data['total_ride'];
+            $temps1[]=$data;
+            
         }
            
 
         return view('sacc2023')
         ->with('data',$temps)
+        ->with('data1',$temps1)
         ->with('total1',$total);
     }
     /**

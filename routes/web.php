@@ -73,13 +73,15 @@ Route::get('/certificate-sacc2023', 'App\Http\Controllers\HomeController@certifi
 Route::get('/activity/{id?}', 'App\Http\Controllers\HomeController@activity')->name('home.activity');
 Route::get('/viewdetail/{id?}', 'App\Http\Controllers\HomeController@viewdetail')->name('home.viewdetail');
 Route::get('/board', 'App\Http\Controllers\HomeController@board')->name('home.board');
-Route::get('/sacc2023', 'App\Http\Controllers\HomeController@sacc2023')->name('home.sacc2023');
+Route::get('/sacc2023/{start?}/{stop?}', 'App\Http\Controllers\HomeController@sacc2023')->name('home.sacc2023');
 Route::get('/goal_board', 'App\Http\Controllers\HomeController@goalboard')->name('home.goal_board');
 Route::any('/addgoal', 'App\Http\Controllers\HomeController@addgoal')->name('home.addgoal');
 Route::any('/add_activity_manual', 'App\Http\Controllers\HomeController@addstravaactivity')->name('home.addstravaactivity');
 Route::get('/fpage', 'App\Http\Controllers\RoleController@fpage')->name('home.fpage');
 Route::get('/roless', 'App\Http\Controllers\RoleController@index')->name('home.index');
 Route::get('/register', 'App\Http\Controllers\RegisterController@index')->name('register.index');
+
+Route::any('/team/create', 'App\Http\Controllers\TeamController@create')->name('team.create');
 
 // Route::get('/second_page', 'App\Http\Controllers\HomeController@second_page')->name('home.second_page');
 Route::get('/auth_page', 'App\Http\Controllers\StravaController@auth_page')->name('home.auth_page');
