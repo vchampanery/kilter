@@ -9,7 +9,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "iamstuartwilson/strava": "^1.4",
-        "ladumor/laravel-pwa": "^0.0.2",
+        "ladumor/laravel-pwa": "^0.0.4",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
