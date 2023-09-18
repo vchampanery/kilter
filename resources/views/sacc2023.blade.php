@@ -38,12 +38,15 @@
             
 
           
-            <table id="activityTable">
+            <table id="activityTable" class="table-responsive">
               <thead>
                 <th>name</th>
                 <th>id</th>
                 <th>total kilometer</th>
                 <th>total Ride</th>
+                <th>city</th>
+                <th>mobile</th>
+                <th>email</th>
                 <th>Daily 300</th>
                 <th>Total 300</th>
                 <th>Daily 200</th>
@@ -71,6 +74,9 @@
                     
                     <td>{{number_format($v['total']/1000,2)}}</td>
                     <td>{{$v['total_ride']}}</td>
+                    <td>{{$v['city']}}</td>
+                    <td>{{$v['mobile']}}</td>
+                    <td>{{$v['email']}}</td>
                     <td>{{$v['300']}}</td>
                     <td>{{$v['total300']}}</td>
                     <td>{{$v['200']}}</td>
@@ -189,8 +195,10 @@
     DataTable.ext.search.push(function (settings, data, dataIndex) {
     let min = parseInt(minEl.value, 10);
     let max = parseInt(maxEl.value, 10);
+    console.dir(min);
+    console.dir(max);
     let age = parseFloat(data[2]) || 0; // use data for the age column
- 
+    console.dir(age);
     if (
         (isNaN(min) && isNaN(max)) ||
         (isNaN(min) && age <= max) ||

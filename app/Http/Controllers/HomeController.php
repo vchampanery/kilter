@@ -262,6 +262,9 @@ class HomeController extends Controller
         return view('auth/reset_password');
     }
     public function sacc2023($start=null,$stop=null){
+        // dump($start);
+        // dump($stop);
+
         $data['name']='viral';
         $data['total']='230000';
         $data['300']='2';
@@ -389,16 +392,28 @@ class HomeController extends Controller
                 $total['300']+=1;
             }
                 // dd($data);
-            $temps[]=$data;
+            // $temps[]=$data;
             $data1['name']= $data['name'];
             $data1['id']= $data['id'];
             $data1['total']= $data['total'];
             $data1['total_ride']= $data['total_ride'];
-            $temps1[]=$data;
+            $data1['city']= $data['city'];
+            $data1['mobile']= $data['mobile'];
+            $data1['email']= $data['email'];
+            if($start && $stop) {
+                if($data1['total'] > $start*1000 &&  $data1['total'] < $stop*1000){
+                    $temps1[]=$data1; 
+                    $temps[]=$data;       
+                }
+            } else{
+                $temps[]=$data;
+                $temps1[]=$data1;
+            }
+            // $temps1[]=$data1;
             
         }
            
-
+        // dd($temps1);
         return view('sacc2023')
         ->with('data',$temps)
         ->with('data1',$temps1)
