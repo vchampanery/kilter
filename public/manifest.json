@@ -1,7 +1,7 @@
 {
     "name": "kilter",
     "short_name": "kilter",
-    "start_url": "index.php",
+    "start_url": "/",
     "background_color": "#000000",
     "description": "kilter",
     "display": "fullscreen",
