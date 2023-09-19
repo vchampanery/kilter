@@ -1,14 +1,14 @@
 {
     "name": "kilter",
     "short_name": "kilter",
-    "start_url": "/index.php",
+    "start_url": "index.php",
     "background_color": "#000000",
     "description": "kilter",
     "display": "fullscreen",
     "theme_color": "#000000",
     "icons": [
         {
-            "src": "logo.PNG",
+            "src": "logo.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
