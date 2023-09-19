@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- PWA  -->
   <meta name="theme-color" content="#6777ef"/>
-  <link rel="apple-touch-icon" href="{{ asset('logo.PNG') }}">
+  <link rel="apple-touch-icon" href="{{ asset('/logo.png') }}">
   <link rel="manifest" href="{{ asset('/manifest.json') }}">
   <!-- {{dd("asd1")}} -->
   <title>{{ config('app.name', 'Simba') }}</title>
