@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Current Month Board1</h1> 
+            <h1 class="m-0 text-dark">Current Month Board</h1> 
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -40,6 +40,20 @@
                 @endif
         <!-- Small boxes (Stat box) -->
         <div class="row">
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-secondary">
+              <div class="inner">
+                <h3>{{number_format($data['today_ride']/1000, 2)}}<sup style="font-size: 20px">Kms</sup></h3>
+
+                <p>Today's Ride</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="{{url('/activity')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
@@ -100,7 +114,7 @@
           </div>
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger">
+            <div class="small-box bg-purple">
               <div class="inner">
                 <h3>{{number_format(3.6 *$data['max_speed_ride'], 2)}}<sup style="font-size: 20px">Km/h</sup></h3>
 
@@ -112,6 +126,8 @@
               <a href="{{url('/activity')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+          
+
           <!-- ./col -->
         </div>
         <!-- /.row -->

@@ -707,13 +707,17 @@ class HomeController extends Controller
         $data['max_speed_ride'] = isset($userActi['max_speed'])?$userActi['max_speed']:0;
         $data['range'] = $range;
         $data['selectrange'] = 'currrent_month';
+
+        $userActiviyObj = stravaactivity::where('user_id', $id)
+        ->whereDate('start_date_local', Carbon::today())->where('type','Ride')->first();
+        $data['today_ride'] =  isset($userActiviyObj->distance)?$userActiviyObj->distance:0;
+
         if($id){
             $data['myid'] = $id;    
         }else{
             return redirect()->route('login');
         }
         
-
         return view('personal_board')->with('data',$data);
     }
     /**
