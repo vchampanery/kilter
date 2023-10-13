@@ -447,8 +447,8 @@ class HomeController extends Controller
         // $dateE = new Carbon('last day of last month');
         // $dateE->endOfMonth();
 
-        dump($dateS);
-        dump($dateE);
+        // dump($dateS);
+        // dump($dateE);
 
         foreach($users as $uk=>$uv){
            $tempData = [];

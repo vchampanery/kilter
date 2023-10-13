@@ -510,10 +510,10 @@ class StravaController extends Controller
 
         if($today){
                 if($today=='admin'){
-                    // $before  = strtotime("-31 day 00:00:00");
-                    // $after   = strtotime("today 23:59:59");
-                    $before  = strtotime("-73 day 00:00:00");
-                    $after   = strtotime("-35 day 23:59:59");
+                    $before  = strtotime("-31 day 00:00:00");
+                    $after   = strtotime("today 23:59:59");
+                    // $before  = strtotime("-73 day 00:00:00");
+                    // $after   = strtotime("-35 day 23:59:59");
                     $page = 1;
                     $data = $this->getActivitAth($api,$page,30,$before,$after);
                     $return  = $this->getsavedata($data,$id);
