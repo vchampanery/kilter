@@ -1,5 +1,5 @@
 <?php
-    
+
 namespace App\Http\Controllers;
 
 use App\Exports\ExportUser;
@@ -21,6 +21,16 @@ use DateTime;
 class UserController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -31,7 +41,7 @@ class UserController extends Controller
         return view('users.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -43,7 +53,7 @@ class UserController extends Controller
         $roles = Role::pluck('name','name')->all();
         return view('users.create',compact('roles'));
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -58,17 +68,17 @@ class UserController extends Controller
             'password' => 'required|same:confirm-password',
             'roles' => 'required'
         ]);
-    
+
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
-    
+
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
-    
+
         return redirect()->route('users.index')
                         ->with('success','User created successfully');
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -80,7 +90,7 @@ class UserController extends Controller
         $user = User::find($id);
         return view('users.show',compact('user'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -92,10 +102,10 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
-    
+
         return view('users.edit',compact('user','roles','userRole'));
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -111,24 +121,24 @@ class UserController extends Controller
             'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);
-    
+
         $input = $request->all();
-        if(!empty($input['password'])){ 
+        if(!empty($input['password'])){
             $input['password'] = Hash::make($input['password']);
         }else{
-            $input = Arr::except($input,array('password'));    
+            $input = Arr::except($input,array('password'));
         }
-    
+
         $user = User::find($id);
         $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
-    
+
         $user->assignRole($request->input('roles'));
-    
+
         return redirect()->route('users.index')
                         ->with('success','User updated successfully');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
@@ -174,7 +184,7 @@ class UserController extends Controller
         $city['RAJKOT']='RAJKOT';
         $city['VADODARA']='VADODARA';
         $city['VALLABHVIDHYA NAGAR']='VALLABHVIDHYA NAGAR';
-        $city['VAPI']='VAPI';   
+        $city['VAPI']='VAPI';
 
         $state['BIHAR']='BIHAR';
         $state['GUJARAT']='GUJARAT';
@@ -222,13 +232,13 @@ class UserController extends Controller
 
         $data =[];
         $data['strava_profile_link']=null;
-        
+
 
         if($json){
-            $data['strava_profile_link']=isset($json->id)?"https://www.strava.com/athletes/$json->id":null;   
+            $data['strava_profile_link']=isset($json->id)?"https://www.strava.com/athletes/$json->id":null;
         }
         //activities start
-        
+
         $data['30']=0;
         $data['50']=0;
         $data['100']=0;
@@ -243,7 +253,7 @@ class UserController extends Controller
         // ->whereBetween('stravaactivity.start_date_local', [$to, $from])
         ->orderBy('stravaactivity.start_date_local', 'desc')
         ->limit(5)
-        ->get(); 
+        ->get();
         // dd($data['lastActivity']);
 
 
@@ -264,30 +274,30 @@ class UserController extends Controller
             }
             $data['total'] += $vluActy['distance'];
         }
-        
+
         $data['profile_pic']=isset($json->profile)?$json->profile:null;;
         $data['page']='profile';
         $data['user']=$user;
 
         }
-        
+
         return view('users.profile',compact('data','city','state','gender','chapter'));
     }
     public function review($id=null){
-       
+
         $today = \Carbon\Carbon::today();
         $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
         $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
         if(Auth::user()){
 
-        
+
         if(!$id){
             $user = Auth::user();
         }else{
             $user = User::where('id',$id)->first();
         }
         }else{
-            return redirect()->route('login'); 
+            return redirect()->route('login');
         }
         //  get profile pic
         $stravaUser = stravauser::where('user_id',$user->id)->first();
@@ -307,24 +317,24 @@ class UserController extends Controller
             $json = json_decode($stravaUser->raw_data);
             $data['profile_pic']=isset($json->profile)?$json->profile:null;;
         }
-        
+
         $data['page']='review';
         $data['user']=$user;
         $review = review::all();
         $rdata=[];
             foreach($review as $rkey=>$rvlu){
                 $rdatatemp=[];
-                
+
                 $rdatatemp1 = User::where('id',$rvlu->user_id)->first(['name']);
-                
+
                 $rdatatemp['name'] = $rdatatemp1->name;
                 $rdatatemp['review'] = $rvlu->review;
                 $rdatatemp['date'] = $rvlu->review_date;
                 $rdata[]=$rdatatemp;
             }
         $data['review'] = $rdata;
-        
-        
+
+
         return view('users.review',compact('data'));
     }
     public function saveProfile(Request $request){
@@ -337,14 +347,14 @@ class UserController extends Controller
     }
     public function saveReview(Request $request){
         $param = $request->all();
-        
+
         if(isset($param['id'])){
             review::create([
                 'user_id'=>$param['id'],
                 'review'=>$param['review'],
                 'review_date'=>new DateTime()
             ]);
-            
+
             // User::where('id',$param['id'])->update($param);
             return redirect()->route('user.review')->with('success','Review posted Successfully');;
         }
@@ -353,14 +363,14 @@ class UserController extends Controller
     public function importView(Request $request){
         return view('importFile');
     }
- 
+
     public function import(Request $request){
         Excel::import(new ImportUser,
                       $request->file('file')->store('files'));
     dd("test");
         return redirect()->back();
     }
- 
+
     public function exportUsers(Request $request){
         return Excel::download(new ExportUser, 'users.xlsx');
     }
