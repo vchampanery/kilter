@@ -429,13 +429,15 @@ class HomeController extends Controller
         $id = Auth::user()->id;
         // dd(Auth::user()->email);
         $users = User::all();
-        // $dateS = Carbon::now()->startOfMonth();
-        // $dateE = Carbon::now()->endOfMonth();
+        $dateS = Carbon::now()->startOfMonth();
+        $dateE = Carbon::now()->endOfMonth();
 
         $dateS = new Carbon('first day of last month');
         $dateS->startOfMonth();
+
+
         $dateE = new Carbon('last day of last month');
-        $dateE->startOfMonth();
+        $dateE->endOfMonth();
 
         foreach($users as $uk=>$uv){
            $tempData = [];
