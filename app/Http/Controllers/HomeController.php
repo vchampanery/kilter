@@ -436,13 +436,16 @@ class HomeController extends Controller
         $users = User::all();
         // $dateS = Carbon::now()->startOfMonth();
         // $dateE = Carbon::now()->endOfMonth();
+        $dateS = Carbon::now()->format('Y-08-01 00:00:00');
+        $dateE = Carbon::now()->format('Y-08-31 23:59:59');
 
-        $dateS = new Carbon('first day of last month');
-        $dateS->startOfMonth();
+        // $dateS = new Carbon('first day of last month');
+        // $dateS->startOfMonth();
 
 
-        $dateE = new Carbon('last day of last month');
-        $dateE->endOfMonth();
+        // $dateE = new Carbon('last day of last month');
+        // $dateE->endOfMonth();
+
         dump($dateS);
         dump($dateE);
 
