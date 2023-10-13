@@ -229,11 +229,16 @@ class HomeController extends Controller
         // return view('fpage')->with('useractivity',$userId);
     }
 
-    public function certificate(){
+    public function certificate($id=null){
         // dd("ad");
-        $us = Auth::user();
+        if(!$id){
+            $us = Auth::user();
+            $id = $us->id;
+        }
+        $name = User::where('id',$id)->first();
+        // dd($name);
 
-        $user['name']=$us->name;
+        $user['name']=$name->name;
         $dateS = 1690848000;
         $dateE = 1693439999;
         // $dateS  = strtotime("-33 day 00:00:00");
@@ -249,7 +254,7 @@ class HomeController extends Controller
         $userActi = stravaactivity::select(
             DB::raw("
                     sum(stravaactivity.distance) as total"))
-                    ->where('user_id',$us->id)
+                    ->where('user_id',$id)
                     ->whereBetween('start_date_local',[$dateS,$dateE])
                     ->where('type','Ride')
                     ->groupBy('user_id')->first();
