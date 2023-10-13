@@ -22,7 +22,7 @@ class StravaController extends Controller
     protected $api;
 
     public function getAuth(Request $request){
-        
+
         $allParam = $request->all();
         if(!isset($allParam['code'])){
             return view('first_page');
@@ -46,7 +46,7 @@ class StravaController extends Controller
         Session::put('accessToken', $accessToken);
         Session::put('refreshToken', $refreshToken);
         Session::put('expiresAt', $expiresAt);
-        
+
         //fetch data for current month and redirect to personal dashboard
         //1. fetch personal data
             $this->pullUserData($request);
@@ -76,7 +76,7 @@ class StravaController extends Controller
             dump($result);
             $sua = [];
             $sua['error']='faild';
-            return $sua;    
+            return $sua;
         }else{
             // dump($result);
         }
@@ -97,7 +97,7 @@ class StravaController extends Controller
         return $sua;
     }
     public function reset($id){
-        
+
         $straveAuthObj =  stravauserauth::where('user_id',$id)->delete();
         $straveAuthObj =  stravauser::where('user_id',$id)->delete();
         return redirect()->route('home.board')->with('success','strava reset done');
@@ -113,7 +113,7 @@ class StravaController extends Controller
 
     }
     /**
-     * 
+     *
      */
     public function getdatabycron($start,$end){
         // dump($start);
@@ -124,7 +124,7 @@ class StravaController extends Controller
         // $userObj = stravauserauth::orderBy('user_id','>','130')->get(['user_id']);
         foreach($userObj as $key=>$val){
             dump($val->user_id);
-            // echo $val->user_id." , ";    
+            // echo $val->user_id." , ";
 
             $ugobj = new userfetchlog();
             $ugobj->user_id = $val->user_id;
@@ -143,7 +143,7 @@ class StravaController extends Controller
         $ru = ($cnt-1)*30;
         $userObj = user::skip($ru)->take(30)->get();
         foreach($userObj as $ke=>$v){
-           dump($v->id); 
+           dump($v->id);
            $this->fetch_data($v->id,'admin');
          //    return Redirect::to("/fetch_data/$v-id/admin");
         }
@@ -163,8 +163,8 @@ class StravaController extends Controller
     public function fetch_data($id,$cron=null)
     {
         try{
-           
-        
+
+
         // dump($id);
         //daily
         $api = new StravaApi(
@@ -194,7 +194,7 @@ class StravaController extends Controller
         //     // dump($expiresAt);
         //     // exit;
         //     $id = $id?$id:Auth::user()->id;
-            
+
 
         //     $sua = $this->refreshToken($id);
         //     if(isset($sua['error'])){
@@ -203,7 +203,7 @@ class StravaController extends Controller
         //     $accessToken = $sua['accessToken'];// Session::get('accessToken');
         //     $refreshToken = $sua['refreshToken'];//Session::get('refreshToken');
         //     $expiresAt = $sua['expiresAt'];//Session::get('expiresAt');
-            
+
         //     // update stravauserauth
         //     // stravauserauth::where('user_id',$id)  // find your user by their email
         //       // optional - to ensure only one record is updated.
@@ -235,16 +235,16 @@ class StravaController extends Controller
             $accessToken = $sua['accessToken'];// Session::get('accessToken');
             $refreshToken = $sua['refreshToken'];//Session::get('refreshToken');
             $expiresAt = $sua['expiresAt'];//Session::get('expiresAt');
-            $api->setAccessToken($accessToken, $refreshToken, $expiresAt); 
+            $api->setAccessToken($accessToken, $refreshToken, $expiresAt);
         }
-        
+
         // dd("test");
         //get athleteData
         // $this->getAthleteData($api);
-        
+
         //get athleteActivity
         $current = 'today';
-        
+
         if($cron == 'admin'){
             $current = 'admin';
         }
@@ -257,7 +257,7 @@ class StravaController extends Controller
             $id = Auth::user()->id;
             if($id == 7){
                 return redirect()->route('home.board')
-                ->with('success','Data pulled successfully');    
+                ->with('success','Data pulled successfully');
             }
             return redirect()->route('home.personal_board')
         ->with('success','Data pulled successfully');
@@ -279,14 +279,14 @@ class StravaController extends Controller
         dump($accessToken, $refreshToken, $expiresAt);
         // dd();
         try{
-            
-        $api->setAccessToken($accessToken, $refreshToken, $expiresAt);   
+
+        $api->setAccessToken($accessToken, $refreshToken, $expiresAt);
         }catch(Expectation $ex){
             dd($ex);
 
         }
         // dump($api->isTokenRefreshNeeded());
-        
+
         $result = $api->tokenExchangeRefresh();
         $accessToken = $result->access_token;
 	    $refreshToken = $result->refresh_token;
@@ -295,7 +295,7 @@ class StravaController extends Controller
         Session::put('refreshToken', $refreshToken);
         Session::put('expiresAt', $expiresAt);
         return true;
-       
+
         return view('auth_page');
     }
     public function pullUserData(Request $request){
@@ -307,13 +307,13 @@ class StravaController extends Controller
          $username = $udata['username'];
          return view('user_page')->with('username',$username);
         }
-        
-        
+
+
         $api = new StravaApi(
             75321,
             'c3449a4896e4de279405aa2e86c4e5040fed5a75'
         );
-       
+
         $accessToken =  Session::get('accessToken');
         $refreshToken = Session::get('refreshToken');
         $expiresAt = Session::get('expiresAt');
@@ -322,11 +322,11 @@ class StravaController extends Controller
         }catch(\Exception $ex){
             $this->auth_page();
         }
-        
+
         $accessToken =  Session::get('accessToken');
         $refreshToken = Session::get('refreshToken');
         $expiresAt = Session::get('expiresAt');
-        
+
         $result = $api->setAccessToken($accessToken, $refreshToken, $expiresAt);
         if(!$result){
             return view('user_page')->with('message','Please hit strava connect');
@@ -334,7 +334,7 @@ class StravaController extends Controller
         $data = $api->get(
             'athlete'
         );
-        
+
     //  dd($data);
         $id = Auth::user()->id;
         $d= [];
@@ -342,7 +342,7 @@ class StravaController extends Controller
         $d['user_id'] =$id;
         $d['username'] =(isset($data->username) && $data->username)?$data->username:$data->firstname;
         $d['raw_data'] =json_encode($data);
-        
+
         //insert user
         try{
             $sucreate = stravauser::insert($d);
@@ -356,7 +356,7 @@ class StravaController extends Controller
             $sua['expiresAt']=$expiresAt;
             $sua['isActive']=1;
             $sucreate = stravauserauth::insert($sua);
- 
+
         }catch(Exception $ex ){
             dd($ex);
         }
@@ -368,38 +368,38 @@ class StravaController extends Controller
          return true;
         }
         return true;
-        // return redirect()->route('home.first_page'); 
-        
+        // return redirect()->route('home.first_page');
+
     }
     public function pullActivityData($id=null,$year=null,Request $request){
 
         if(!$id){
             $id = Auth::user()->id;
-        }        
-        
+        }
+
         $api = new StravaApi(
             75321,
             'c3449a4896e4de279405aa2e86c4e5040fed5a75'
         );
-       
+
         $accessToken =  Session::get('accessToken');
         $refreshToken = Session::get('refreshToken');
         $expiresAt = Session::get('expiresAt');
 
         // test
         $t=time();
-        
+
         if($expiresAt<$t){
             echo "expires <br>";
             echo date('m/d/Y', $expiresAt);
             // dump($expiresAt);
             // exit;
-            
+
             $sua= $this->refreshToken($id);
             $accessToken = $sua['accessToken'];// Session::get('accessToken');
             $refreshToken = $sua['refreshToken'];//Session::get('refreshToken');
             $expiresAt = $sua['expiresAt'];//Session::get('expiresAt');
-            
+
             Session::put('accessToken', $accessToken);
             Session::put('refreshToken', $refreshToken);
             Session::put('expiresAt', $expiresAt);
@@ -410,16 +410,16 @@ class StravaController extends Controller
         }
         // exit;
         //test
-        
+
         // dd($expiresAt);
         $api->setAccessToken($accessToken, $refreshToken, $expiresAt);
         //get athleteData
         // $this->getAthleteData($api);
-        
+
         //get athleteActivity
         $this->getAthleteActivityData($api,null,$id,$year);
         return true;
-        // return redirect()->route('home.first_page'); 
+        // return redirect()->route('home.first_page');
         // return "pullActivityData";
     }
 
@@ -427,7 +427,7 @@ class StravaController extends Controller
         $data = $api->get(
             'athlete'
         );
-        dd($data);  
+        dd($data);
         $id = Auth::user()->id;
         $d= [];
         $d['strava_id'] =$data->id;
@@ -456,7 +456,7 @@ class StravaController extends Controller
         // dd();
         try{
 
-        
+
         $data = $api->get(
             'athlete/activities',
             [
@@ -481,7 +481,7 @@ class StravaController extends Controller
             if(isset($vd->id)){
             ++$i;
             $data = [];
-            $user_id = $id?$id:Auth::user()->id; 
+            $user_id = $id?$id:Auth::user()->id;
             $sucreate = stravaactivity::where('stravaactivity_id',$vd->id)->where('user_id',$user_id)->count();
             if($sucreate == 0){
                 $data['stravaactivity_id'] = isset($vd->id)?$vd->id:null;
@@ -494,7 +494,7 @@ class StravaController extends Controller
                 $data['max_speed'] = isset($vd->max_speed)?$vd->max_speed:null;
                 // $data['name'] = isset($vd->name)?$vd->name:null;
                 $data['raw_data'] = json_encode($vd);
-                $data['user_id'] =$user_id; 
+                $data['user_id'] =$user_id;
                 $sucreate = stravaactivity::insert($data);
             }
             }
@@ -504,7 +504,7 @@ class StravaController extends Controller
         }
         return $i;
     }
-    
+
 
     public function getAthleteActivityData($api,$today=null,$id=null,$year=null){
 
@@ -512,12 +512,12 @@ class StravaController extends Controller
                 if($today=='admin'){
                     // $before  = strtotime("-31 day 00:00:00");
                     // $after   = strtotime("today 23:59:59");
-                    $before  = strtotime("-35 day 00:00:00");
-                    $after   = strtotime("today 23:59:59");
-                    $page = 1; 
+                    $before  = strtotime("-43 day 00:00:00");
+                    $after   = strtotime("-12 day 23:59:59");
+                    $page = 1;
                     $data = $this->getActivitAth($api,$page,30,$before,$after);
                     $return  = $this->getsavedata($data,$id);
-                    
+
                     while($return == 30){
                         ++$page;
                         dump("return:".$return);
@@ -527,11 +527,11 @@ class StravaController extends Controller
 
                 } else {
                     $page = 1;
-                
+
                     $before  = strtotime("-3 day 00:00:00");
                     $after   = strtotime("today 23:59:59");
                     dump($before);
-                    dump($after);    
+                    dump($after);
                     $data = $this->getActivitAth($api,$page,30,$before,$after);
                     $return  = $this->getsavedata($data,$id);
                 }
@@ -540,8 +540,8 @@ class StravaController extends Controller
                 // $date1 = new DateTime("now", new DateTimeZone('Asia/Kolkata'));
                 // $before = $date1->format('Y-m-d 00:00:00');
                 // $after = $date1->format('Y-m-d 23:59:59');
-                
-            
+
+
 
             // dd($return);
         }else{
@@ -557,7 +557,7 @@ class StravaController extends Controller
             $data = $this->getActivitAth($api,$page,30,$before,$after);
 
             $return  = $this->getsavedata($data,$id);
-            
+
             while($return == 30){
                 dump("return : ".$return);
                 ++$page;
@@ -581,7 +581,7 @@ class StravaController extends Controller
         //     $data['average_speed'] = $vd->average_speed;
         //     $data['max_speed'] = $vd->max_speed;
         //     $data['raw_data'] = json_encode($vd);
-        //     $data['user_id'] = Auth::user()->id; 
+        //     $data['user_id'] = Auth::user()->id;
         //     $sucreate = stravaactivity::insert($data);
         //     //api
         //     $data = $this->getActivitAth($api,$i,10);
