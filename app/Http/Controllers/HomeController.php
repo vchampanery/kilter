@@ -240,7 +240,8 @@ class HomeController extends Controller
 
         $user['name']=$name->name;
         $dateS = 1690848000;
-        $dateE = 1693439999;
+        // $dateE = 1693439999;
+        $dateE = 1693510260;
         // $dateS  = strtotime("-33 day 00:00:00");
         // $dateE   = strtotime("-4 day 23:59:59");
 
