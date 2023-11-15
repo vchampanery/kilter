@@ -1,10 +1,10 @@
-@extends('hometest')   
+@extends('hometest')
  @section('content')
  <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Current Month Team Dashboard</h1>
+            <h1 class="m-0 text-dark">Current Month Team Dashboard1</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -16,7 +16,7 @@
       </div><!-- /.container-fluid -->
     </div>
      <!-- Main content -->
-    
+
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
@@ -63,7 +63,7 @@
               <a href="{{url('/viewdetail/totalkmsavg')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-        
+
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -197,10 +197,10 @@
         </div>
         <!-- <br>to start : {{$data['tostart']}}
         <br>to end : {{$data['toend']}}
-        
+
         <br>from Today: {{$data['fromToday']}}
         <br>to Today : {{$data['toToday']}}
-        
+
         <br>new to strat: {{$data['new_to_start']}}
         <br>new to end : {{$data['new_to_end']}}
         <br>curStart : {{$data['curstart']}}
@@ -210,7 +210,7 @@
         <div class="row">
           <!-- Left col -->
           <section class="col-lg-7 connectedSortable">
-<!--             
+<!--
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
@@ -230,14 +230,14 @@
               </div>
               <div class="card-body">
                 <div class="tab-content p-0">
-                  
+
                   <div class="chart tab-pane active" id="revenue-chart"
                        style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>                         
+                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
                    </div>
                   <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>                         
-                  </div>  
+                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
+                  </div>
                 </div>
               </div>
             </div> -->
@@ -260,9 +260,9 @@
                   </button>
                 </div>
               </div>
-             
+
               <div class="card-body">
-                
+
                 <div class="direct-chat-messages">
                   <div class="direct-chat-msg">
                     <div class="direct-chat-infos clearfix">
@@ -270,41 +270,41 @@
                       <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
                     </div>
                     <img class="direct-chat-img" src="{{asset('assets/dist/img/user1-128x128.jpg')}}" alt="message user image">
-                    
+
                     <div class="direct-chat-text">
                       Is this template really for free? That's unbelievable!
                     </div>
-                    
-                  </div>
-                 
 
-                 
+                  </div>
+
+
+
                   <div class="direct-chat-msg right">
                     <div class="direct-chat-infos clearfix">
                       <span class="direct-chat-name float-right">Sarah Bullock</span>
                       <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
                     </div>
-                    
+
                     <img class="direct-chat-img" src="{{asset('assets/dist/img/user3-128x128.jpg')}}" alt="message user image">
-                    
+
                     <div class="direct-chat-text">
                       You better believe it!
                     </div>
-                  
+
                   </div>
-                  
+
                   <div class="direct-chat-msg">
                     <div class="direct-chat-infos clearfix">
                       <span class="direct-chat-name float-left">Alexander Pierce</span>
                       <span class="direct-chat-timestamp float-right">23 Jan 5:37 pm</span>
                     </div>
-                  
+
                     <img class="direct-chat-img" src="{{asset('assets/dist/img/user1-128x128.jpg')}}" alt="message user image">
-                  
+
                     <div class="direct-chat-text">
                       Working with AdminLTE on a great new app! Wanna join?
                     </div>
-                  
+
                   </div>
                   <div class="direct-chat-msg right">
                     <div class="direct-chat-infos clearfix">
@@ -312,13 +312,13 @@
                       <span class="direct-chat-timestamp float-left">23 Jan 6:10 pm</span>
                     </div>
                     <img class="direct-chat-img" src="{{asset('assets/dist/img/user3-128x128.jpg')}}" alt="message user image">
-                    
+
                     <div class="direct-chat-text">
                       I would love to.
                     </div>
-                    
+
                   </div>
-                  
+
                 </div> -->
                 <!--/.direct-chat-messages-->
 
@@ -650,25 +650,25 @@
 
                     <div class="text-white">Mail-Orders</div>
                   </div>
-                 
+
                   <div class="col-4 text-center">
                     <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
                            data-fgColor="#39CCCC">
 
                     <div class="text-white">Online</div>
                   </div>
-                 
+
                   <div class="col-4 text-center">
                     <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60"
                            data-fgColor="#39CCCC">
 
                     <div class="text-white">In-Store</div>
                   </div>
-                 
+
                 </div>
-                
+
               </div>
-              
+
             </div>
              -->
 
@@ -728,9 +728,9 @@
         </div>
 
       </div>
-      
+
       <!-- /.container-fluid -->
-     
+
     <!-- <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> -->
     <!-- Summernote -->
