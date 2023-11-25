@@ -739,7 +739,7 @@ class HomeController extends Controller
 
         return view('personal_board')->with('data',$data);
     }
-    public function personal_board_year(Request $request,,$id=null)
+    public function personal_board_year(Request $request,$id=null)
     {
 
         $id = $id?$id:Auth::user()->id;
