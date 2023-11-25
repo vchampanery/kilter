@@ -115,7 +115,7 @@ class StravaController extends Controller
     /**
      *
      */
-    public function getdatabycron($start,$end){
+    public function getdatabycron($start,$end,$by='cron'){
         // dump($start);
         // dump($end);
         // dd();
@@ -132,7 +132,7 @@ class StravaController extends Controller
             $ugobj->save();
 
             try{
-                $this->fetch_data($val->user_id,'cron');
+                $this->fetch_data($val->user_id,$by);
             }catch(Exception $ex){
                 dump( $ex);
             }

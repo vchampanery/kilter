@@ -57,7 +57,7 @@ Route::any('/saveReview', 'App\Http\Controllers\UserController@saveReview')->nam
 Route::get('/fetch_data', 'App\Http\Controllers\StravaController@fetch_data')->name('home.fetch_data');
 Route::get('/strava_reset/{id}', 'App\Http\Controllers\StravaController@reset')->name('strava.reset');
 Route::get('/updatedefualtpassword/{id}', 'App\Http\Controllers\StravaController@updatedefualtpassword')->name('strava.updatedefualtpassword');
-Route::get('/getdatabycron/{start}/{end}', 'App\Http\Controllers\StravaController@getdatabycron')->name('home.getdatabycron');
+Route::get('/getdatabycron/{start}/{end}/{by}', 'App\Http\Controllers\StravaController@getdatabycron')->name('home.getdatabycron');
 Route::get('/searchboarddata', 'App\Http\Controllers\StravaController@searchboarddata')->name('home.searchboarddata');
 
 Route::get('/profile/{id?}', 'App\Http\Controllers\UserController@profile')->name('user.profile');
