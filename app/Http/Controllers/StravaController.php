@@ -510,7 +510,8 @@ class StravaController extends Controller
 
         if($today){
                 if($today=='admin'){
-                    $before  = strtotime("-31 day 00:00:00");
+                    // $before  = strtotime("-31 day 00:00:00");
+                    $before  = strtotime("first day of january this year");
                     $after   = strtotime("today 23:59:59");
                     // $before  = strtotime("-73 day 00:00:00");
                     // $after   = strtotime("-35 day 23:59:59");
