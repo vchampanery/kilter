@@ -696,8 +696,8 @@ class HomeController extends Controller
             //   return view('strava_connect');
           }
         $today = Carbon::today();
-        $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
-        $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfYear());
+        $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfYear());
         // $date1 = new DateTime("now", new DateTimeZone('Asia/Kolkata'));
         // $to = $date1->format('Y-m-1 00:00:00');
         // $from = $date1->format('Y-m-31 23:59:59');
