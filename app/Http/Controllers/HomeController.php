@@ -739,10 +739,10 @@ class HomeController extends Controller
 
         return view('personal_board')->with('data',$data);
     }
-    public function personal_board_year(Request $request)
+    public function personal_board_year(Request $request,,$id=null)
     {
 
-        $id = Auth::user()->id;
+        $id = $id?$id:Auth::user()->id;
 
         $range['current_month'] = "Current Month";
         $range['today'] = "Today";
