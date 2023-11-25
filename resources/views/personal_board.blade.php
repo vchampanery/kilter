@@ -1,15 +1,15 @@
-@extends('hometest')   
+@extends('hometest')
  @section('content')
  <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Current Month Board</h1> 
+            <h1 class="m-0 text-dark">Current Month Board</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Current Month Board</li>
+              <li class="breadcrumb-item active">Current Month Board1</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -126,17 +126,17 @@
               <a href="{{url('/activity')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          
+
 
           <!-- ./col -->
         </div>
         <!-- /.row -->
         <!-- Main row -->
-        
+
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
-      
-      
+
+
     <!-- <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> -->
     <!-- Summernote -->
@@ -149,8 +149,8 @@
 
 
 <script type="text/javascript" class="init">
-      
-  $(document).ready(function() {   
+
+  $(document).ready(function() {
      $('input[name="dates"]').daterangepicker();
   } );
  </script>
