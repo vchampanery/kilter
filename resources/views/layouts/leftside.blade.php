@@ -35,6 +35,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{url('/personal_board_year')}}" class="nav-link
+                             @if(app('request')->route()->uri() == 'personal_board_year') active @endif">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Personal board year</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{url('/team_board')}}" class="nav-link
                              @if(app('request')->route()->uri() == 'team_board') active @endif">
                             <i class="far fa-circle nav-icon"></i>
@@ -72,8 +79,8 @@
                             <p>Add Review</p>
                         </a>
                     </li>
-                  
-                    
+
+
                     <!-- <li class="nav-item">
                         <a href="./index3.html" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>

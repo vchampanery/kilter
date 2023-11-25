@@ -655,7 +655,91 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function personal_board(Request $request)
+    public function personal_board(Request $request,$id=null)
+    {
+
+        $id = $id?$id:Auth::user()->id;
+
+        $range['current_month'] = "Current Month";
+        $range['today'] = "Today";
+        $range['last_day'] = "Last Day";
+        $request = $request->post();
+
+        // var_dump(Session::has('expiresAt'));exit;
+        // if(!Session::has('expiresAt')){
+        //     $this->saveSessionData();
+        // }
+        //check activity exists or not
+          //check activity exists or not
+
+          $isexisting = stravauser::where('user_id', $id)->count();
+          if($isexisting ==0){
+            return view('strava_connect');
+          }
+         //get strava data
+        $stravaUserData = stravauser::where('user_id',$id)->first();
+        $json = json_decode($stravaUserData->raw_data);
+
+        Session::put('userName', $json->firstname.''.$json->lastname );
+        Session::put('profile_pic', $json->profile);
+
+
+          $isexisting = stravaactivity::where('user_id', $id)->where('type','Ride')->count();
+          if($isexisting == 0){
+            $data['total_rides'] = 0;
+            $data['total_km'] = 0;
+            $data['total_avg_speed'] = 0;
+            $data['total_longest_ride'] = 0;// $longest->maxdist;
+            $data['max_speed_ride'] = 0;
+
+            return view('personal_board')->with('data',$data);
+            //   return view('strava_connect');
+          }
+        $today = Carbon::today();
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->startOfMonth());
+        $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $today->endOfMonth());
+        // $date1 = new DateTime("now", new DateTimeZone('Asia/Kolkata'));
+        // $to = $date1->format('Y-m-1 00:00:00');
+        // $from = $date1->format('Y-m-31 23:59:59');
+
+
+        $data['total_rides'] = stravaactivity::where('user_id', $id)
+        ->whereBetween('start_date_local', [$to, $from])->where('type','Ride')->count();
+
+        $userActi = stravaactivity::where('user_id', $id)->select(
+            DB::raw("stravaactivity.user_id as id,sum(stravaactivity.distance) as distance,
+                    avg(stravaactivity.average_speed) as average_speed,
+                    max(stravaactivity.average_speed) as max_speed"))
+                    ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+                    ->where('type','Ride')->groupBy('user_id')->first();
+
+                    $longest = stravaactivity::where('user_id', $id)
+                    ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+                    ->select( DB::raw('max(distance) as maxdist'))->where('type','Ride')->first();
+                    $max_speed = stravaactivity::where('user_id', $id)
+                    ->whereBetween('stravaactivity.start_date_local', [$to, $from])
+                    ->where('type','Ride')->max('max_speed');
+
+        $data['total_km'] = isset($userActi['distance'])?$userActi['distance']:0;
+        $data['total_avg_speed'] = isset($userActi['average_speed'])?$userActi['average_speed']:0;
+        $data['total_longest_ride'] = isset($longest['maxdist'])?$longest['maxdist']:0;// $longest->maxdist;
+        $data['max_speed_ride'] = isset($userActi['max_speed'])?$userActi['max_speed']:0;
+        $data['range'] = $range;
+        $data['selectrange'] = 'currrent_month';
+
+        $userActiviyObj = stravaactivity::where('user_id', $id)
+        ->whereDate('start_date_local', Carbon::today())->where('type','Ride')->first();
+        $data['today_ride'] =  isset($userActiviyObj->distance)?$userActiviyObj->distance:0;
+
+        if($id){
+            $data['myid'] = $id;
+        }else{
+            return redirect()->route('login');
+        }
+
+        return view('personal_board')->with('data',$data);
+    }
+    public function personal_board_year(Request $request)
     {
 
         $id = Auth::user()->id;
@@ -663,7 +747,7 @@ class HomeController extends Controller
         $range['current_month'] = "Current Month";
         $range['today'] = "Today";
         $range['last_day'] = "Last Day";
-     $request = $request->post();
+        $request = $request->post();
 
         // var_dump(Session::has('expiresAt'));exit;
         // if(!Session::has('expiresAt')){

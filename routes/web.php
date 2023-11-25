@@ -43,7 +43,8 @@ Route::get('/adminlte', function () {
 });
 
 //final
-Route::any('/personal_board', 'App\Http\Controllers\HomeController@personal_board')->name('home.personal_board');
+Route::any('/personal_board/{id?}', 'App\Http\Controllers\HomeController@personal_board')->name('home.personal_board');
+Route::any('/personal_board_year/{id?}', 'App\Http\Controllers\HomeController@personal_board_year')->name('home.personal_board_year');
 // Route::post('/personal_board', 'App\Http\Controllers\HomeController@personal_board')->name('home.personal_board');
 Route::get('/team_board', 'App\Http\Controllers\HomeController@team_board')->name('home.team_board');
 Route::get('/team_life_board', 'App\Http\Controllers\HomeController@team_life_board')->name('home.team_life_board');
