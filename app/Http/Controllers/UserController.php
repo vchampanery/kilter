@@ -60,12 +60,13 @@ class UserController extends Controller
     {
         // Verify the challenge parameter from the request
         $challenge = $request->query('hub_challenge');
-        $allParams = $request->all();
-        // $visitor = visitor::create([
-        //     'ip_address' => '111.22.33.4444',
-        //     'visitor_date' => date('Y-m-d H:m:i'),
-        //     'json_data'=>json_encode($allParams)
-        // ]);
+        // \Log::info('Verification Challenge: ' . $challenge);
+
+        $visitor = visitor::create([
+            'ip_address' => '111.22.33.4444',
+            'visitor_date' => date('Y-m-d H:m:i'),
+            'json_data'=>json_encode($challenge)
+        ]);
         // Respond with the challenge to confirm the URL's validity
         return response($challenge, 200);
     }
