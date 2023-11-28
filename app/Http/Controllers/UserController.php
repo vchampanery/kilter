@@ -53,7 +53,7 @@ class UserController extends Controller
             'json_data'=>json_encode($allParams)
         ]);
 
-        return true;
+        // return true;
     }
 
 
