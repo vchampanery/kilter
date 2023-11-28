@@ -56,6 +56,33 @@ class UserController extends Controller
         // return true;
     }
 
+    public function verifyCallback(Request $request)
+    {
+        // Verify the challenge parameter from the request
+        $challenge = $request->query('hub_challenge');
+        $allParams = $request->all();
+        $visitor = visitor::create([
+            'ip_address' => '111.22.33.4444',
+            'visitor_date' => date('Y-m-d H:m:i'),
+            'json_data'=>json_encode($allParams)
+        ]);
+        // Respond with the challenge to confirm the URL's validity
+        return response($challenge, 200);
+    }
+
+    public function handleCallback(Request $request)
+    {
+        // Process the webhook data
+        $allParams = $request->all();
+        $visitor = visitor::create([
+            'ip_address' => '111.22.33.555',
+            'visitor_date' => date('Y-m-d H:m:i'),
+            'json_data'=>json_encode($allParams)
+        ]);
+        // Return a 200 OK response
+        return response()->json(['status' => 'success'], 200);
+    }
+
 
     /**
      * Show the form for creating a new resource.

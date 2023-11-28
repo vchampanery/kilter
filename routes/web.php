@@ -65,7 +65,8 @@ Route::get('/profile/{id?}', 'App\Http\Controllers\UserController@profile')->nam
 Route::get('/review/{id?}', 'App\Http\Controllers\UserController@review')->name('user.review');
 
 Route::any('/testwebhook', 'App\Http\Controllers\UserController@testwebhook')->name('user.testwebhook');
-
+Route::get('/webhook/callback', 'App\Http\Controllers\UserController@verifyCallback');
+Route::post('/webhook/callback', 'App\Http\Controllers\UserController@handleCallback');
 
 Route::get('/fetch_data/{id}/{cron}', 'App\Http\Controllers\StravaController@fetch_data')->name('home.fetch_data');
 Route::get('/fetch_data1/{id}/{cron}', 'App\Http\Controllers\StravaController@fetch_data1')->name('home.fetch_data1');
