@@ -52,7 +52,7 @@ class UserController extends Controller
             'visitor_date' => date('Y-m-d H:m:i'),
             'json_data'=>json_encode($allParams)
         ]);
-
+        return response()->json(['status' => 'success'], 200);
         // return true;
     }
 
