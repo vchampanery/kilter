@@ -739,7 +739,7 @@ class HomeController extends Controller
         }
         $data['monthlyRides']=json_encode([34,12,1,2,30,12,21,42,23,21,32,42]);
         $data['monthlyKilometer'] = json_encode([134,120,221,212,303,120,201,142,123,321,232,342]);
-        $data['pagetitle']= 'Current Month Board';
+        $data['pagetitle']= 'Current Month Board ';
         return view('personal_board')->with('data',$data);
     }
     public function personal_board_year(Request $request,$id=null)
