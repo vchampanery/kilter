@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class visitor extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'visitor';
-    
+
     protected $fillable = [
-        'visitor_id', 'visitor_date','ip_address'
+        'visitor_id', 'visitor_date','ip_address','json_data'
     ];
 
     public static function getCount(){

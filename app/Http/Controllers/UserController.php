@@ -10,6 +10,7 @@ use App\Models\review;
 use App\Models\stravaactivity;
 use App\Models\stravauser;
 use App\Models\User;
+use App\Models\visitor;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Hash;
@@ -40,6 +41,19 @@ class UserController extends Controller
         $data = User::orderBy('id','DESC')->paginate(5);
         return view('users.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+
+    public function testwebhook(Request $request)
+    {
+        $allParams = $request->all();
+
+        $visitor = visitor::create([
+            'ip_address' => '111.22.33.4444',
+            'visitor_date' => date('Y-m-d H:m:i'),
+            'json_data'=>json_encode($allParams)
+        ]);
+
+        return true;
     }
 
 
