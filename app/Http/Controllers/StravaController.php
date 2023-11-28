@@ -529,10 +529,10 @@ class StravaController extends Controller
                 } else {
                     $page = 1;
 
-                    $before  = strtotime("-3 day 00:00:00");
+                    $before  = strtotime("-1 day 00:00:00");
                     $after   = strtotime("today 23:59:59");
-                    dump($before);
-                    dump($after);
+                    // dump($before);
+                    // dump($after);
                     $data = $this->getActivitAth($api,$page,30,$before,$after);
                     $return  = $this->getsavedata($data,$id);
                 }

@@ -2,7 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Http\Controllers\StravaController;
+use App\Models\stravauserauth;
+use App\Models\userfetchlog;
 use App\Models\visitor;
+use DateTime;
+use Exception;
 use Illuminate\Console\Command;
 
 class checkSetup extends Command
@@ -39,10 +44,38 @@ class checkSetup extends Command
     public function handle()
     {
         $visitor = visitor::create([
-        'ip_address' => '122.22.22.112',
+        'ip_address' => 'started cron',
         'visitor_date' => date('Y-m-d H:m:i'),
-    ]);
-        $this->info('Your command has been executed!');
+        ]);
+
+        $userObj = stravauserauth::orderBy('user_id', 'asc')->get(['user_id']);
+        foreach($userObj as $uKey => $vVlu){
+
+            $ugobj = new userfetchlog();
+            $ugobj->user_id = $vVlu->user_id;
+            $ugobj->update_date = new DateTime();
+            $ugobj->save();
+            $jsonerror = [];
+            try{
+                $stObj = new StravaController();
+                $stObj->fetch_data($vVlu->user_id,'cron');
+            }catch(Exception $ex){
+                dump( $ex);
+                $jsonerror=json_encode($ex);
+                $visitor = visitor::create([
+                    'ip_address' => 'error in cron',
+                    'visitor_date' => date('Y-m-d H:m:i'),
+                    'json_data'=>$jsonerror
+                ]);
+            }
+        }
+        $visitor = visitor::create([
+            'ip_address' => 'started end',
+            'visitor_date' => date('Y-m-d H:m:i'),
+            'json_data'=>$jsonerror
+        ]);
+
+        // $this->info('Your command has been executed!');
         return 0;
     }
 }
