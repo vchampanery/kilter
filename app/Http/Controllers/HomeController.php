@@ -658,6 +658,7 @@ class HomeController extends Controller
     public function personal_board(Request $request,$id=null)
     {
 
+
         $id = $id?$id:Auth::user()->id;
 
         $range['current_month'] = "Current Month";
@@ -736,7 +737,9 @@ class HomeController extends Controller
         }else{
             return redirect()->route('login');
         }
-
+        $data['monthlyRides']=json_encode([34,12,1,2,30,12,21,42,23,21,32,42]);
+        $data['monthlyKilometer'] = json_encode([134,120,221,212,303,120,201,142,123,321,232,342]);
+        $data['pagetitle']= 'Current Month Board';
         return view('personal_board')->with('data',$data);
     }
     public function personal_board_year(Request $request,$id=null)
@@ -820,6 +823,60 @@ class HomeController extends Controller
         }else{
             return redirect()->route('login');
         }
+        //test start
+        // $datatest1 = stravaactivity::
+        // select(
+        //     DB::raw('count(id) as `data`'),
+        //     DB::raw("DATE_FORMAT(start_date_local, '%m-%Y') new_date"),
+        //     DB::raw('YEAR(start_date_local) year, MONTH(start_date_local) month')
+        //     )
+        // ->groupby('start_date_local')
+        // ->where('user_id', $id)
+        // ->get();
+        $datatest1 = stravaactivity::
+        select(
+            DB::raw('MONTH(start_date_local) as month'),
+            DB::raw('SUM(distance) as distance'),
+            DB::raw('YEAR(start_date_local) as year'),
+             DB::raw('COUNT(*) as count'))
+        ->where('user_id', $id)
+        ->groupBy(
+            DB::raw('YEAR(start_date_local)'),
+            DB::raw('MONTH(start_date_local)')
+        )
+        ->get();
+
+        // $datatest = stravaactivity::selectRaw("
+        //             count(id) AS data,
+        //             YEAR(start_date_local) AS year,
+        //             MONTH(start_date_local) AS month
+        //         ")
+        //         ->where('user_id', $id)
+        //         ->groupBy('start_date_local')
+        //         ->get();
+        //test end
+        // dd($datatest1);
+        $data['monthlyRides'] = [];
+        $year = 2023;
+        $da=[];
+        for($s=1;$s<=12;$s++){
+            $data['monthlyRides'][$year][$s]=0;
+            $data['monthlyKilometer'][$year][$s]=null;
+        }
+        foreach($datatest1 as $dtk=>$dtv){
+            $data['monthlyRides'][$dtv->year][$dtv->month]=$dtv->count;
+            $data['monthlyKilometer'][$dtv->year][$dtv->month]= (float) number_format($dtv->distance/1000, 2, '.', '');
+            // echo "YEAR   : ".$dtv->year." MONTH : ".$dtv->month." Rides : ".$dtv->count." Kilometer : ".($dtv->distance/1000).'<br>';
+        }
+
+        // dump($data['monthlyRides']);
+        // dump($data['monthlyKilometer']);
+
+        $data['monthlyRides']=json_encode(array_values($data['monthlyRides'][$dtv->year]));
+        $data['monthlyKilometer'] = json_encode(array_values($data['monthlyKilometer'][$dtv->year]));
+        $data['label'] = json_encode(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
+        // dd($data['label'] );
+        $data['pagetitle']= 'Current Year Board';
 
         return view('personal_board')->with('data',$data);
     }
