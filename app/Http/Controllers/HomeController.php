@@ -9,6 +9,7 @@ use App\Models\stravauser;
 use App\Models\stravauserauth;
 use App\Models\User;
 use App\Models\usergoal;
+use App\Services\WidgetService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,14 +20,16 @@ use DateTimeZone;
 
 class HomeController extends Controller
 {
+    protected $widgetService;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct( WidgetService $widgetService)
     {
         $this->middleware('auth');
+        $this->widgetService = $widgetService;
     }
 
     /**
@@ -740,6 +743,30 @@ class HomeController extends Controller
         $data['monthlyRides']=json_encode([34,12,1,2,30,12,21,42,23,21,32,42]);
         $data['monthlyKilometer'] = json_encode([134,120,221,212,303,120,201,142,123,321,232,342]);
         $data['pagetitle']= 'Current Month Board ';
+
+        $currentDate = new DateTime();
+        $currentDate->modify('first day of this month');
+        $lastDayOfMonth = new DateTime($currentDate->format('Y-m-t'));
+        $currentMonthDates = [];
+        $currentMonthDates[]= "01";
+        while ($currentDate <= $lastDayOfMonth) {
+            $currentDate->modify('+1 day');
+            $currentMonthDates[] = $currentDate->format('d');
+        }
+
+
+        $temp1 = [];
+        foreach($currentMonthDates as $ky => $vm){
+            $temp2 = [];
+            $temp2['x']=$vm;
+            $temp2['y']=10;
+            $temp1[] = $temp2;
+        }
+        $data['label']=$currentMonthDates;
+        $data['temp1']=$temp1;
+
+        $data['tiles']=['today_ride','total_rides','total_km','total_avg_speed','total_longest_ride','max_speed_ride'];
+        // $result = $this->myService->someMethod();
         return view('personal_board')->with('data',$data);
     }
     public function personal_board_year(Request $request,$id=null)
@@ -861,7 +888,7 @@ class HomeController extends Controller
         $da=[];
         for($s=1;$s<=12;$s++){
             $data['monthlyRides'][$year][$s]=0;
-            $data['monthlyKilometer'][$year][$s]=null;
+            $data['monthlyKilometer'][$year][$s]=0;
         }
         foreach($datatest1 as $dtk=>$dtv){
             $data['monthlyRides'][$dtv->year][$dtv->month]=$dtv->count;
@@ -869,15 +896,30 @@ class HomeController extends Controller
             // echo "YEAR   : ".$dtv->year." MONTH : ".$dtv->month." Rides : ".$dtv->count." Kilometer : ".($dtv->distance/1000).'<br>';
         }
 
+
         // dump($data['monthlyRides']);
         // dump($data['monthlyKilometer']);
-
+        $months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        $temp1 = [];
+        foreach($months as $ky => $vm){
+            $temp2 = [];
+            $temp2['x']=$vm;
+            $temp2['y']=$data['monthlyKilometer'][$dtv->year][$ky+1];
+            $temp1[] = $temp2;
+        }
+        // dump($data['monthlyRides']);
+        // dump($data['monthlyKilometer']);
+        // // dump(array_merge($data['monthlyKilometer'][$dtv->year],$months));
+        // dump($temp1);
+        // dd();
+        $data['temp1']=$temp1;
         $data['monthlyRides']=json_encode(array_values($data['monthlyRides'][$dtv->year]));
         $data['monthlyKilometer'] = json_encode(array_values($data['monthlyKilometer'][$dtv->year]));
-        $data['label'] = json_encode(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
-        // dd($data['label'] );
-        $data['pagetitle']= 'Current Year Board';
+        $data['label'] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+        $data['pagetitle']= 'Current Year Board';
+        // dd($data);
+        $data['tiles']=['total_rides','total_km','total_avg_speed','total_longest_ride','kilometer_graph'];
         return view('personal_board')->with('data',$data);
     }
     /**

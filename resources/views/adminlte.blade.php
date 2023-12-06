@@ -38,7 +38,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{asset('assets/plugins/summernote/summernote-bs4.css')}}">
 
 
- 
+
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 
@@ -46,7 +46,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 
-  
+
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
@@ -97,9 +97,9 @@ https://kilter.fun/strava/getauth&approval_prompt=force&scope=activity:read" cla
       </li>
       <li>
       @guest
-      
+
       @else
-      
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -109,7 +109,7 @@ https://kilter.fun/strava/getauth&approval_prompt=force&scope=activity:read" cla
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-      
+
                                 @endguest
 </li>
       <!-- Messages Dropdown Menu -->
@@ -122,7 +122,7 @@ https://kilter.fun/strava/getauth&approval_prompt=force&scope=activity:read" cla
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="{{asset('assets/dist/img/user1-128x128.jpg')}}" 
+              <img src="{{asset('assets/dist/img/user1-128x128.jpg')}}"
               alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
@@ -242,7 +242,7 @@ https://kilter.fun/strava/getauth&approval_prompt=force&scope=activity:read" cla
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('/second_page')}}" class="nav-link  
+                <a href="{{url('/second_page')}}" class="nav-link
                   @if(app('request')->route()->uri() == 'second_page')
                     active
                   @endif">
@@ -251,15 +251,15 @@ https://kilter.fun/strava/getauth&approval_prompt=force&scope=activity:read" cla
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('/first_page')}}" class="nav-link 
+                <a href="{{url('/first_page')}}" class="nav-link
                  @if(app('request')->route()->uri() == 'first_page') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Activity</p>
                 </a>
               </li>
-              
+
               <!-- <li class="nav-item">
-                <a href="{{url('/auth_page')}}" class="nav-link  
+                <a href="{{url('/auth_page')}}" class="nav-link
                   @if(app('request')->route()->uri() == 'auth_page')
                     active
                   @endif">
@@ -268,7 +268,7 @@ https://kilter.fun/strava/getauth&approval_prompt=force&scope=activity:read" cla
                 </a>
               </li> -->
               <li class="nav-item">
-                <a href="{{url('/pulluserdata')}}" class="nav-link  
+                <a href="{{url('/pulluserdata')}}" class="nav-link
                   @if(app('request')->route()->uri() == 'pulluserdata')
                     active
                   @endif">
@@ -277,7 +277,7 @@ https://kilter.fun/strava/getauth&approval_prompt=force&scope=activity:read" cla
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('/pullactivitydata')}}" class="nav-link  
+                <a href="{{url('/pullactivitydata')}}" class="nav-link
                   @if(app('request')->route()->uri() == 'pullactivitydata')
                     active
                   @endif">
@@ -340,7 +340,7 @@ https://kilter.fun/strava/getauth&approval_prompt=force&scope=activity:read" cla
 
 
 <script type="text/javascript" class="init">
-      
+
 function as(){
   $('.main-sidebar').toggle();
   $(window).resize(function() {
@@ -372,6 +372,7 @@ function as(){
 <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- ChartJS -->
 <script src="{{asset('assets/plugins/chart.js/Chart.min.js')}}"></script>
+<script src="{{asset('assets/plugins/chart.js/Chart.datalabels.js')}}"></script>
 <!-- Sparkline -->
 <script src="{{asset('assets/plugins/sparklines/sparkline.js')}}"></script>
 <!-- JQVMap -->
@@ -395,5 +396,5 @@ function as(){
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('assets/dist/js/demo.js')}}"></script>
 </body>
- 
+
 </html>
